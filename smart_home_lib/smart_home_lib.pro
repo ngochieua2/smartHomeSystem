@@ -33,8 +33,7 @@ SOURCES += \
         network/networkmanager.cpp \
         network/qthttpnetworkmanager.cpp \
         network/requestmessage.cpp \
-        network/responsemessage.cpp \
-        smart_home_lib.cpp
+        network/responsemessage.cpp
 
 HEADERS += \
         csvfile.h \
@@ -48,8 +47,7 @@ HEADERS += \
         network/networkmanager.h \
         network/qthttpnetworkmanager.h \
         network/requestmessage.h \
-        network/responsemessage.h \
-        smart_home_lib.h
+        network/responsemessage.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
