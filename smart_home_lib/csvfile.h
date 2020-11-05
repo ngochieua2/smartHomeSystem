@@ -102,6 +102,10 @@ public:
    * @return the index of the named column, zero (0), or -1
    */
   int columnIndexOf(const std::string &columnName) const;
+
+private:
+  std::vector<std::string> CSVData{};
+
 };
 
 } // namespace data
