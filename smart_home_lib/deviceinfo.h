@@ -2,6 +2,9 @@
 #define DEVICEINFO_H
 
 #include <QMetaType>
+#include <QString>
+#include <QUrl>
+#include <QDateTime>
 
 /**
  * @brief The DeviceInfo class/struct
@@ -12,7 +15,18 @@
 class DeviceInfo
 {
 public:
-  DeviceInfo();
+    DeviceInfo();
+    DeviceInfo(QString dName, QString dType, QUrl dUrl);
+    ~DeviceInfo();
+
+    QString showDeviceInfo();
+
+
+  protected:
+    QString _deviceName{};
+    QString _deviceType{};
+    QUrl _Url{};
+    QDateTime _time{};
 };
 
 // You may need this to make it compatiable with QVariant
