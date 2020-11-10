@@ -2,5 +2,12 @@
 
 SmartHomeDevices::SmartHomeDevices()
 {
+}
 
+SmartHomeDevices::~SmartHomeDevices()
+{
+}
+
+void SmartHomeDevices::DeviceMenu()
+{
 }
