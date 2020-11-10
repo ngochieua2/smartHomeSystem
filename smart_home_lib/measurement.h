@@ -2,6 +2,9 @@
 #define MEASUREMENT_H
 
 #include <QMetaType>
+#include <QString>
+#include <QDateTime>
+#include <QVariant>
 
 /**
  * @brief The Measurement class
@@ -13,6 +16,40 @@ class Measurement
 {
 public:
   Measurement();
+  ~Measurement();
+
+  virtual QString deviceName();
+
+  enum class measurementType{
+      lightSwitchOnOff,
+      brightnessLevel,
+      temperature,
+      temperatureSetpoint,
+      thermostatState,
+      sprinklerState,
+      scheduledTime,
+      scheduledDuration,
+      waterUsage,
+      totalWaterUsage
+  };
+
+  virtual QDateTime timestamp();
+
+  virtual QVariant value();
+
+  QString unitOfMeasure();
+
+  bool isFiltered();
+
+  Measurement *rawMeasurement();
+
+protected:
+  Measurement *_rawMeasurement{nullptr};
+  QString _deviceName{};
+  QVariant _value{};
+  QDateTime _timestamp{};
+  measurementType _type{};
+
 };
 
 // You may need this to make it compatiable with QVariant
