@@ -12,7 +12,7 @@ public:
      * @param url
      * @return RealLightSwitch 
      */
-    SmartHomeDevices * CreateDevice(QString id, QString type, QUrl url) override;
+    SmartHomeDevices * CreateDevice(QString id, QUrl url) override;
 };
 
 #endif // LIGHTSWITTCHFACTORY_H

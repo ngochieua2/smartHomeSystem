@@ -28,6 +28,7 @@ public:
     void registeredDevices();
 private:
     std::vector<LightSwitchProxy*> _lightSwitchProxy;
+    
     QString _id;
     QUrl _url;
 };

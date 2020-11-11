@@ -9,7 +9,6 @@ class LightSwitchProxy : public LightSwitch
 public:
     LightSwitchProxy(RealLightSwitch* realLight);
     ~LightSwitchProxy();
-    LightSwitchProxy(QString id, QString type, QUrl url);
 private:
     RealLightSwitch* _realLight{};
     LightSwitchFactory* _factory{};

@@ -1,11 +1,16 @@
 #ifndef CONTROLLERPROXY_H
 #define CONTROLLERPROXY_H
+#include "controller.h"
+#include "realcontroller.h"
 
-
-class ControllerProxy
+class ControllerProxy : public Controller
 {
 public:
-    ControllerProxy();
+    ControllerProxy(RealController* realController);
+    ~ControllerProxy();
+    ControllerProxy(QString id, QUrl url);
+private:
+    RealController* _realController;
 };
 
 #endif // CONTROLLERPROXY_H

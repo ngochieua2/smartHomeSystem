@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         controller.cpp \
+        controllerproxy.cpp \
         csvfile.cpp \
         devicefactory.cpp \
         deviceinfo.cpp \
@@ -39,15 +40,23 @@ SOURCES += \
         network/qthttpnetworkmanager.cpp \
         network/requestmessage.cpp \
         network/responsemessage.cpp \
+        realcontroller.cpp \
         reallightswitch.cpp \
+        realsprinklersysem.cpp \
+        realthermostat.cpp \
         smart_home_lib.cpp \
         smarthomecontroller.cpp \
         smarthomedevices.cpp \
         sprinklersystem.cpp \
-        thermostat.cpp
+        sprinklersystemfactory.cpp \
+        sprinklersystemproxy.cpp \
+        thermostat.cpp \
+        thermostatfactory.cpp \
+        thermostatproxy.cpp
 
 HEADERS += \
         controller.h \
+        controllerproxy.h \
         csvfile.h \
         devicefactory.h \
         deviceinfo.h \
@@ -64,12 +73,19 @@ HEADERS += \
         network/qthttpnetworkmanager.h \
         network/requestmessage.h \
         network/responsemessage.h \
+        realcontroller.h \
         reallightswitch.h \
+        realsprinklersysem.h \
+        realthermostat.h \
         smart_home_lib.h \
         smarthomecontroller.h \
         smarthomedevices.h \
         sprinklersystem.h \
-        thermostat.h
+        sprinklersystemfactory.h \
+        sprinklersystemproxy.h \
+        thermostat.h \
+        thermostatfactory.h \
+        thermostatproxy.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -1,6 +1,11 @@
 #include "controllerproxy.h"
 
-ControllerProxy::ControllerProxy()
+ControllerProxy::ControllerProxy(RealController *realController)
+{
+    
+}
+
+ControllerProxy::ControllerProxy(QString id, QUrl url)
 {
     
 }
