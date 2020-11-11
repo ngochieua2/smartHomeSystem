@@ -6,7 +6,7 @@ class RealLightSwitch : public LightSwitch
 {
 public:
     RealLightSwitch();
-    RealLightSwitch(QString deviceId,QString deviceType, QUrl url);
+    RealLightSwitch(QString id, QUrl url);
     ~RealLightSwitch();
 };
 

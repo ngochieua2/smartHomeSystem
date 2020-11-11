@@ -1,8 +1,9 @@
 #include "lightswitchproxy.h"
 
-LightSwitchProxy::LightSwitchProxy()
+
+LightSwitchProxy::LightSwitchProxy(RealLightSwitch *realLight)
 {
-    
+    _realLight = realLight;
 }
 LightSwitchProxy::LightSwitchProxy(QString id, QString type, QUrl url){
 

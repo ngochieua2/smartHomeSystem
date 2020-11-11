@@ -2,7 +2,7 @@
 #define LIGHTSWITTCHFACTORY_H
 #include "devicefactory.h"
 
-class LightSwittchFactory : public DeviceFactory
+class LightSwitchFactory : public DeviceFactory
 {
 public:
     /**

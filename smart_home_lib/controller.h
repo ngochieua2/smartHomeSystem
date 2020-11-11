@@ -26,6 +26,10 @@ public:
      * from the device either as a result of an automatic report or an explicit query)
      */
     void registeredDevices();
+private:
+    std::vector<LightSwitchProxy*> _lightSwitchProxy;
+    QString _id;
+    QUrl _url;
 };
 
 #endif // CONTROLLER_H

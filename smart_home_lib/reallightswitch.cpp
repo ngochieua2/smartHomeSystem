@@ -5,10 +5,10 @@ RealLightSwitch::RealLightSwitch()
     
 }
 
-RealLightSwitch::RealLightSwitch(QString deviceId, QString deviceType, QUrl url)
+RealLightSwitch::RealLightSwitch(QString id, QUrl url)
 {
-    _Device_id = deviceId;
-    _devideType = deviceType;
-    _Url = url;
+    
 }
+
+
 
