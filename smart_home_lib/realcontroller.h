@@ -1,8 +1,8 @@
 #ifndef REALCONTROLLER_H
 #define REALCONTROLLER_H
-#include "controller.h"
+#include "smarthomecontroller.h"
 
-class RealController : public Controller
+class RealController : public SmartHomeController
 {
 public:
     RealController();
@@ -11,6 +11,8 @@ public:
     
     void registerDevice(QString name, QString type, QUrl url) override;
     void registeredDevices() override;
+    void unregisterDevice() override;
+    QString configController(QString name, QUrl URL) override;
 };
 
 #endif // REALCONTROLLER_H

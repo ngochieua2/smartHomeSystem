@@ -1,9 +1,9 @@
 #ifndef CONTROLLERPROXY_H
 #define CONTROLLERPROXY_H
-#include "controller.h"
+#include "smarthomecontroller.h"
 #include "realcontroller.h"
 
-class ControllerProxy : public Controller
+class ControllerProxy : public SmartHomeController
 {
 public:
     ControllerProxy(RealController* realController);
@@ -11,6 +11,8 @@ public:
     ControllerProxy(QString id, QUrl url);
     void registerDevice(QString name, QString type, QUrl url) override;
     void registeredDevices() override;
+    void unregisterDevice() override;
+    QString configController(QString name, QUrl URL) override;
 private:
     RealController* _realController;
 };

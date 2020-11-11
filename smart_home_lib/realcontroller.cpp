@@ -31,3 +31,13 @@ void RealController::registeredDevices()
         _sprinklerSystemProxy[i];
     }
 }
+
+void RealController::unregisterDevice()
+{
+    
+}
+
+QString RealController::configController(QString name, QUrl URL)
+{
+    return "Success";
+}

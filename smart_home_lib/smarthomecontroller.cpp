@@ -12,12 +12,4 @@ SmartHomeController::~SmartHomeController()
 
 
 
-void SmartHomeController::SmartHomeController::unregisterDevice()
-{
 
-}
-
-QString SmartHomeController::configController(QString name, QUrl URL)
-{
-    return "Success";
-}

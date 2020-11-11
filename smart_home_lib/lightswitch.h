@@ -5,8 +5,7 @@
 #include <QString>
 #include <QUrl>
 
-class LightSwitch : public SmartHomeDevices
-{
+class LightSwitch : public SmartHomeDevices {
 public:
     LightSwitch();
     LightSwitch(QString id, QUrl Url);

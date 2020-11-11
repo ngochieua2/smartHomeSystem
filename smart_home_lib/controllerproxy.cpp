@@ -19,3 +19,13 @@ void ControllerProxy::registeredDevices()
 {
     this->_realController->registeredDevices();
 }
+
+void ControllerProxy::unregisterDevice()
+{
+    this->_realController->unregisterDevice();
+}
+
+QString ControllerProxy::configController(QString name, QUrl URL)
+{
+    this->_realController->configController(name,URL);
+}
