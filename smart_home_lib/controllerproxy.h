@@ -9,6 +9,8 @@ public:
     ControllerProxy(RealController* realController);
     ~ControllerProxy();
     ControllerProxy(QString id, QUrl url);
+    void registerDevice(QString name, QString type, QUrl url) override;
+    void registeredDevices() override;
 private:
     RealController* _realController;
 };

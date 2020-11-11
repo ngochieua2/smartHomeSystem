@@ -9,6 +9,10 @@ class LightSwitchProxy : public LightSwitch
 public:
     LightSwitchProxy(RealLightSwitch* realLight);
     ~LightSwitchProxy();
+    void turnOn() override;
+    void turnOff() override;
+    void dim() override;
+    void brighten() override;
 private:
     RealLightSwitch* _realLight{};
     LightSwitchFactory* _factory{};

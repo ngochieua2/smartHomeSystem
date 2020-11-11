@@ -6,7 +6,10 @@ class RealThermostat : public Thermostat
 {
 public:
     RealThermostat(QString id, QUrl url);
-    ~RealThermostat();
+    virtual ~RealThermostat();
+    double setpoint(double desiredTemp) override;
+    void warmer(double amount) override;
+    void cooler(double amount) override;
 };
 
 #endif // REALTHERMOSTAT_H

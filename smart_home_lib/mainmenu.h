@@ -6,8 +6,6 @@
 #include <QTextStream>
 
 #include <smarthomecontroller.h>
-#include <deviceproxy.h>
-
 
 class MainMenu : public QObject
 {
@@ -46,7 +44,6 @@ private:
   QString _id{};
   QString _Url{};
   SmartHomeController* _controller{nullptr};
-  QList<deviceProxy*> _DeviceProxyList{};
 
 };
 

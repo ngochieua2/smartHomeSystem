@@ -6,5 +6,19 @@ SprinklerSystemProxy::SprinklerSystemProxy(RealSprinklerSysem *realSprinkler)
 }
 SprinklerSystemProxy::~SprinklerSystemProxy(){
     delete _realSprinkler;
-    delete  _factory;
+}
+
+void SprinklerSystemProxy::turnOn()
+{
+    this->_realSprinkler->turnOn();
+}
+
+void SprinklerSystemProxy::turnOff()
+{
+    this->_realSprinkler->turnOff();
+}
+
+void SprinklerSystemProxy::schedule(int delay, int duration)
+{
+    this->_realSprinkler->schedule(delay, duration);
 }

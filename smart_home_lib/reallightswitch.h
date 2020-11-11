@@ -5,9 +5,12 @@
 class RealLightSwitch : public LightSwitch
 {
 public:
-    RealLightSwitch();
     RealLightSwitch(QString id, QUrl url);
-    ~RealLightSwitch();
+    virtual ~RealLightSwitch();
+    void turnOn() override;
+    void turnOff() override;
+    void dim() override;
+    void brighten() override;
 };
 
 #endif // REALLIGHTSWITCH_H

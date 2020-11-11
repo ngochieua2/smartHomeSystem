@@ -8,7 +8,26 @@ LightSwitchProxy::LightSwitchProxy(RealLightSwitch *realLight)
 LightSwitchProxy::~LightSwitchProxy()
 {
     delete _realLight;
-    delete  _factory;
+}
+
+void LightSwitchProxy::turnOn()
+{
+    this->_realLight->turnOn();
+}
+
+void LightSwitchProxy::turnOff()
+{
+    this->_realLight->turnOff();
+}
+
+void LightSwitchProxy::dim()
+{
+    this->_realLight->dim();
+}
+
+void LightSwitchProxy::brighten()
+{
+    this->_realLight->brighten();
 }
 
 

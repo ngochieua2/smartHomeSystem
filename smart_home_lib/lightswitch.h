@@ -15,22 +15,22 @@ public:
      * @brief turnOn will change the state to 'ON' if it is 'OFF', 
      * otherwise will do nothing
      */
-    void turnOn();
+    virtual void turnOn() = 0;
     /**
      * @brief turnOff will change the state to 'OFF' if it is 'ON', 
      * otherwise will do nothing
      */
-    void turnOff();
+    virtual void turnOff() = 0;
     /**
      * @brief dim will reduce the 'brightness level' by 20 points if currently greater than 20, 
      * otherwise will do nothing (cannot be reduced to zero brightness)
      */
-    void dim();
+    virtual void dim() = 0;
     /**
      * @brief brighten will increase the 'brightness level' by 20 points if currently less than 100, 
      * otherwise will do nothing (cannot go above 100 percent)
      */
-    void brighten();
+    virtual void brighten() = 0;
     /**
      * @brief currentState will return two Measurements, one indicating the 'ON'/'OFF' status 
      * (boolean true/false, respectively), and one indicating the 'brightness level'

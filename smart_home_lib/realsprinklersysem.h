@@ -5,8 +5,11 @@
 class RealSprinklerSysem : public SprinklerSystem
 {
 public:
-    RealSprinklerSysem();
-    ~RealSprinklerSysem();
+    RealSprinklerSysem(QString id, QUrl url);
+    virtual ~RealSprinklerSysem();
+    void turnOn() override;
+    void turnOff() override;
+    void schedule(int delay, int duration) override;
 };
 
 #endif // REALSPRINKLERSYSEM_H

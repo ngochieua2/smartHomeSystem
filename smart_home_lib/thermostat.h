@@ -13,13 +13,13 @@ public:
 
     //last5Measurement()
 
-    double setpoint(double desiredTemp);
+    virtual double setpoint(double desiredTemp) = 0;
 
     //currentState;
 
-    void warmer( double amount);
+    virtual void warmer( double amount) = 0;
 
-    void cooler(double amount);
+    virtual void cooler(double amount) = 0;
 
 protected:
     int updateFrequency{3};

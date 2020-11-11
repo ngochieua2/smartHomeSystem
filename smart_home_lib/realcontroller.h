@@ -6,8 +6,11 @@ class RealController : public Controller
 {
 public:
     RealController();
-    ~RealController();
+    RealController(QString id, QUrl url);
+    virtual ~RealController();
     
+    void registerDevice(QString name, QString type, QUrl url) override;
+    void registeredDevices() override;
 };
 
 #endif // REALCONTROLLER_H

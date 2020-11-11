@@ -9,9 +9,11 @@ class ThermostatProxy : public Thermostat
 public:
     ThermostatProxy(RealThermostat* realThermostat);
     ~ThermostatProxy();
+    double setpoint(double desiredTemp) override;
+    void warmer(double amount) override;
+    void cooler(double amount) override;
 private:
     RealThermostat* _realThermostat{};
-    ThermostatFactory* _factory{};
 };
 
 #endif // THERMOSTATPROXY_H

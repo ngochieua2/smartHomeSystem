@@ -9,9 +9,11 @@ class SprinklerSystemProxy : public SprinklerSystem
 public:
     SprinklerSystemProxy(RealSprinklerSysem* realSprinkler);
     ~SprinklerSystemProxy();
+    void turnOn() override;
+    void turnOff() override;
+    void schedule(int delay, int duration) override;
 private:
     RealSprinklerSysem* _realSprinkler{};
-    SprinklerSystemFactory* _factory{};
 };
 
 #endif // SPRINKLERSYSTEMPROXY_H

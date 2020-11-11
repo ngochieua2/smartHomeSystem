@@ -1,6 +1,6 @@
 #include "sprinklersystemfactory.h"
 
-SprinklerSystemFactory::SprinklerSystemFactory()
+SmartHomeDevices *SprinklerSystemFactory::CreateDevice(QString id, QUrl url)
 {
-    
+    return new RealSprinklerSysem(id, url);
 }

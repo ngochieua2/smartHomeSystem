@@ -10,11 +10,11 @@ public:
     ~SprinklerSystem();
 
 
-    void turnOn();
+    virtual void turnOn() = 0;
 
-    void turnOff();
+    virtual void turnOff() = 0;
 
-    void schedule(int delay, int duration);
+    virtual void schedule(int delay, int duration) = 0;
 
     // currentState : measurement
 
