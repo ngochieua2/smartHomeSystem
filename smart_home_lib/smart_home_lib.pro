@@ -25,8 +25,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         csvfile.cpp \
+        devicefactory.cpp \
         deviceinfo.cpp \
         lightswitch.cpp \
+        lightswittchfactory.cpp \
         mainmenu.cpp \
         measurement.cpp \
         network/defaultmessagefactory.cpp \
@@ -43,8 +45,10 @@ SOURCES += \
 
 HEADERS += \
         csvfile.h \
+        devicefactory.h \
         deviceinfo.h \
         lightswitch.h \
+        lightswittchfactory.h \
         mainmenu.h \
         measurement.h \
         network/connection.h \
