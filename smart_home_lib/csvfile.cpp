@@ -4,109 +4,99 @@ using namespace data;
 
 CsvFile::CsvFile(std::istream &input)
 {
-    while(!input.eof()){
-        rows ++;
-        std::string str;
-        getline(input,str);
-        std::vector<std::string> item;
-        QString qstr = QString::fromStdString(str);
-        QStringList strList = qstr.split(",");
-        for(int i=0;i<strList.length();i++){
-            item.push_back(strList[i].toStdString());
-            cols = i+1;
-        }
-        dataSet.push_back(item);
+  // TODO: implement the constructor
+    std::string entryData{};
+    if (!input.fail()){
+        std::getline(input,entryData);
+        CSVData.push_back(entryData);
+    }
+    else {
+        CSVData.clear();
     }
 }
 
 int CsvFile::numberOfColumns() const
 {
-
-  return cols;
+  // TODO: implement this method. See header for description.
+    if (!CSVData.empty()){
+        int columns{0};
+        for (int i = 0; i < (int)CSVData[0].size(); ++i){
+            if (CSVData[0][i] == ','){
+                columns++;
+            }
+        }
+        return  columns + 1;
+    }
+    else {
+        return -1;
+    }
 }
 
 int CsvFile::numberOfRows() const
 {
-  return rows;
+  // TODO: implement this method. See header for description.
+    if (!CSVData.empty()){
+        return  CSVData.size();
+    }
+    else {
+        return -1;
+    }
 }
 
 std::string CsvFile::at(int row, int column) const
 {
-  int x = row - 1;
-  int y = column - 1;
-  if(x < 0 || y < 0 || x >= rows || y >= cols){
-      return "not yet implemented";
-  }
-  std::vector<std::string> item = dataSet[x];
-  return item[y];
+  // TODO: implement this method. See header for description.
+    if (!CSVData.empty()){
+        std::size_t previousFound{};
+        std::size_t currentFound = CSVData[row-1].find(",");
+
+        if (column == 1){
+            return CSVData[row - 1].substr(0,currentFound);
+        }
+        else if (column == numberOfColumns()) {
+            for (int i = 1; i < column -1; ++i){
+                previousFound = currentFound;
+                currentFound = CSVData[row -1].find(",", previousFound+1);
+            }
+            return CSVData[row - 1].substr(currentFound+1, CSVData[row - 1].length()-currentFound);
+        }
+        else {
+            for (int i = 1; i < column; ++i){
+                previousFound = currentFound;
+                currentFound = CSVData[row -1].find(",", previousFound+1);
+            }
+            return CSVData[row - 1].substr(previousFound+1,currentFound-(previousFound+1));
+        }
+    }
+    else if (row > numberOfRows() || row < 1) {
+        return "invalid row value";
+    }
+    else if (column > numberOfColumns() || column < 1) {
+        return "invalid column value";
+    }
+    else {
+        return "not yet implemented";
+    }
 }
 
 std::string CsvFile::headerAt(int column) const
 {
-    int cc = column - 1;
-    if(cc < 0 || cc >= cols){
-        return "not yet implemented";
-    }
   // TODO: implement this method. See header for description.
-    std::vector<std::string> item = dataSet[0];
-    return item[cc];
+  return at(1, column);
 }
 
 int CsvFile::columnIndexOf(const std::string &columnName) const
 {
-  for(int i=0;i<dataSet.size();i++){
-       std::vector<std::string> item = dataSet[i];
-      if(columnName == item[0]){
-          return i+1;
-      }
-  }
-  return -1;
-}
-
-QString CsvFile::getUrl(){
-    int key = columnIndexOf("url");
-    std::vector<std::string> item = dataSet[key];
-    return QString::fromStdString(item[1]);
-}
-QString CsvFile::getLastSeen(){
-    int key = columnIndexOf("lastseen");
-    std::vector<std::string> item = dataSet[key];
-    return QString::fromStdString(item[1]);
-}
-QString CsvFile::createCSVFile(){
-
-}
-QString CsvFile::deviceName(){
-    int key = columnIndexOf("devicename");
-    std::vector<std::string> item = dataSet[key];
-    return QString::fromStdString(item[1]);
-}
-int CsvFile::measurementType(){
-    int key = columnIndexOf("type");
-    std::vector<std::string> item = dataSet[key];
-    return QString::fromStdString(item[1]).toInt();
-}
-long CsvFile::timestamp(){
-    int key = columnIndexOf("timestamp");
-    std::vector<std::string> item = dataSet[key];
-    return QString::fromStdString(item[1]).toLong();
-}
-QVariant CsvFile::value(){
-    int key = columnIndexOf("value");
-    std::vector<std::string> item = dataSet[key];
-    return QString::fromStdString(item[1]).toInt();
-}
-QString CsvFile::unitOfMEasure(){
-    int key = columnIndexOf("unitofmeasure");
-    std::vector<std::string> item = dataSet[key];
-    return QString::fromStdString(item[1]);
-}
-bool CsvFile::isFiltered(){
-    int key = columnIndexOf("filtered");
-    std::vector<std::string> item = dataSet[key];
-    QString filtered =  QString::fromStdString(item[1]);
-    if(filtered == "true"){
-        return true;
+  // TODO: implement this method. See header for description.
+    if (!CSVData.empty()){
+        for(int i = 0; i < numberOfColumns(); i++){
+            if (columnName == at(1,i)){
+                return i;
+            }
+        }
+        return 0;
     }
-    return false;
+    else {
+        return -1;
+    }
 }

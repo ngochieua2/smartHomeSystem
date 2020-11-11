@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "measurement.h"
 
 namespace data {
 
@@ -35,14 +34,9 @@ namespace data {
  * Note that we do not expect to ever deal with enough data to violate the
  * constraints on 'int' as used for the indices.
  */
-class CsvFile : public Measurement
+class CsvFile
 {
 public:
-
-    std::vector<std::vector<std::string>> dataSet;
-    int cols = -1;
-    int rows = -1;
-
   /**
    * @brief CsvFile constructor, initialises internal data structures
    * with CSV content from the input stream.
@@ -109,16 +103,9 @@ public:
    */
   int columnIndexOf(const std::string &columnName) const;
 
-  QString getUrl();
-  QString getLastSeen();
-  QString createCSVFile();
+private:
+  std::vector<std::string> CSVData{};
 
-  QString deviceName();
-  int measurementType();
-  long timestamp();
-  QVariant value();
-  QString unitOfMEasure();
-  bool isFiltered();//已筛选
 };
 
 } // namespace data
