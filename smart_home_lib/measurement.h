@@ -2,6 +2,7 @@
 #define MEASUREMENT_H
 
 #include <QMetaType>
+#include <QVariant>
 
 /**
  * @brief The Measurement class
@@ -13,6 +14,14 @@ class Measurement
 {
 public:
   Measurement();
+   QString deviceName();
+   int measurementType();
+   long timestamp();
+   QVariant value();
+   QString unitOfMEasure();
+   bool isFiltered();//已筛选
+  QVariant devicevalue;
+
 };
 
 // You may need this to make it compatiable with QVariant

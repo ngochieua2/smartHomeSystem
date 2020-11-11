@@ -2,6 +2,7 @@
 #define DEVICEINFO_H
 
 #include <QMetaType>
+#include <QString>
 
 /**
  * @brief The DeviceInfo class/struct
@@ -13,6 +14,15 @@ class DeviceInfo
 {
 public:
   DeviceInfo();
+  virtual void MenuInterface();
+  virtual void currentState();
+  void turnOn();
+  void turnOff();
+  QString name;
+  QString id;
+  int Port;
+  QString IPAddress;
+
 };
 
 // You may need this to make it compatiable with QVariant

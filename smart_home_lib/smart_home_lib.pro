@@ -26,6 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         csvfile.cpp \
         deviceinfo.cpp \
+        filters.cpp \
         mainmenu.cpp \
         measurement.cpp \
         network/defaultmessagefactory.cpp \
@@ -33,11 +34,14 @@ SOURCES += \
         network/networkmanager.cpp \
         network/qthttpnetworkmanager.cpp \
         network/requestmessage.cpp \
-        network/responsemessage.cpp
+        network/responsemessage.cpp \
+        switchstatus.cpp \
+        temperature.cpp
 
 HEADERS += \
         csvfile.h \
         deviceinfo.h \
+        filters.h \
         mainmenu.h \
         measurement.h \
         network/connection.h \
@@ -47,7 +51,9 @@ HEADERS += \
         network/networkmanager.h \
         network/qthttpnetworkmanager.h \
         network/requestmessage.h \
-        network/responsemessage.h
+        network/responsemessage.h \
+        switchstatus.h \
+        temperature.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
