@@ -2,6 +2,7 @@
 
 SprinklerSystem::SprinklerSystem()
 {
+    _devideType = "SprinklerSystem";
 }
 
 SprinklerSystem::~SprinklerSystem()

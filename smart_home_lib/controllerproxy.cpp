@@ -2,17 +2,12 @@
 
 ControllerProxy::ControllerProxy(RealController *realController)
 {
-    
+    _realController = realController;
 }
 
 ControllerProxy::~ControllerProxy()
 {
     delete _realController;
-}
-
-ControllerProxy::ControllerProxy(QString id, QUrl url)
-{
-    
 }
 
 void ControllerProxy::registerDevice(QString name, QString type, QUrl url)
