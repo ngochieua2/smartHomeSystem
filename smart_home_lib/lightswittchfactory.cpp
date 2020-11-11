@@ -1,6 +1,7 @@
 #include "lightswittchfactory.h"
+#include "reallightswitch.h"
 
-LightSwittchFactory::LightSwittchFactory()
+SmartHomeDevices *LightSwittchFactory::CreateDevice(QString id, QString type, QUrl url)
 {
-    
+    return new RealLightSwitch(id, type, url);
 }

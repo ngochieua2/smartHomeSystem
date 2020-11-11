@@ -12,7 +12,7 @@ public:
      * @param url
      * @return AbstractDevice 
      */
-    virtual SmartHomeDevices* CreateDevice(QString name, QUrl url) = 0;
+    virtual SmartHomeDevices* CreateDevice(QString id, QString type, QUrl url) = 0;
 };
 
 #endif // DEVICEFACTORY_H

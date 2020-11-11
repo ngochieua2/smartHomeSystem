@@ -24,10 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        controller.cpp \
         csvfile.cpp \
         devicefactory.cpp \
         deviceinfo.cpp \
         lightswitch.cpp \
+        lightswitchproxy.cpp \
         lightswittchfactory.cpp \
         mainmenu.cpp \
         measurement.cpp \
@@ -37,6 +39,7 @@ SOURCES += \
         network/qthttpnetworkmanager.cpp \
         network/requestmessage.cpp \
         network/responsemessage.cpp \
+        reallightswitch.cpp \
         smart_home_lib.cpp \
         smarthomecontroller.cpp \
         smarthomedevices.cpp \
@@ -44,10 +47,12 @@ SOURCES += \
         thermostat.cpp
 
 HEADERS += \
+        controller.h \
         csvfile.h \
         devicefactory.h \
         deviceinfo.h \
         lightswitch.h \
+        lightswitchproxy.h \
         lightswittchfactory.h \
         mainmenu.h \
         measurement.h \
@@ -59,6 +64,7 @@ HEADERS += \
         network/qthttpnetworkmanager.h \
         network/requestmessage.h \
         network/responsemessage.h \
+        reallightswitch.h \
         smart_home_lib.h \
         smarthomecontroller.h \
         smarthomedevices.h \
