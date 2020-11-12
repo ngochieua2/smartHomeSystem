@@ -20,12 +20,12 @@ void ControllerProxy::registeredDevices()
     this->_realController->registeredDevices();
 }
 
-void ControllerProxy::unregisterDevice()
+void ControllerProxy::unregisterDevice(QString name)
 {
-    this->_realController->unregisterDevice();
+    this->_realController->unregisterDevice(name);
 }
 
 QString ControllerProxy::configController(QString name, QUrl URL)
 {
-    this->_realController->configController(name,URL);
+   return this->_realController->configController(name,URL);
 }

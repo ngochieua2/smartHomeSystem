@@ -15,6 +15,8 @@ public:
     virtual void turnOff() = 0;
 
     virtual void schedule(int delay, int duration) = 0;
+    
+    //virtual void setControllerProxy(ControllerProxy *controllerProxy) override = 0;
 
     // currentState : measurement
 

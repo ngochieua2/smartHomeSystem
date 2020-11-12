@@ -1,6 +1,6 @@
 #include "lightswitchproxy.h"
 
-LightSwitchProxy::LightSwitchProxy(RealLightSwitch *realLight)
+void LightSwitchProxy::setRealLight(RealLightSwitch* realLight)
 {
     _realLight = realLight;
 }
@@ -29,6 +29,15 @@ void LightSwitchProxy::brighten()
 {
     this->_realLight->brighten();
 }
+
+
+
+
+
+//void LightSwitchProxy::setControllerProxy(ControllerProxy *controllerProxy)
+//{
+  //  this->_realLight->setControllerProxy(controllerProxy);
+//}
 
 
 

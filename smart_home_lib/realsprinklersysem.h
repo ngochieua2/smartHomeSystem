@@ -10,6 +10,7 @@ public:
     void turnOn() override;
     void turnOff() override;
     void schedule(int delay, int duration) override;
+//    void setControllerProxy(ControllerProxy *controllerProxy) override;
 };
 
 #endif // REALSPRINKLERSYSEM_H

@@ -5,14 +5,14 @@
 #include <QStringList>
 #include <QTextStream>
 
-#include <smarthomecontroller.h>
+class SmartHomeController;
 
 class MainMenu : public QObject
 {
   Q_OBJECT
 public:
   explicit MainMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
-  virtual ~MainMenu() = default;
+    virtual ~MainMenu(){};
 
   /**
    * @brief displayWelcome display an intial welcome message including the
@@ -44,7 +44,7 @@ private:
   QString _id{};
   QString _Url{};
   SmartHomeController* _controller{nullptr};
-
+  
 };
 
 #endif // MAINMENU_H

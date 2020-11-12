@@ -24,3 +24,4 @@ void RealThermostat::cooler(double amount)
         currentTemp -= amount;
     }
 }
+

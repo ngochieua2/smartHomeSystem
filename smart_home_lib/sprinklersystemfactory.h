@@ -1,10 +1,11 @@
 #ifndef SPRINKLERSYSTEMFACTORY_H
 #define SPRINKLERSYSTEMFACTORY_H
-#include "devicefactory.h"
 #include "realsprinklersysem.h"
+#include "devicefactory.h"
 
 class SprinklerSystemFactory : public DeviceFactory
 {
+
 public:
     /**
      * @brief CreateDevice will creat a new device with given name and url

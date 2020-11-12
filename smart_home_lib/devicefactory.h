@@ -1,9 +1,12 @@
 #ifndef DEVICEFACTORY_H
 #define DEVICEFACTORY_H
-#include "smarthomedevices.h"
+#include <QString>
+#include <QUrl>
 
+class SmartHomeDevices;
 class DeviceFactory
 {
+
 public:
     /**
      * @brief CreateDevice will creat a new device with given name and url

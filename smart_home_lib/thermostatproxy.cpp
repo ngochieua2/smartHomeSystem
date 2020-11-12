@@ -24,3 +24,5 @@ void ThermostatProxy::cooler(double amount)
 {
     this->_realThermostat->cooler(amount);
 }
+
+

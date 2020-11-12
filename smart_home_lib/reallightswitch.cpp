@@ -2,7 +2,8 @@
 
 RealLightSwitch::RealLightSwitch(QString id, QUrl url)
 {
-    
+    _Device_id = id;
+    _Url = url;
 }
 
 void RealLightSwitch::turnOn()
@@ -30,3 +31,5 @@ void RealLightSwitch::brighten()
         brightnessLevel = 100;
     }
 }
+
+

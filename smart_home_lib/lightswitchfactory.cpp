@@ -1,5 +1,5 @@
-#include "lightswitchfactory.h"
 #include "reallightswitch.h"
+#include "lightswitchfactory.h"
 
 SmartHomeDevices *LightSwitchFactory::CreateDevice(QString id, QUrl url)
 {

@@ -2,17 +2,18 @@
 #define CONTROLLERPROXY_H
 #include "smarthomecontroller.h"
 #include "realcontroller.h"
-
+class RealController;
+class RealLightSwitch;
 class ControllerProxy : public SmartHomeController
 {
 public:
     ControllerProxy(RealController* realController);
-    ~ControllerProxy();
+    virtual ~ControllerProxy();
     ControllerProxy(QString id, QUrl url);
-    void registerDevice(QString name, QString type, QUrl url) override;
+    void registerDevice(QString id, QString type, QUrl url) override;
     void registeredDevices() override;
-    void unregisterDevice() override;
-    QString configController(QString name, QUrl URL) override;
+    void unregisterDevice(QString id) override;
+    QString configController(QString id, QUrl URL) override;
 private:
     RealController* _realController;
 };

@@ -1,22 +1,19 @@
 #ifndef SMARTHOMECONTROLLER_H
 #define SMARTHOMECONTROLLER_H
-
 #include <QString>
 #include <QUrl>
 #include <QList>
-#include <deviceinfo.h>
-#include "lightswitchproxy.h"
 #include "thermostatproxy.h"
 #include "sprinklersystemproxy.h"
-#include "lightswitchfactory.h"
-#include "thermostatfactory.h"
-#include "sprinklersystemfactory.h"
 #include "measurement.h"
+#include <deviceinfo.h>
 
+class LightSwitchProxy;
 class SmartHomeController
 {
 public:
     SmartHomeController();
+    SmartHomeController(QString id, QUrl url);    
     ~SmartHomeController();
 
     /**
@@ -26,7 +23,7 @@ public:
      * @param type
      * @param url
      */
-    virtual void registerDevice(QString name,QString type,QUrl url) = 0;
+    virtual void registerDevice(QString id,QString type,QUrl url) = 0;
     /**
      * @brief registeredDevices which returns basic information about all of the currently registered devices, 
      * including: name, type, URL, and last seen time (i.e., the time at which it last received information 
@@ -34,7 +31,7 @@ public:
      */
     virtual void registeredDevices() = 0;
 
-    virtual void unregisterDevice() = 0;
+    virtual void unregisterDevice(QString id) = 0;
 
     //void report(measurement);
 
@@ -44,16 +41,14 @@ public:
 
     //void clearFilter(QString deviceName, measurementType);
 
-    virtual QString configController(QString name, QUrl URL) = 0;
+    virtual QString configController(QString id, QUrl URL) = 0;
 
 
 protected:
-    std::vector<LightSwitchProxy*> _lightSwitchProxy;
-    std::vector<ThermostatProxy*> _thermostatProxy;
-    std::vector<SprinklerSystemProxy*> _sprinklerSystemProxy;
-    LightSwitchFactory _lightswitchFactory;
-    ThermostatFactory _thermostatFactory;
-    SprinklerSystemFactory _sprinklerFactory;
+    std::vector<LightSwitchProxy*> _lightSwitchProxy{};
+    std::vector<ThermostatProxy*> _thermostatProxy{};
+    std::vector<SprinklerSystemProxy*> _sprinklerSystemProxy{};
+    
     QString _controller_id{};
     QUrl _controller_Url{};
     //measurement

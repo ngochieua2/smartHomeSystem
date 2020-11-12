@@ -2,8 +2,7 @@
 #define LIGHTSWITTCHFACTORY_H
 #include "devicefactory.h"
 
-class LightSwitchFactory : public DeviceFactory
-{
+class LightSwitchFactory : public DeviceFactory {
 public:
     /**
      * @brief CreateDevice will creat a new device with given name and url
@@ -12,7 +11,7 @@ public:
      * @param url
      * @return RealLightSwitch 
      */
-    SmartHomeDevices * CreateDevice(QString id, QUrl url) override;
+    SmartHomeDevices* CreateDevice(QString id, QUrl url) override;
 };
 
 #endif // LIGHTSWITTCHFACTORY_H

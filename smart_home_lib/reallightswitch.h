@@ -1,7 +1,9 @@
 #ifndef REALLIGHTSWITCH_H
 #define REALLIGHTSWITCH_H
 #include "lightswitch.h"
+#include "controllerproxy.h"
 
+class LightSwitchProxy;
 class RealLightSwitch : public LightSwitch
 {
 public:

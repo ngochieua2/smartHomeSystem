@@ -1,3 +1,4 @@
+#include "smarthomecontroller.h"
 #include "mainmenu.h"
 
 // If you want, change all of the QTextStream stuff to std:istream and std::ostream
@@ -45,7 +46,7 @@ void MainMenu::run()
 
         if (_controller == nullptr){
             configMenu("Smart Home Controller");
-            _controller = new SmartHomeController(_id,_Url);
+//            _controller = new SmartHomeController(_id,_Url);
             _display << "Success" << endl;
         }
         controllerMenuInterface();
