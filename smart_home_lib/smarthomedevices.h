@@ -15,7 +15,7 @@ public:
     /**
      * @brief currentState will return current state, value depends on the type of device
      */
-    //virtual Measurement currentState();
+    virtual Measurement currentState();
     /**
      * @brief setControllerProxy set controller proxy for a device
      * @param controllerProxy
@@ -23,6 +23,7 @@ public:
     virtual void setControllerProxy(ControllerProxy* controllerProxy);
     QString getId();
 protected:
+    std::vector<std::vector<Measurement>, Measurement> _measurements;
     QString _Device_id{};
     QString _devideType{};
     QUrl _Url{};
