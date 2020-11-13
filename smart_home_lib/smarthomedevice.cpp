@@ -4,3 +4,8 @@ SmartHomeDevice::SmartHomeDevice()
 {
 
 }
+
+SmartHomeDevice::~SmartHomeDevice()
+{
+
+}
