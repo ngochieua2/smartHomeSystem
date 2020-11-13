@@ -6,7 +6,8 @@
 ControllerMenu::ControllerMenu(QTextStream &display, QTextStream &input, QObject *parent)
   : QObject{parent}, _display{display}, _input{input}
 {
-    //_lightSwitchMenu = new  LightSwitchMenu(display, input);
+    _lightSwitchMenu = new  LightSwitchMenu(display, input);
+    _thermostatMenu = new ThermostatMenu(display,input);
 }
 
 void ControllerMenu::run(RealController* controller){
@@ -25,14 +26,22 @@ void ControllerMenu::run(RealController* controller){
         stringInput = _input.readLine();
         if(stringInput == "1"){
             // get info
+
             for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
-                emit showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
-                //_lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
+                //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
+                _lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
             }
+
+            for(int i = 0; i < _controller->getThermostatProxyList().size(); ++i){
+                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
+                _thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
+            }
+
+
             //Show data
             _display << endl;
             _display << _controller->registerDevice();
-            _display << endl;
+
 
         }
         else if (stringInput == "2") {

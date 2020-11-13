@@ -1,5 +1,9 @@
 #include "lightswitchproxy.h"
 
+LightSwitchProxy::LightSwitchProxy()
+{
+}
+
 LightSwitchProxy::LightSwitchProxy(QString id, QUrl Url)
 {
     _device_id = id;

@@ -4,3 +4,8 @@ Thermostat::Thermostat()
 {
 
 }
+
+Thermostat::~Thermostat()
+{
+
+}

@@ -48,6 +48,7 @@ SOURCES += \
         sprinklersystem.cpp \
         sprinklersystemproxy.cpp \
         thermostat.cpp \
+        thermostatmenu.cpp \
         thermostatproxy.cpp
 
 HEADERS += \
@@ -77,6 +78,7 @@ HEADERS += \
         sprinklersystem.h \
         sprinklersystemproxy.h \
         thermostat.h \
+        thermostatmenu.h \
         thermostatproxy.h
 unix {
     target.path = /usr/lib

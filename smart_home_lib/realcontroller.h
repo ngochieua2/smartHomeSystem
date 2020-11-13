@@ -3,8 +3,10 @@
 
 #include <smarthomecontroller.h>
 #include <lightswitchproxy.h>
+#include <thermostatproxy.h>
 
 class LightSwitchProxy;
+class ThermostatProxy;
 
 class RealController : SmartHomeController
 {
@@ -23,14 +25,18 @@ public:
 
     QList<LightSwitchProxy*> getLightSwitchProxyList();
 
+    ThermostatProxy* getThermostatProxy();
+
+    QList<ThermostatProxy*> getThermostatProxyList();
+
     void receiveDeviceInfo(DeviceInfo *deviceInfo) override;
 
     QList<DeviceInfo*> getDeviceInfoList();
 
 
 private:
-    //light proxy
     QList <LightSwitchProxy*> _lightSwitchProxyList{};
+    QList <ThermostatProxy*> _thermostatProxyList{};
 
     QList<DeviceInfo*> _deviceInfoList{};
 
