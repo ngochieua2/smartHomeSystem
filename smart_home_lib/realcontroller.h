@@ -23,6 +23,8 @@ public:
 
     QString registerDevice();
 
+    void unregisterDevice(int index, QString type);
+
     LightSwitchProxy* getLightSwitchProxy();
 
     QList<LightSwitchProxy*> getLightSwitchProxyList();

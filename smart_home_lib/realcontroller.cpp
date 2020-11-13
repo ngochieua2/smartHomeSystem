@@ -55,6 +55,22 @@ QString RealController::registerDevice()
     return data;
 }
 
+void RealController::unregisterDevice(int index, QString type)
+{
+    if(type == "lightSwitch"){
+        _lightSwitchProxyList.removeAt(index - 1);
+    }
+    else if (type == "thermostat") {
+        _thermostatProxyList.removeAt(index - 1);
+    }
+    else if (type == "sprinklerSystem") {
+        _sprinklerSystemProxyList.removeAt(index - 1);
+    }
+    else {
+        //Do nothing
+    }
+}
+
 LightSwitchProxy *RealController::getLightSwitchProxy()
 {
     return _lightSwitchProxyList.last();

@@ -28,6 +28,7 @@ void ControllerMenu::run(RealController* controller){
 
         if(stringInput == "1") // Show all registed device
         {
+            _display << "\nDevice list:";
             // get info from devices
             for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
                 //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
@@ -52,6 +53,7 @@ void ControllerMenu::run(RealController* controller){
         else if (stringInput == "2") // Unregister device
         {
             //Show all registered devices
+            _display << "\nDevice list:";
             // get info from devices
             for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
                 //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
@@ -80,7 +82,24 @@ void ControllerMenu::run(RealController* controller){
                     QString optionInput;
                     optionInput = _input.readLine();
                     if(optionInput.toInt() >= 1 && optionInput.toInt() <= count){
-                        _display << "delete" <<endl;
+                        QString type{};
+                        int index{};
+                        if(optionInput.toInt() <= _controller->getLightSwitchProxyList().size()){
+                            type = "lightSwitch";
+                            index = optionInput.toInt();
+                        }
+                        else if (optionInput.toInt() <= _controller->getLightSwitchProxyList().size()
+                                                      + _controller->getThermostatProxyList().size()){
+                            type = "thermostat";
+                            index = optionInput.toInt() - _controller->getLightSwitchProxyList().size();
+                        }
+                        else {
+                            type = "sprinklerSystem";
+                            index = optionInput.toInt() - _controller->getLightSwitchProxyList().size()
+                                                        - _controller->getThermostatProxyList().size();
+                        }
+                        _controller->unregisterDevice(index,type);
+                        _display << "That device has been deleted successfully.\n" <<endl;
                         break;
                     }
                     else{
