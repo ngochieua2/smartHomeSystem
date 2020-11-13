@@ -25,9 +25,10 @@ void ControllerMenu::run(RealController* controller){
 
         QString stringInput;
         stringInput = _input.readLine();
-        if(stringInput == "1"){
-            // get info
 
+        if(stringInput == "1") // Show all registed device
+        {
+            // get info from devices
             for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
                 //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
                 _lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
@@ -42,15 +43,54 @@ void ControllerMenu::run(RealController* controller){
                 _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemList().at(i));
             }
 
-
             //Show data
             _display << endl;
             _display << _controller->registerDevice();
 
 
         }
-        else if (stringInput == "2") {
-            _display << "2 event" <<endl;
+        else if (stringInput == "2") // Unregister device
+        {
+            //Show all registered devices
+            // get info from devices
+            for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
+                //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
+                _lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
+            }
+
+            for(int i = 0; i < _controller->getThermostatProxyList().size(); ++i){
+                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
+                _thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
+            }
+            for(int i = 0; i < _controller->getSprinklerSystemList().size(); ++i){
+                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
+                _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemList().at(i));
+            }
+            //Show data
+            _display << endl;
+            _display << _controller->registerDevice();
+
+            //Count number of registered device
+            int count = _controller->getLightSwitchProxyList().size()
+                      + _controller->getThermostatProxyList().size()
+                      + _controller->getSprinklerSystemList().size();
+            if (count > 0){
+                while (true) {
+                    _display << "Which device you want to unregister: (1 to " << count << ")"  << endl;
+                    QString optionInput;
+                    optionInput = _input.readLine();
+                    if(optionInput.toInt() >= 1 && optionInput.toInt() <= count){
+                        _display << "delete" <<endl;
+                        break;
+                    }
+                    else{
+                        _display << "Wrong number, choose again" <<endl;
+                    }
+                }
+
+            }
+
+
 
         }
         else if (stringInput == "3") {
