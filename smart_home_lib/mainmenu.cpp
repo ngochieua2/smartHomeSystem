@@ -104,7 +104,9 @@ void MainMenu::run()
                 for(int i = 0; i < tempLightSwitch.size(); ++i){
                     _controller->registerDevice(tempLightSwitch.at(i).first, "lightSwitch", tempLightSwitch.at(i).second);
                     //Factory
-                    _device = new RealLightSwitch(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
+                    _factory= new LightSwitchFactory();
+                    _device = _factory->CreateDevice(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
+                    //_device = new RealLightSwitch(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
 
                     _realLightSwitch = static_cast<RealLightSwitch*>(_device);
                     _controller->getLightSwitchProxy()->passRealLightSwitch(_realLightSwitch);
@@ -118,7 +120,9 @@ void MainMenu::run()
                 for(int i = 0; i < tempThermostat.size(); ++i){
                     _controller->registerDevice(tempThermostat.at(i).first, "thermostat", tempThermostat.at(i).second);
                     //Factory
-                    _device = new RealThermostat(tempThermostat.at(i).first,tempThermostat.at(i).second);
+                    _factory= new ThermostatFactory();
+                    _device = _factory->CreateDevice(tempThermostat.at(i).first,tempThermostat.at(i).second);
+                    //_device = new RealThermostat(tempThermostat.at(i).first,tempThermostat.at(i).second);
 
                     _realThermostat = static_cast<RealThermostat*>(_device);
                     _controller->getThermostatProxy()->passRealThermostat(_realThermostat);
@@ -133,7 +137,9 @@ void MainMenu::run()
                 for(int i = 0; i < tempSprinklerSystem.size(); ++i){
                     _controller->registerDevice(tempSprinklerSystem.at(i).first, "sprinklerSystem", tempSprinklerSystem.at(i).second);
                     //Factory
-                    _device = new RealSprinklerSystem(tempSprinklerSystem.at(i).first,tempSprinklerSystem.at(i).second);
+                    _factory= new SprinklerSystemFactory();
+                    _device = _factory->CreateDevice(tempSprinklerSystem.at(i).first,tempSprinklerSystem.at(i).second);
+                    //_device = new RealSprinklerSystem(tempSprinklerSystem.at(i).first,tempSprinklerSystem.at(i).second);
 
                     _realSprinkerSystem = static_cast<RealSprinklerSystem*>(_device);
                     _controller->getSprinklerSystemProxy()->passRealSprinklerSystem(_realSprinkerSystem);

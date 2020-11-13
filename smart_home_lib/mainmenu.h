@@ -15,6 +15,10 @@
 #include <realthermostat.h>
 #include <realsprinklersystem.h>
 
+#include <lightswitchfactory.h>
+#include <thermostatfactory.h>
+#include <sprinklersystemfactory.h>
+
 
 class MainMenu : public QObject
 {
@@ -61,6 +65,8 @@ private:
   QList <QPair<QString, QUrl>> tempLightSwitch{};
   QList <QPair<QString, QUrl>> tempThermostat{};
   QList <QPair<QString, QUrl>> tempSprinklerSystem{};
+
+  DeviceFactory* _factory{nullptr};
 
 };
 
