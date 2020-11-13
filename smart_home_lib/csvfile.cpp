@@ -18,6 +18,7 @@ CsvFile::CsvFile(std::istream &input)
 int CsvFile::numberOfColumns() const
 {
   // TODO: implement this method. See header for description.
+
     if (!CSVData.empty()){
         int columns{0};
         for (int i = 0; i < (int)CSVData[0].size(); ++i){
@@ -41,11 +42,14 @@ int CsvFile::numberOfRows() const
     else {
         return -1;
     }
+
 }
 
 std::string CsvFile::at(int row, int column) const
 {
   // TODO: implement this method. See header for description.
+
+
     if (!CSVData.empty()){
         std::size_t previousFound{};
         std::size_t currentFound = CSVData[row-1].find(",");
@@ -77,17 +81,24 @@ std::string CsvFile::at(int row, int column) const
     else {
         return "not yet implemented";
     }
+
+
+
 }
 
 std::string CsvFile::headerAt(int column) const
 {
   // TODO: implement this method. See header for description.
-  return at(1, column);
+
+    return at(1, column);
+
+    //return "not yet implemented";
 }
 
 int CsvFile::columnIndexOf(const std::string &columnName) const
 {
   // TODO: implement this method. See header for description.
+
     if (!CSVData.empty()){
         for(int i = 0; i < numberOfColumns(); i++){
             if (columnName == at(1,i)){

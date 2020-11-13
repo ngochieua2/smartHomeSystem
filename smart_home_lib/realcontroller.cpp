@@ -1,56 +1,74 @@
 #include "realcontroller.h"
 
-void RealController::registerDevice(QString id, QString type, QUrl url)
+RealController::RealController()
 {
-    if (type == "LightSwitch") { 
-    LightSwitchProxy lightSwitchProxy(id,url);        
-    _lightSwitchProxy.push_back(&lightSwitchProxy);
+}
+
+RealController::RealController(QString id, QUrl Url)
+{
+    _controller_id = id;
+    _controller_Url = Url;
+}
+
+RealController::~RealController()
+{
+    for(int i = 0 ; i <_lightSwitchProxyList.size(); ++i){
+        delete _lightSwitchProxyList.at(i);
     }
-    if(type == "Thermostat"){
-    ThermostatProxy thermostatProxy(id,url);
-    _thermostatProxy.push_back(&thermostatProxy);
+
+}
+
+QString RealController::getID()
+{
+    return _controller_id;
+}
+
+void RealController::registerDevice(QString name, QString type, QUrl URL)
+{
+    if(type == "lightSwitch"){
+        _lightSwitchProxyList.append(new LightSwitchProxy(name, URL));
     }
-    if(type == "SprinklerSystem"){
-     SprinklerSystemProxy sprinklerSystemProxy(id,url);
-     _sprinklerSystemProxy.push_back(&sprinklerSystemProxy);
+    else {
+
     }
 }
 
-void RealController::registeredDevices()
+QString RealController::registerDevice()
 {
-    for(int unsigned i = 0; i < _lightSwitchProxy.size(); i++){
-        _lightSwitchProxy[i];
+    QString data{};
+    if(_deviceInfoList.isEmpty()){
+        data = "There is no register devices\n"
+                "Please come back to main Menu and register new device\n";
     }
-    for(int unsigned i = 0; i < _thermostatProxy.size(); i++){
-        _thermostatProxy[i];
-    }
-    for(int unsigned i = 0; i < _sprinklerSystemProxy.size(); i++){
-        _sprinklerSystemProxy[i];
-    }
-}
-
-void RealController::unregisterDevice(QString id)
-{
-    for (int unsigned i = 0; i < _lightSwitchProxy.size(); i++){
-        if(id == _lightSwitchProxy[i]->getId()){
-            _lightSwitchProxy.erase(std::remove(_lightSwitchProxy.begin(), _lightSwitchProxy.end(), _lightSwitchProxy[i]), _lightSwitchProxy.end());
+    else {
+        for(int i = 0; i <_deviceInfoList.size(); i++ ){
+            data +=  QString::number(i+1) + "." + _deviceInfoList.at(i)->showDeviceInfo();
         }
     }
-    for (int unsigned i = 0; i < _thermostatProxy.size(); i++){
-        if(id == _thermostatProxy[i]->getId()){
-            _thermostatProxy.erase(std::remove(_thermostatProxy.begin(), _thermostatProxy.end(), _thermostatProxy[i]), _thermostatProxy.end());
-        }
-    }
-    for (int unsigned i = 0; i < _lightSwitchProxy.size(); i++){
-        if(id == _sprinklerSystemProxy[i]->getId()){
-            _sprinklerSystemProxy.erase(std::remove(_sprinklerSystemProxy.begin(), _sprinklerSystemProxy.end(), _sprinklerSystemProxy[i]), _sprinklerSystemProxy.end());
-        }
-    }
+    _deviceInfoList.clear();
+    return data;
 }
 
-
-QString RealController::configController(QString id, QUrl URL)
+LightSwitchProxy *RealController::getLightSwitchProxy()
 {
-    
-    return "Success";
+    return _lightSwitchProxyList.last();
 }
+
+QList<LightSwitchProxy *> RealController::getLightSwitchProxyList()
+{
+    return _lightSwitchProxyList;
+}
+
+void RealController::receiveDeviceInfo(DeviceInfo *deviceInfo)
+{
+    _deviceInfoList.append(deviceInfo);
+}
+
+QList<DeviceInfo *> RealController::getDeviceInfoList()
+{
+    return _deviceInfoList;
+}
+
+
+
+

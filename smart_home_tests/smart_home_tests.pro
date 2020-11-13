@@ -4,5 +4,4 @@ SUBDIRS += \
     TestCsvFile \
     TestMessages \
     TestNetworkExample \
-    TestNetworkManager \
-    TestProxyClasses
+    TestNetworkManager

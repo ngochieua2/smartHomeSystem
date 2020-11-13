@@ -24,12 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        controllermenu.cpp \
         controllerproxy.cpp \
         csvfile.cpp \
-        devicefactory.cpp \
         deviceinfo.cpp \
         lightswitch.cpp \
-        lightswitchfactory.cpp \
+        lightswitchmenu.cpp \
         lightswitchproxy.cpp \
         mainmenu.cpp \
         measurement.cpp \
@@ -41,25 +41,16 @@ SOURCES += \
         network/responsemessage.cpp \
         realcontroller.cpp \
         reallightswitch.cpp \
-        realsprinklersysem.cpp \
-        realthermostat.cpp \
-        smart_home_lib.cpp \
         smarthomecontroller.cpp \
-        smarthomedevices.cpp \
-        sprinklersystem.cpp \
-        sprinklersystemfactory.cpp \
-        sprinklersystemproxy.cpp \
-        thermostat.cpp \
-        thermostatfactory.cpp \
-        thermostatproxy.cpp
+        smarthomedevice.cpp
 
 HEADERS += \
+        controllermenu.h \
         controllerproxy.h \
         csvfile.h \
-        devicefactory.h \
         deviceinfo.h \
         lightswitch.h \
-        lightswitchfactory.h \
+        lightswitchmenu.h \
         lightswitchproxy.h \
         mainmenu.h \
         measurement.h \
@@ -73,17 +64,8 @@ HEADERS += \
         network/responsemessage.h \
         realcontroller.h \
         reallightswitch.h \
-        realsprinklersysem.h \
-        realthermostat.h \
-        smart_home_lib.h \
         smarthomecontroller.h \
-        smarthomedevices.h \
-        sprinklersystem.h \
-        sprinklersystemfactory.h \
-        sprinklersystemproxy.h \
-        thermostat.h \
-        thermostatfactory.h \
-        thermostatproxy.h
+        smarthomedevice.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

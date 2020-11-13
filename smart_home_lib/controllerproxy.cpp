@@ -1,31 +1,21 @@
 #include "controllerproxy.h"
 
-ControllerProxy::ControllerProxy(RealController *realController)
+ControllerProxy::ControllerProxy()
 {
-    _realController = realController;
+
 }
 
 ControllerProxy::~ControllerProxy()
 {
-    delete _realController;
+
 }
 
-void ControllerProxy::registerDevice(QString name, QString type, QUrl url)
+void ControllerProxy::passController(RealController *controller)
 {
-    this->_realController->registerDevice(name,type,url);
+    _realController = controller;
 }
 
-void ControllerProxy::registeredDevices()
+void ControllerProxy::receiveDeviceInfo(DeviceInfo *deviceInfo)
 {
-    this->_realController->registeredDevices();
-}
-
-void ControllerProxy::unregisterDevice(QString name)
-{
-    this->_realController->unregisterDevice(name);
-}
-
-QString ControllerProxy::configController(QString name, QUrl URL)
-{
-   return this->_realController->configController(name,URL);
+    _realController->receiveDeviceInfo(deviceInfo);
 }

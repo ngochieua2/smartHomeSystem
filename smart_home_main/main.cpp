@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
   QTextStream input{stdin};
   QTextStream output{stdout};
   MainMenu* menu{new MainMenu{output, input}};
-  menu->displayWelcome("Smart Home System Base Project", "Course Coordinator", {"Matt Selway"});
+  menu->displayWelcome("Smart Home System Base Project", "Team 9th", {"Ngoc Hieu Nguyen","Someone else"});
 
   // Configure a separate thread for the menu to run in
   QThread userThread{};

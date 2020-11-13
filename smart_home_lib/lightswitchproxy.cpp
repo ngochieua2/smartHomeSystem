@@ -1,44 +1,43 @@
 #include "lightswitchproxy.h"
 
-void LightSwitchProxy::setRealLight(RealLightSwitch* realLight)
+LightSwitchProxy::LightSwitchProxy(QString id, QUrl Url)
 {
-    _realLight = realLight;
+    _device_id = id;
+    _devideType = "lightSwitch";
+    _deviceUrl = Url;
 }
 
 LightSwitchProxy::~LightSwitchProxy()
 {
-    delete _realLight;
+    delete _realLightSwitch;
 }
 
 void LightSwitchProxy::turnOn()
 {
-    this->_realLight->turnOn();
+    _realLightSwitch->turnOn();
 }
 
 void LightSwitchProxy::turnOff()
 {
-    this->_realLight->turnOff();
+    _realLightSwitch->turnOff();
 }
 
 void LightSwitchProxy::dim()
 {
-    this->_realLight->dim();
+    _realLightSwitch->dim();
 }
 
 void LightSwitchProxy::brighten()
 {
-    this->_realLight->brighten();
+    _realLightSwitch->brighten();
 }
 
+void LightSwitchProxy::passRealLightSwitch(RealLightSwitch *realLightSwitch)
+{
+    _realLightSwitch = realLightSwitch;
+}
 
-
-
-
-//void LightSwitchProxy::setControllerProxy(ControllerProxy *controllerProxy)
-//{
-  //  this->_realLight->setControllerProxy(controllerProxy);
-//}
-
-
-
-
+void LightSwitchProxy::getDeviceInfo()
+{
+    _realLightSwitch->getDeviceInfo();
+}

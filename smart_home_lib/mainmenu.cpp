@@ -1,9 +1,5 @@
-#include "smarthomecontroller.h"
 #include "mainmenu.h"
 
-// If you want, change all of the QTextStream stuff to std:istream and std::ostream
-// to stay with what you are familiar. Just keep in mind that it will not understand
-// the various Qt objects that you might try to output.
 #include <QTextStream>
 #include <QUrl>
 #include <QCoreApplication>
@@ -11,6 +7,11 @@
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
   : QObject{parent}, _display{display}, _input{input}
 {
+    _controllerMenu = new ControllerMenu(display, input);
+    _lightSwitchMenu = new  LightSwitchMenu(display, input);
+
+    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterDevice,
+                     _lightSwitchMenu,&LightSwitchMenu::showRegisterDevice);
 }
 
 void MainMenu::displayWelcome(const QString &title, const QString &group, const QStringList &members) const
@@ -29,168 +30,102 @@ void MainMenu::displayWelcome(const QString &title, const QString &group, const 
 
 }
 
+void MainMenu::configMenu(QString type)
+{
+    QString id;
+    QUrl Url;
+    while (true) {
+        _display << "What would you like to call this *"+ type+"*" << endl;
+        id = _input.readLine();
+        if(id.isEmpty()){
+            _display << "Name cannot be empty";
+        }
+        else {
+            break;
+        }
+    }
+    while (true) {
+        _display << "What is the URL for " + id + "(" + type + ")" << endl;
+        Url = _input.readLine();
+        if(Url.isEmpty()){
+            _display << "Url cannot be empty";
+        }
+        else {
+            break;
+        }
+    }
+    _display << "Initialising " + type + " *" + id + "* on *"+Url.toString()+"* ..." << endl;
+
+    //if type is controller, create a new one
+    if (type == "Smart Home Controller"){
+        _controller = new RealController(id,Url);
+    }
+    // if type is device, save it into QPair temporary variable
+    // it will be register when accessing controller
+    else if (type == "Light Switch"){
+        tempLightSwitch.append(qMakePair(QString(id),QUrl(Url)));
+    }
+}
+
 
 void MainMenu::run()
 {
-  _display << "Preparing to initialise you Smart Home System." << endl
-           << "What type of device are do you want to configure?" << endl
-           << "1. Smart Home Controller" << endl
-           << "2. Light Switch" << endl
-           << "3. Thermostat" << endl
-           << "4. Sprinkler System" << endl
-           << "Type (q) to quit" << endl;
+    while (true) {
+        _display << "Preparing to initialise you Smart Home System." << endl
+                 << "What type of device are do you want to configure?" << endl
+                 << "1. Smart Home Controller" << endl
+                 << "2. Light Switch" << endl
+                 << "3. Thermostat" << endl
+                 << "4. Sprinkler System" << endl
+                 << "Type (q) to quit" << endl;
+        QString stringInput;
+        stringInput = _input.readLine();
+        if(stringInput == "1"){
 
-  for (QString selection{_input.read(1)}; selection.toLower() != "q"; selection = _input.read(1)) {
-    if (selection == "1" ){
-        _display << "Smart Home Controller event" << endl;
+            if(_controller == nullptr){
+                configMenu("Smart Home Controller");
+                _display << "Success\n" << endl;
+            }
 
-        if (_controller == nullptr){
-            configMenu("Smart Home Controller");
-//            _controller = new SmartHomeController(_id,_Url);
-            _display << "Success" << endl;
+            //Register device and set up
+            if (!tempLightSwitch.isEmpty()){
+                for(int i = 0; i < tempLightSwitch.size(); ++i){
+                    _controller->registerDevice(tempLightSwitch.at(i).first, "lightSwitch", tempLightSwitch.at(i).second);
+                    //Factory
+                    _device = new RealLightSwitch(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
+
+                    _realLightSwitch = static_cast<RealLightSwitch*>(_device);
+                    _controller->getLightSwitchProxy()->passRealLightSwitch(_realLightSwitch);
+                    _realLightSwitch->createControllerProxy();
+                    _realLightSwitch->getControllerProxy()->passController(_controller);
+                }
+                tempLightSwitch.clear();
+
+            }
+            _controllerMenu->run(_controller);
+
         }
-        controllerMenuInterface();
-    }
-    else if (selection == "2"){
-        _display << "Light Switch event" << endl;
-    }
-    else if (selection == "3"){
-        _display << "Thermostat event" << endl;
-    }
-    else if (selection == "4") {
-        _display << "Sprinkler System event" << endl;
-    }
-    else if (selection != '\n') {
-      _display << "Please choose correct option"<< endl;
-      _input.readLine(); // skip the rest of the line
-    }
-  }
+        else if (stringInput == "2") {
+            _display << "Light Switch event" <<endl;
+            configMenu("Light Switch");
+        }
+        else if (stringInput == "3") {
 
-  // Need to exit the event loop to end the application
-  QCoreApplication::instance()->quit();
+        }
+        else if (stringInput == "4") {
+
+        }
+        else if (stringInput == "q") {
+            break;
+        }
+        else {
+            _display << "Invalid option, please choose other" <<endl;
+        }
+    }
+
+    // Need to exit the event loop to end the application
+    QCoreApplication::instance()->quit();
 }
 
-void MainMenu::configMenu(QString type)
-{
-    _display << "What would you like to call this *"+ type+"*";
-    _input >> _id;
-    _display << "What is the URL for " + _id + "(" + type + ")" << endl;
-    _input >> _Url;
-    _display << "Initialising " + type + " *" + _id + "* on *"+_Url+"* ..." << endl;
 
-}
-
-void MainMenu::controllerMenuInterface()
-{
-    _display << "Name:"
-             << "What would you like to do" << endl;
-
-
-}
-
-void MainMenu::lightSwitchMenuInterface()
-{
-    _display << "You are controlling {name}(light switch)" << endl
-             << "What would you like to do?" << endl
-             << "1. Turn On" << endl
-             << "2. Turn Off" << endl
-             << "3. Reduce the brightness level (dim)" << endl
-             << "4. Increase the brightness level" << endl
-             << "5. Check current status" << endl
-             << "Type (b) to back" << endl;
-
-    for (QString dvSelection{_input.read(1)}; dvSelection.toLower() != "b"; dvSelection = _input.read(1)) {
-      if (dvSelection == "1" ){
-
-      }
-      else if (dvSelection == "2"){
-
-      }
-      else if (dvSelection == "3"){
-
-      }
-      else if (dvSelection == "4") {
-
-      }
-      else if (dvSelection == "5") {
-
-      }
-      else if (dvSelection != '\n') {
-        _display << "Please choose correct option"<< endl;
-        _input.readLine(); // skip the rest of the line
-      }
-    }
-}
-
-void MainMenu::spinklerMenuInterface()
-{
-    _display << "You are controlling {name}(spinkler)" << endl
-             << "What would you like to do?" << endl
-             << "1. Turn On" << endl
-             << "2. Turn Off" << endl
-             << "3. Set schedule" << endl
-             << "4. Check current status" << endl
-             << "5. Check water usage" << endl
-             << "Type (b) to back" << endl;
-
-    for (QString dvSelection{_input.read(1)}; dvSelection.toLower() != "b"; dvSelection = _input.read(1)) {
-      if (dvSelection == "1" ){
-
-      }
-      else if (dvSelection == "2"){
-
-      }
-      else if (dvSelection == "3"){
-
-      }
-      else if (dvSelection == "4") {
-
-      }
-      else if (dvSelection == "5") {
-
-      }
-      else if (dvSelection != '\n') {
-        _display << "Please choose correct option"<< endl;
-        _input.readLine(); // skip the rest of the line
-      }
-    }
-}
-
-void MainMenu::thermostatMenuInterface()
-{
-    _display << "You are controlling {name}(therostat)" << endl
-             << "What would you like to do?" << endl
-             << "1. Check the most recent temperature" << endl
-             << "2. Check the 5 most recent temperature" << endl
-             << "3. Set temperature point" << endl
-             << "4. Check current status" << endl
-             << "5. Warmer" << endl
-             << "6. Cooler" << endl
-             << "Type (b) to back" << endl;
-
-    for (QString dvSelection{_input.read(1)}; dvSelection.toLower() != "b"; dvSelection = _input.read(1)) {
-      if (dvSelection == "1" ){
-
-      }
-      else if (dvSelection == "2"){
-
-      }
-      else if (dvSelection == "3"){
-
-      }
-      else if (dvSelection == "4") {
-
-      }
-      else if (dvSelection == "5") {
-
-      }
-      else if (dvSelection == "6") {
-
-      }
-      else if (dvSelection != '\n') {
-        _display << "Please choose correct option"<< endl;
-        _input.readLine(); // skip the rest of the line
-      }
-    }
-}
 

@@ -1,9 +1,21 @@
 #include "reallightswitch.h"
 
-RealLightSwitch::RealLightSwitch(QString id, QUrl url)
+RealLightSwitch::RealLightSwitch()
 {
-    _Device_id = id;
-    _Url = url;
+
+}
+
+RealLightSwitch::RealLightSwitch(QString id, QUrl URL)
+{
+    _device_id = id;
+    _devideType = "light Switch";
+    _deviceUrl = URL;
+    _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
+}
+
+RealLightSwitch::~RealLightSwitch()
+{
+
 }
 
 void RealLightSwitch::turnOn()
@@ -15,6 +27,7 @@ void RealLightSwitch::turnOff()
 {
     OnOffState = false;
 }
+
 void RealLightSwitch::dim()
 {
     if (brightnessLevel > 20){
@@ -32,4 +45,20 @@ void RealLightSwitch::brighten()
     }
 }
 
+void RealLightSwitch::createControllerProxy()
+{
+    _controllerProxy = new ControllerProxy();
+}
 
+ControllerProxy *RealLightSwitch::getControllerProxy()
+{
+    return _controllerProxy;
+}
+
+void RealLightSwitch::getDeviceInfo()
+{
+    _controllerProxy->receiveDeviceInfo(_deviceInfo);
+    _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
+    _deviceInfo->updateTime();
+
+}

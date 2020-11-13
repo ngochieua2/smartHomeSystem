@@ -1,20 +1,39 @@
 #ifndef REALCONTROLLER_H
 #define REALCONTROLLER_H
-#include "smarthomecontroller.h"
-#include "lightswitchproxy.h"
 
-class ControllerProxy;
-class RealController : public SmartHomeController
+#include <smarthomecontroller.h>
+#include <lightswitchproxy.h>
+
+class LightSwitchProxy;
+
+class RealController : SmartHomeController
 {
 public:
     RealController();
-    RealController(QString id, QUrl url);
-    virtual ~RealController();
-    
-    void registerDevice(QString id, QString type, QUrl url) override;
-    void registeredDevices() override;
-    void unregisterDevice(QString id) override;
-    QString configController(QString id, QUrl URL) override;
+    RealController(QString id, QUrl Url);
+    ~RealController();
+
+    QString getID();
+
+    void registerDevice(QString name, QString type, QUrl URL);
+
+    QString registerDevice();
+
+    LightSwitchProxy* getLightSwitchProxy();
+
+    QList<LightSwitchProxy*> getLightSwitchProxyList();
+
+    void receiveDeviceInfo(DeviceInfo *deviceInfo) override;
+
+    QList<DeviceInfo*> getDeviceInfoList();
+
+
+private:
+    //light proxy
+    QList <LightSwitchProxy*> _lightSwitchProxyList{};
+
+    QList<DeviceInfo*> _deviceInfoList{};
+
 };
 
 #endif // REALCONTROLLER_H

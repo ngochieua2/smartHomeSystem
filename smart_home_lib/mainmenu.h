@@ -5,14 +5,19 @@
 #include <QStringList>
 #include <QTextStream>
 
-class SmartHomeController;
+#include <controllermenu.h>
+#include <lightswitchmenu.h>
+//#include <smarthomecontroller.h>
+#include <realcontroller.h>
+#include <reallightswitch.h>
+
 
 class MainMenu : public QObject
 {
   Q_OBJECT
 public:
   explicit MainMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
-    virtual ~MainMenu(){};
+  virtual ~MainMenu() = default;
 
   /**
    * @brief displayWelcome display an intial welcome message including the
@@ -22,6 +27,8 @@ public:
    */
   void displayWelcome(const QString &title, const QString &group, const QStringList &members) const;
 
+
+
 public slots:
   /**
    * @brief run Begin executing the main menu.
@@ -29,22 +36,23 @@ public slots:
    * This is a slot so that it can be called on thread start. Refer to the main function to see how this works.
    */
   void run();
-
   //Specific menu
   void configMenu(QString type);
-  void controllerMenuInterface();
-  void lightSwitchMenuInterface();
-  void spinklerMenuInterface();
-  void thermostatMenuInterface();
 
 private:
   QTextStream &_display;
   QTextStream &_input;
 
-  QString _id{};
-  QString _Url{};
-  SmartHomeController* _controller{nullptr};
-  
+  ControllerMenu* _controllerMenu{nullptr};
+  LightSwitchMenu* _lightSwitchMenu{nullptr};
+
+  RealController* _controller{nullptr};
+  SmartHomeDevice* _device{nullptr};
+  RealLightSwitch* _realLightSwitch{nullptr};
+
+  QList <QPair<QString, QUrl>> tempLightSwitch{};
+
+
 };
 
 #endif // MAINMENU_H

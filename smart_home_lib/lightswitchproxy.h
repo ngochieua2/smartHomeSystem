@@ -1,24 +1,32 @@
 #ifndef LIGHTSWITCHPROXY_H
 #define LIGHTSWITCHPROXY_H
-#include "smarthomedevices.h"
-#include "reallightswitch.h"
+
+#include <lightswitch.h>
+#include <reallightswitch.h>
 
 class RealLightSwitch;
-class RealController;
+
 class LightSwitchProxy : public LightSwitch
 {
 public:
-    //LightSwitchProxy(RealLightSwitch* realLight);
-    LightSwitchProxy(QString id, QUrl url);
-    ~LightSwitchProxy();
+    LightSwitchProxy();
+    LightSwitchProxy(QString id, QUrl URL);
+    virtual ~LightSwitchProxy();
+
     void turnOn() override;
+
     void turnOff() override;
+
     void dim() override;
+
     void brighten() override;
-    void setRealLight(RealLightSwitch* realLight);
-    //void setControllerProxy(ControllerProxy *controllerProxy) override;
+
+    void passRealLightSwitch(RealLightSwitch* realLightSwitch);
+
+    void getDeviceInfo() override;
+
 private:
-    RealLightSwitch* _realLight{};
+    RealLightSwitch* _realLightSwitch{nullptr};
 };
 
 #endif // LIGHTSWITCHPROXY_H
