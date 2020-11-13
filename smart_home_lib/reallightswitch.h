@@ -35,7 +35,6 @@ private:
 
     DeviceInfo* _deviceInfo{nullptr};
 
-
 };
 
 #endif // REALLIGHTSWITCH_H
