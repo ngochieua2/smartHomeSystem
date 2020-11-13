@@ -60,5 +60,20 @@ void RealLightSwitch::getDeviceInfo()
     _controllerProxy->receiveDeviceInfo(_deviceInfo);
     _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
     _deviceInfo->updateTime();
+    
+}
 
+bool RealLightSwitch::getState()
+{
+    return OnOffState;
+}
+
+int RealLightSwitch::getBrightnessLevel()
+{
+    return brightnessLevel;
+}
+
+void RealLightSwitch::setBrightnessLevel(int brightness)
+{
+    brightnessLevel = brightness;
 }

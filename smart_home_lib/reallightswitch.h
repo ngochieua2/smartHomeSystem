@@ -26,6 +26,12 @@ public:
     ControllerProxy* getControllerProxy();
 
     void getDeviceInfo() override;
+    
+    bool getState();
+    
+    int getBrightnessLevel();
+    
+    void setBrightnessLevel(int brightness);
 
 private:
     bool OnOffState{};
