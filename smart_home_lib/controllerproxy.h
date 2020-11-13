@@ -10,7 +10,7 @@ class ControllerProxy : public SmartHomeController
 {
 public:
     ControllerProxy();
-    ~ControllerProxy();
+    virtual ~ControllerProxy();
 
     void passController(RealController* controller);
 

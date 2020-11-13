@@ -27,8 +27,10 @@ SOURCES += \
         controllermenu.cpp \
         controllerproxy.cpp \
         csvfile.cpp \
+        devicefactory.cpp \
         deviceinfo.cpp \
         lightswitch.cpp \
+        lightswitchfactory.cpp \
         lightswitchmenu.cpp \
         lightswitchproxy.cpp \
         mainmenu.cpp \
@@ -46,8 +48,11 @@ SOURCES += \
         smarthomecontroller.cpp \
         smarthomedevice.cpp \
         sprinklersystem.cpp \
+        sprinklersystemfactory.cpp \
+        sprinklersystemmenu.cpp \
         sprinklersystemproxy.cpp \
         thermostat.cpp \
+        thermostatfactory.cpp \
         thermostatmenu.cpp \
         thermostatproxy.cpp
 
@@ -55,8 +60,10 @@ HEADERS += \
         controllermenu.h \
         controllerproxy.h \
         csvfile.h \
+        devicefactory.h \
         deviceinfo.h \
         lightswitch.h \
+        lightswitchfactory.h \
         lightswitchmenu.h \
         lightswitchproxy.h \
         mainmenu.h \
@@ -76,8 +83,11 @@ HEADERS += \
         smarthomecontroller.h \
         smarthomedevice.h \
         sprinklersystem.h \
+        sprinklersystemfactory.h \
+        sprinklersystemmenu.h \
         sprinklersystemproxy.h \
         thermostat.h \
+        thermostatfactory.h \
         thermostatmenu.h \
         thermostatproxy.h
 unix {

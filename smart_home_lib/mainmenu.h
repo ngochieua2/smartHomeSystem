@@ -8,10 +8,12 @@
 #include <controllermenu.h>
 #include <lightswitchmenu.h>
 #include <thermostatmenu.h>
+#include <sprinklersystemmenu.h>
 
 #include <realcontroller.h>
 #include <reallightswitch.h>
 #include <realthermostat.h>
+#include <realsprinklersystem.h>
 
 
 class MainMenu : public QObject
@@ -48,15 +50,17 @@ private:
   ControllerMenu* _controllerMenu{nullptr};
   LightSwitchMenu* _lightSwitchMenu{nullptr};
   ThermostatMenu* _thermostatMenu{nullptr};
+  SprinklerSystemMenu* _spinklerSystemMenu{nullptr};
 
   RealController* _controller{nullptr};
   SmartHomeDevice* _device{nullptr};
   RealLightSwitch* _realLightSwitch{nullptr};
   RealThermostat* _realThermostat{nullptr};
+  RealSprinklerSystem* _realSprinkerSystem{nullptr};
 
   QList <QPair<QString, QUrl>> tempLightSwitch{};
   QList <QPair<QString, QUrl>> tempThermostat{};
-
+  QList <QPair<QString, QUrl>> tempSprinklerSystem{};
 
 };
 

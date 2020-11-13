@@ -8,6 +8,7 @@ ControllerMenu::ControllerMenu(QTextStream &display, QTextStream &input, QObject
 {
     _lightSwitchMenu = new  LightSwitchMenu(display, input);
     _thermostatMenu = new ThermostatMenu(display,input);
+    _sprinklerSystemMenu = new SprinklerSystemMenu(display, input);
 }
 
 void ControllerMenu::run(RealController* controller){
@@ -35,6 +36,10 @@ void ControllerMenu::run(RealController* controller){
             for(int i = 0; i < _controller->getThermostatProxyList().size(); ++i){
                 //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
                 _thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
+            }
+            for(int i = 0; i < _controller->getSprinklerSystemList().size(); ++i){
+                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
+                _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemList().at(i));
             }
 
 

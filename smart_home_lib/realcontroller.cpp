@@ -34,6 +34,9 @@ void RealController::registerDevice(QString name, QString type, QUrl URL)
     else if (type == "thermostat") {
         _thermostatProxyList.append(new ThermostatProxy(name,URL));
     }
+    else if (type == "sprinklerSystem") {
+        _sprinklerSystemProxyList.append(new SprinklerSystemProxy(name,URL));
+    }
 }
 
 QString RealController::registerDevice()
@@ -70,6 +73,16 @@ ThermostatProxy *RealController::getThermostatProxy()
 QList<ThermostatProxy *> RealController::getThermostatProxyList()
 {
     return _thermostatProxyList;
+}
+
+SprinklerSystemProxy *RealController::getSprinklerSystemProxy()
+{
+    return _sprinklerSystemProxyList.last();
+}
+
+QList<SprinklerSystemProxy *> RealController::getSprinklerSystemList()
+{
+    return _sprinklerSystemProxyList;
 }
 
 void RealController::receiveDeviceInfo(DeviceInfo *deviceInfo)

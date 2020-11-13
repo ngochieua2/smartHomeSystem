@@ -10,11 +10,12 @@ MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
     _controllerMenu = new ControllerMenu(display, input);
     _lightSwitchMenu = new  LightSwitchMenu(display, input);
     _thermostatMenu = new ThermostatMenu(display,input);
+    _spinklerSystemMenu = new SprinklerSystemMenu(display, input);
 
-    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterLightSwitch,
-                     _lightSwitchMenu,&LightSwitchMenu::showRegisterDevice);
-    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterThermostat,
-                     _thermostatMenu,&ThermostatMenu::showRegisterDevice);
+//    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterLightSwitch,
+//                     _lightSwitchMenu,&LightSwitchMenu::showRegisterDevice);
+//    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterThermostat,
+//                     _thermostatMenu,&ThermostatMenu::showRegisterDevice);
 }
 
 void MainMenu::displayWelcome(const QString &title, const QString &group, const QStringList &members) const
@@ -71,6 +72,12 @@ void MainMenu::configMenu(QString type)
     else if (type == "Thermostat") {
         tempThermostat.append(qMakePair(QString(id),QUrl(Url)));
     }
+    else if (type == "Sprinkler System") {
+        tempSprinklerSystem.append(qMakePair(QString(id),QUrl(Url)));
+    }
+    else{
+        _display << "error" << endl;
+    }
 }
 
 
@@ -121,6 +128,22 @@ void MainMenu::run()
                 tempThermostat.clear();
 
             }
+
+            if (!tempSprinklerSystem.isEmpty()){
+                for(int i = 0; i < tempSprinklerSystem.size(); ++i){
+                    _controller->registerDevice(tempSprinklerSystem.at(i).first, "sprinklerSystem", tempSprinklerSystem.at(i).second);
+                    //Factory
+                    _device = new RealSprinklerSystem(tempSprinklerSystem.at(i).first,tempSprinklerSystem.at(i).second);
+
+                    _realSprinkerSystem = static_cast<RealSprinklerSystem*>(_device);
+                    _controller->getSprinklerSystemProxy()->passRealSprinklerSystem(_realSprinkerSystem);
+                    _realSprinkerSystem->createControllerProxy();
+                    _realSprinkerSystem->getControllerProxy()->passController(_controller);
+                }
+                tempSprinklerSystem.clear();
+
+            }
+
             _controllerMenu->run(_controller);
 
         }
@@ -133,7 +156,8 @@ void MainMenu::run()
             _display << "Success\n" << endl;
         }
         else if (stringInput == "4") {
-
+            configMenu("Sprinkler System");
+            _display << "Success\n" << endl;
         }
         else if (stringInput == "q") {
             break;

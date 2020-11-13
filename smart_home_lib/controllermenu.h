@@ -7,6 +7,7 @@
 #include <realcontroller.h>
 #include <lightswitchmenu.h>
 #include <thermostatmenu.h>
+#include <sprinklersystemmenu.h>
 
 
 class ControllerMenu : public QObject
@@ -31,6 +32,7 @@ private:
 
   LightSwitchMenu* _lightSwitchMenu{nullptr};
   ThermostatMenu* _thermostatMenu{nullptr};
+  SprinklerSystemMenu* _sprinklerSystemMenu{nullptr};
 
 };
 

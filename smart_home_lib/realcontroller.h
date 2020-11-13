@@ -4,9 +4,11 @@
 #include <smarthomecontroller.h>
 #include <lightswitchproxy.h>
 #include <thermostatproxy.h>
+#include <sprinklersystemproxy.h>
 
 class LightSwitchProxy;
 class ThermostatProxy;
+class SprinklerSystemProxy;
 
 class RealController : SmartHomeController
 {
@@ -29,6 +31,10 @@ public:
 
     QList<ThermostatProxy*> getThermostatProxyList();
 
+    SprinklerSystemProxy* getSprinklerSystemProxy();
+
+    QList<SprinklerSystemProxy*> getSprinklerSystemList();
+
     void receiveDeviceInfo(DeviceInfo *deviceInfo) override;
 
     QList<DeviceInfo*> getDeviceInfoList();
@@ -37,6 +43,7 @@ public:
 private:
     QList <LightSwitchProxy*> _lightSwitchProxyList{};
     QList <ThermostatProxy*> _thermostatProxyList{};
+    QList <SprinklerSystemProxy*> _sprinklerSystemProxyList{};
 
     QList<DeviceInfo*> _deviceInfoList{};
 
