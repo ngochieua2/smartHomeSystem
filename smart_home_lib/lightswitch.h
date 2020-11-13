@@ -1,30 +1,24 @@
 #ifndef LIGHTSWITCH_H
 #define LIGHTSWITCH_H
 
-#include <smarthomedevices.h>
-#include <QString>
-#include <QUrl>
+#include <smarthomedevice.h>
 
-class LightSwitch : public SmartHomeDevices
+class LightSwitch : public SmartHomeDevice
 {
 public:
     LightSwitch();
-    LightSwitch(QString id, QUrl Url);
     ~LightSwitch();
 
-    void turnOn();
+    virtual void turnOn() = 0;
 
-    void turnOff();
+    virtual void turnOff() = 0;
 
-    void dim();
+    virtual void dim() = 0;
 
-    void brighten();
+    virtual void brighten() = 0;
 
-    //currentState : 2 measurements();
+    virtual void getDeviceInfo() = 0;
 
-protected:
-    bool OnOffState{};
-    int brightnessLevel{};
 
 };
 
