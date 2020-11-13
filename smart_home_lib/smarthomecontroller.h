@@ -3,7 +3,6 @@
 
 #include <QString>
 #include <QUrl>
-#include <QList>
 #include <deviceinfo.h>
 
 class SmartHomeController
@@ -12,32 +11,15 @@ public:
     SmartHomeController();
     ~SmartHomeController();
 
-    virtual void registerDevice(QString name,QString type, QUrl URL) = 0;
+    //virtual void registerDevice(QString name,QString type, QUrl URL) = 0;
 
-    // registedDevices();
-
-    virtual void unregisterDevice();
-
-    //void report(measurement);
-
-    // currentState();
-
-    //void addfilter(QString deviceName, measurementType, filterType, configuration);
-
-    //void clearFilter(QString deviceName, measurementType);
-
-    QString configController(QString name, QUrl URL);
-
+    virtual void receiveDeviceInfo(DeviceInfo* deviceInfo) = 0;
 
 protected:
     QString _controller_id{};
     QUrl _controller_Url{};
 
-    //measurement
 
-
-
-    DeviceInfo* _deviceInfoPointer{nullptr};
 };
 
 #endif // SMARTHOMECONTROLLER_H
