@@ -53,7 +53,6 @@ void ControllerMenu::run(RealController* controller){
         else if (stringInput == "2") // Unregister device
         {
             //Show all registered devices
-            _display << "\nDevice list:";
             // get info from devices
             for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
                 //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
@@ -68,15 +67,17 @@ void ControllerMenu::run(RealController* controller){
                 //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
                 _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemList().at(i));
             }
-            //Show data
-            _display << endl;
-            _display << _controller->registerDevice();
+
 
             //Count number of registered device
             int count = _controller->getLightSwitchProxyList().size()
                       + _controller->getThermostatProxyList().size()
                       + _controller->getSprinklerSystemList().size();
             if (count > 0){
+                //Show data
+                _display << "\nDevice list:";
+                _display << endl;
+                _display << _controller->registerDevice();
                 while (true) {
                     _display << "Which device you want to unregister: (1 to " << count << ")"  << endl;
                     QString optionInput;
@@ -107,6 +108,9 @@ void ControllerMenu::run(RealController* controller){
                     }
                 }
 
+            }
+            else {
+                _display << "\nThere is no device to remove\n" <<endl;
             }
 
 
