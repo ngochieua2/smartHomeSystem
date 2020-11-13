@@ -2,18 +2,24 @@
 
 DeviceInfo::DeviceInfo()
 {
-
 }
 
 DeviceInfo::DeviceInfo(QString dName, QString dType, QUrl dUrl)
     :_deviceName{dName}, _deviceType{dType}, _Url{dUrl}
-{}
+{
+}
 
 DeviceInfo::~DeviceInfo()
 {
     _deviceName = "";
     _deviceType = "";
     _Url = "";
+    _time.setTime(QTime());
+}
+
+void DeviceInfo::updateTime()
+{
+    _time = QDateTime::currentDateTime();
 }
 
 QString DeviceInfo::showDeviceInfo()
@@ -23,10 +29,10 @@ QString DeviceInfo::showDeviceInfo()
                    "Url: " + _Url.toEncoded() + "\n";
 
     if (_time.isNull()){
-        info += "\nLast seen: This is the first seen";
+        info += "Last seen: This is the first seen\n";
     }
     else {
-        info += "\nLast seen: " + _time.toString("H:m MMM dd yyyy");
+        info += "Last seen: " + _time.toString("H:m MMM dd yyyy") + "\n";
     }
 
     return info;
