@@ -8,14 +8,15 @@ RealLightSwitch::RealLightSwitch()
 RealLightSwitch::RealLightSwitch(QString id, QUrl URL)
 {
     _device_id = id;
-    _devideType = "light Switch";
+    _devideType = "Light Switch";
     _deviceUrl = URL;
     _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
 }
 
 RealLightSwitch::~RealLightSwitch()
 {
-
+    delete _deviceInfo;
+    delete _controllerProxy;
 }
 
 void RealLightSwitch::turnOn()
@@ -60,5 +61,4 @@ void RealLightSwitch::getDeviceInfo()
     _controllerProxy->receiveDeviceInfo(_deviceInfo);
     _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
     _deviceInfo->updateTime();
-
 }

@@ -2,10 +2,8 @@
 
 LightSwitch::LightSwitch()
 {
-
 }
 
 LightSwitch::~LightSwitch()
 {
-
 }

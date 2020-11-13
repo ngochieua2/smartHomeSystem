@@ -6,7 +6,9 @@
 ControllerMenu::ControllerMenu(QTextStream &display, QTextStream &input, QObject *parent)
   : QObject{parent}, _display{display}, _input{input}
 {
-    //_lightSwitchMenu = new  LightSwitchMenu(display, input);
+    _lightSwitchMenu = new  LightSwitchMenu(display, input);
+    _thermostatMenu = new ThermostatMenu(display,input);
+    _sprinklerSystemMenu = new SprinklerSystemMenu(display, input);
 }
 
 void ControllerMenu::run(RealController* controller){
@@ -23,20 +25,91 @@ void ControllerMenu::run(RealController* controller){
 
         QString stringInput;
         stringInput = _input.readLine();
-        if(stringInput == "1"){
-            // get info
+
+        if(stringInput == "1") // Show all registed device
+        {
+            _display << "\nDevice list:";
+            // get info from devices
             for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
-                emit showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
-                //_lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
+                //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
+                _lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
+            }
+
+            for(int i = 0; i < _controller->getThermostatProxyList().size(); ++i){
+                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
+                _thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
+            }
+            for(int i = 0; i < _controller->getSprinklerSystemList().size(); ++i){
+                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
+                _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemList().at(i));
+            }
+
+            //Show data
+            _display << endl;
+            _display << _controller->registerDevice();
+
+
+        }
+        else if (stringInput == "2") // Unregister device
+        {
+            //Show all registered devices
+            _display << "\nDevice list:";
+            // get info from devices
+            for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
+                //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
+                _lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
+            }
+
+            for(int i = 0; i < _controller->getThermostatProxyList().size(); ++i){
+                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
+                _thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
+            }
+            for(int i = 0; i < _controller->getSprinklerSystemList().size(); ++i){
+                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
+                _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemList().at(i));
             }
             //Show data
             _display << endl;
             _display << _controller->registerDevice();
-            _display << endl;
 
-        }
-        else if (stringInput == "2") {
-            _display << "2 event" <<endl;
+            //Count number of registered device
+            int count = _controller->getLightSwitchProxyList().size()
+                      + _controller->getThermostatProxyList().size()
+                      + _controller->getSprinklerSystemList().size();
+            if (count > 0){
+                while (true) {
+                    _display << "Which device you want to unregister: (1 to " << count << ")"  << endl;
+                    QString optionInput;
+                    optionInput = _input.readLine();
+                    if(optionInput.toInt() >= 1 && optionInput.toInt() <= count){
+                        QString type{};
+                        int index{};
+                        if(optionInput.toInt() <= _controller->getLightSwitchProxyList().size()){
+                            type = "lightSwitch";
+                            index = optionInput.toInt();
+                        }
+                        else if (optionInput.toInt() <= _controller->getLightSwitchProxyList().size()
+                                                      + _controller->getThermostatProxyList().size()){
+                            type = "thermostat";
+                            index = optionInput.toInt() - _controller->getLightSwitchProxyList().size();
+                        }
+                        else {
+                            type = "sprinklerSystem";
+                            index = optionInput.toInt() - _controller->getLightSwitchProxyList().size()
+                                                        - _controller->getThermostatProxyList().size();
+                        }
+                        _controller->unregisterDevice(index,type);
+                        _display << "That device has been deleted successfully.\n" <<endl;
+                        break;
+                    }
+                    else{
+                        _display << "Wrong number, choose again" <<endl;
+                    }
+                }
+
+            }
+
+
 
         }
         else if (stringInput == "3") {

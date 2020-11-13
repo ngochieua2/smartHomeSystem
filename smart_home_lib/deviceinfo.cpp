@@ -29,10 +29,10 @@ QString DeviceInfo::showDeviceInfo()
                    "Url: " + _Url.toEncoded() + "\n";
 
     if (_time.isNull()){
-        info += "Last seen: This is the first seen\n";
+        info += "Last seen: This is the first seen\n\n";
     }
     else {
-        info += "Last seen: " + _time.toString("H:m MMM dd yyyy") + "\n";
+        info += "Last seen: " + _time.toString("H:m:s MMM dd yyyy") + "\n\n";
     }
 
     return info;
