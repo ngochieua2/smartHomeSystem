@@ -41,8 +41,14 @@ SOURCES += \
         network/responsemessage.cpp \
         realcontroller.cpp \
         reallightswitch.cpp \
+        realsprinklersystem.cpp \
+        realthermostat.cpp \
         smarthomecontroller.cpp \
-        smarthomedevice.cpp
+        smarthomedevice.cpp \
+        sprinklersystem.cpp \
+        sprinklersystemproxy.cpp \
+        thermostat.cpp \
+        thermostatproxy.cpp
 
 HEADERS += \
         controllermenu.h \
@@ -64,8 +70,14 @@ HEADERS += \
         network/responsemessage.h \
         realcontroller.h \
         reallightswitch.h \
+        realsprinklersystem.h \
+        realthermostat.h \
         smarthomecontroller.h \
-        smarthomedevice.h
+        smarthomedevice.h \
+        sprinklersystem.h \
+        sprinklersystemproxy.h \
+        thermostat.h \
+        thermostatproxy.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
