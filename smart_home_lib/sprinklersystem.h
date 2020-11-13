@@ -1,9 +1,9 @@
 #ifndef SPRINKLERSYSTEM_H
 #define SPRINKLERSYSTEM_H
 
-#include <smarthomedevices.h>
 
-class SprinklerSystem: public SmartHomeDevices
+
+class SprinklerSystem
 {
 public:
     SprinklerSystem();

@@ -1,9 +1,9 @@
 #ifndef THERMOSTAT_H
 #define THERMOSTAT_H
 
-#include <smarthomedevices.h>
 
-class Thermostat : public SmartHomeDevices
+
+class Thermostat
 {
 public:
     Thermostat();
