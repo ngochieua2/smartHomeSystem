@@ -20,6 +20,7 @@ public:
   Measurement();
   Measurement(QString deviceName, measurementType type,QVariant value);
   virtual ~Measurement();
+  QVariant devicevalue;
 
   virtual QString deviceName();
 

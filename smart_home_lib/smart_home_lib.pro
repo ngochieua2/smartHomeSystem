@@ -29,6 +29,7 @@ SOURCES += \
         csvfile.cpp \
         devicefactory.cpp \
         deviceinfo.cpp \
+        filter.cpp \
         lightswitch.cpp \
         lightswitchfactory.cpp \
         lightswitchmenu.cpp \
@@ -51,6 +52,8 @@ SOURCES += \
         sprinklersystemfactory.cpp \
         sprinklersystemmenu.cpp \
         sprinklersystemproxy.cpp \
+        switchstatus.cpp \
+        temperature.cpp \
         thermostat.cpp \
         thermostatfactory.cpp \
         thermostatmenu.cpp \
@@ -62,6 +65,7 @@ HEADERS += \
         csvfile.h \
         devicefactory.h \
         deviceinfo.h \
+        filter.h \
         lightswitch.h \
         lightswitchfactory.h \
         lightswitchmenu.h \
@@ -86,6 +90,8 @@ HEADERS += \
         sprinklersystemfactory.h \
         sprinklersystemmenu.h \
         sprinklersystemproxy.h \
+        switchstatus.h \
+        temperature.h \
         thermostat.h \
         thermostatfactory.h \
         thermostatmenu.h \
