@@ -56,17 +56,18 @@ void ControllerMenu::run(RealController* controller){
             // get info from devices
             for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
                 //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
-                _lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
-                //_controller->getLightSwitchProxyList().at(i)->getDeviceInfo();
+                //_lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
+                _controller->getLightSwitchProxyList().at(i)->getDeviceInfo();
             }
-
             for(int i = 0; i < _controller->getThermostatProxyList().size(); ++i){
                 //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
-                _thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
+                //_thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
+                _controller->getThermostatProxyList().at(i)->getDeviceInfo();
             }
             for(int i = 0; i < _controller->getSprinklerSystemProxyList().size(); ++i){
                 //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
-                _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemProxyList().at(i));
+                //_sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemProxyList().at(i));
+                _controller->getSprinklerSystemProxyList().at(i)->getDeviceInfo();
             }
 
 
@@ -126,7 +127,7 @@ void ControllerMenu::run(RealController* controller){
                 optionInput = _input.readLine();
                 if(optionInput == "1"){
                     //All device
-                    _display << _controller->currentState("", "All");
+                    _display << _controller->currentState("", "");
 
                 }
                 else if (optionInput == "2") {
@@ -140,6 +141,51 @@ void ControllerMenu::run(RealController* controller){
                     _display << _controller->currentState("", "sprinklerSystem");
                 }
                 else if (optionInput == "5") {
+                    _display << "Enter the device name you want to search: " << endl;
+                    QString aname{};
+                    while (true) {
+                        QString getName = _input.readLine();
+                        if(getName.isEmpty()){
+                            _display << "Name cannot be empty" << endl;
+                        }
+                        else {
+                            aname = getName;
+                            break;
+                        }
+                    }
+
+                    while (true) {
+                        _display << "\nWhich device you want to search?" << endl
+                                 << "1. All devices " << endl
+                                 << "2. Light Switch " << endl
+                                 << "3. Thermostat" << endl
+                                 << "4. Sprinker system" << endl
+                                 << "type (b) to back " << endl;
+                        QString option;
+                        option = _input.readLine();
+                        if(option == "1"){
+                            _display << _controller->currentState(aname, "");
+                            break;
+                        }
+                        else if (option == "2") {
+                            _display << _controller->currentState(aname, "lightSwitch");
+                            break;
+                        }
+                        else if (option == "3") {
+                            _display << _controller->currentState(aname, "thermostat");
+                            break;
+                        }
+                        else if (option == "4") {
+                            _display << _controller->currentState(aname, "sprinklerSystem");
+                            break;
+                        }
+                        else if (option == "b" ) {
+                            break;
+                        }
+                        else {
+                            _display << "Wrong option, please choose again" << endl;
+                        }
+                    }
 
                 }
                 else if (optionInput == "b") {
@@ -157,7 +203,7 @@ void ControllerMenu::run(RealController* controller){
             if (count > 0){
 
                 while (true) {
-                    _display << _controller->currentState("", "All");
+                    _display << _controller->currentState("", "");
                     _display << "Which device you want to controll: (1 to " << count << ")"  << endl;
                     _display << "Choose b to back"  << endl;
                     QString optionInput;

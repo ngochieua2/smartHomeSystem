@@ -23,6 +23,11 @@ RealThermostat::RealThermostat(QString id, QUrl URL)
     _measurementRecord.append(_measurement);
     _measurement = new Measurement(_device_id, Measurement::measurementType::thermostatState, _state);
     _measurementRecord.append(_measurement);
+
+    //Update to have some default value
+    Update();
+    Update();
+    Update();
 }
 
 RealThermostat::~RealThermostat()

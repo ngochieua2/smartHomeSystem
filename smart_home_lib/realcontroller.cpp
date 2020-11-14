@@ -132,13 +132,13 @@ QString RealController::currentState(QString name, QString Type)
     QString data{};
     int a = 0;
     if (name == ""){
-        if(Type == "lightSwitch" || Type == "All"){
+        if(Type == "lightSwitch" || Type == ""){
             //Get measurement
 
-            if(_lightSwitchProxyList.isEmpty() && Type != "All"){
+            if(_lightSwitchProxyList.isEmpty() && Type != ""){
                 data += "\nThere is no Light Switch device\n";
             }
-            else if (_lightSwitchProxyList.isEmpty() && Type == "All") {
+            else if (_lightSwitchProxyList.isEmpty() && Type == "") {
                 // do nothing
             }
             else {
@@ -155,12 +155,12 @@ QString RealController::currentState(QString name, QString Type)
                 }
             }
         }
-        if(Type == "thermostat" || Type == "All"){
+        if(Type == "thermostat" || Type == ""){
             //Get measurement
-            if(_thermostatProxyList.isEmpty() && Type != "All"){
+            if(_thermostatProxyList.isEmpty() && Type != ""){
                 data += "\nThere is no thermostat device\n";
             }
-            else if(_thermostatProxyList.isEmpty() && Type == "All"){
+            else if(_thermostatProxyList.isEmpty() && Type == ""){
                 // do nothing
             }
             else {
@@ -177,13 +177,13 @@ QString RealController::currentState(QString name, QString Type)
                 }
             }
         }
-        if(Type == "sprinklerSystem" || Type == "All"){
+        if(Type == "sprinklerSystem" || Type == ""){
             //Get measurement
 
-            if(_sprinklerSystemProxyList.isEmpty() && Type != "All"){
+            if(_sprinklerSystemProxyList.isEmpty() && Type != ""){
                 data += "\nThere is no sprinkler system device\n\n";
             }
-            else if(_sprinklerSystemProxyList.isEmpty() && Type == "All"){
+            else if(_sprinklerSystemProxyList.isEmpty() && Type == ""){
                 // do nothing
             }
             else {
@@ -200,53 +200,59 @@ QString RealController::currentState(QString name, QString Type)
                 }
             }
         }
-        if (Type == "All" && data == ""){
+        if (Type == "" && data == ""){
             data = "\nThere is no device\n";
         }
 
     }
     else {
         bool run = false;
-        for (int i = 0; i < _lightSwitchProxyList.size(); i++ ){
-            if(name == _lightSwitchProxyList.at(i)->getID()){
-                // get info
-                _lightSwitchProxyList.at(i)->getMeasurement();
-                //Save info for 1 device
-                data +=  _measurementList.at(0)->deviceName();
-                for (int j = 0; j < _measurementList.size(); j++){
-                    data += "- " + _measurementList.at(j)->displayMeasurement();
+        if(Type == "lightSwitch" || Type == ""){
+            for (int i = 0; i < _lightSwitchProxyList.size(); i++ ){
+                if(name == _lightSwitchProxyList.at(i)->getID()){
+                    // get info
+                    _lightSwitchProxyList.at(i)->getMeasurement();
+                    //Save info for 1 device
+                    data +=  _measurementList.at(0)->deviceName();
+                    for (int j = 0; j < _measurementList.size(); j++){
+                        data += "- " + _measurementList.at(j)->displayMeasurement();
+                    }
+                    data += _measurementList.at(0)->getTakenTime();
+                    run = true;
+                    break;
                 }
-                data += _measurementList.at(0)->getTakenTime();
-                run = true;
-                break;
             }
         }
-        for (int i = 0; i < _thermostatProxyList.size(); i++ ){
-            if(name == _thermostatProxyList.at(i)->getID()){
-                // get info
-                _thermostatProxyList.at(i)->getMeasurement();
-                //Save info for 1 device
-                data += _measurementList.at(0)->deviceName();
-                for (int j = 0; j < _measurementList.size(); j++){
-                    data += "- " + _measurementList.at(j)->displayMeasurement();
+        if(Type == "thermostat" || Type == ""){
+            for (int i = 0; i < _thermostatProxyList.size(); i++ ){
+                if(name == _thermostatProxyList.at(i)->getID()){
+                    // get info
+                    _thermostatProxyList.at(i)->getMeasurement();
+                    //Save info for 1 device
+                    data += _measurementList.at(0)->deviceName();
+                    for (int j = 0; j < _measurementList.size(); j++){
+                        data += "- " + _measurementList.at(j)->displayMeasurement();
+                    }
+                    data += _measurementList.at(0)->getTakenTime();
+                    run = true;
+                    break;
                 }
-                data += _measurementList.at(0)->getTakenTime();
-                run = true;
-                break;
             }
         }
-        for (int i = 0; i < _sprinklerSystemProxyList.size(); i++ ){
-            if(name == _sprinklerSystemProxyList.at(i)->getID()){
-                // get info
-                _sprinklerSystemProxyList.at(i)->getMeasurement();
-                //Save info for 1 device
-                data += _measurementList.at(0)->deviceName();
-                for (int j = 0; j < _measurementList.size(); j++){
-                    data += "- " + _measurementList.at(j)->displayMeasurement();
+        if(Type == "sprinklerSystem" || Type == ""){
+            for (int i = 0; i < _sprinklerSystemProxyList.size(); i++ ){
+                if(name == _sprinklerSystemProxyList.at(i)->getID()){
+                    // get info
+                    _sprinklerSystemProxyList.at(i)->getMeasurement();
+                    //Save info for 1 device
+                    data += _measurementList.at(0)->deviceName();
+                    for (int j = 0; j < _measurementList.size(); j++){
+                        data += "- " + _measurementList.at(j)->displayMeasurement();
+                    }
+                    data += _measurementList.at(0)->getTakenTime();
+                    run = true;
+                    break;
                 }
-                data += _measurementList.at(0)->getTakenTime();
-                run = true;
-                break;
             }
         }
         if(!run){
