@@ -130,6 +130,7 @@ void RealController::report(QList<Measurement *> measurementList)
 QString RealController::currentState(QString name, QString Type)
 {
     QString data{};
+    int a = 0;
     if (name == ""){
         if(Type == "lightSwitch" || Type == "All"){
             //Get measurement
@@ -146,7 +147,7 @@ QString RealController::currentState(QString name, QString Type)
                     // get info
                     _lightSwitchProxyList.at(i)->getMeasurement();
                     //Save info for 1 device
-                    data += QString::number(i+1) + ". " + _measurementList.at(0)->deviceName();
+                    data += QString::number(++a) + ". " + _measurementList.at(0)->deviceName();
                     for (int j = 0; j < _measurementList.size(); j++){
                         data += "- " + _measurementList.at(j)->displayMeasurement();
                     }
@@ -168,7 +169,7 @@ QString RealController::currentState(QString name, QString Type)
                     // get info
                     _thermostatProxyList.at(i)->getMeasurement();
                     //Save info for 1 device
-                    data += QString::number(i+1) + ". " + _measurementList.at(0)->deviceName();
+                    data += QString::number(++a) + ". " + _measurementList.at(0)->deviceName();
                     for (int j = 0; j < _measurementList.size(); j++){
                         data += "- " + _measurementList.at(j)->displayMeasurement();
                     }
@@ -191,7 +192,7 @@ QString RealController::currentState(QString name, QString Type)
                     // get info
                     _sprinklerSystemProxyList.at(i)->getMeasurement();
                     //Save info for 1 device
-                    data += QString::number(i+1) + ". " + _measurementList.at(0)->deviceName();
+                    data += QString::number(++a) + ". " + _measurementList.at(0)->deviceName();
                     for (int j = 0; j < _measurementList.size(); j++){
                         data += "- " + _measurementList.at(j)->displayMeasurement();
                     }
