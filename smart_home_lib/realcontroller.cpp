@@ -12,13 +12,21 @@ RealController::RealController(QString id, QUrl Url)
 
 RealController::~RealController()
 {
-    for(int i = 0 ; i <_lightSwitchProxyList.size(); ++i){
+    for(int i = 0; i <_lightSwitchProxyList.size(); ++i){
         delete _lightSwitchProxyList.at(i);
     }
-    for(int i = 0 ; i <_thermostatProxyList.size(); ++i){
+    for(int i = 0; i <_thermostatProxyList.size(); ++i){
         delete _thermostatProxyList.at(i);
     }
-
+    for(int i = 0; i < _sprinklerSystemProxyList.size(); i++){
+        delete _sprinklerSystemProxyList.at(i);
+    }
+    for(int i = 0; i < _deviceInfoList.size(); i++){
+        delete _deviceInfoList.at(i);
+    }
+    for(int i = 0; i < _measurementList.size(); i++){
+        delete _measurementList.at(i);
+    }
 }
 
 QString RealController::getID()
@@ -112,10 +120,45 @@ void RealController::receiveDeviceInfo(DeviceInfo *deviceInfo)
     _deviceInfoList.append(deviceInfo);
 }
 
-QList<DeviceInfo *> RealController::getDeviceInfoList()
+
+
+void RealController::report(QList<Measurement *> measurementList)
 {
-    return _deviceInfoList;
+    _measurementList = measurementList;
 }
+
+QString RealController::currentState(QString name, QString Type)
+{
+    QString data{};
+    if(Type == "lightSwitch" || Type == "All"){
+        //Get measrement
+
+        if(_lightSwitchProxyList.isEmpty()){
+            data += "\nThere is no Light Switch device\n";
+        }
+        else {
+            data += "\nLight Switch Devices: \n";
+            for(int i = 0; i < _lightSwitchProxyList.size(); i++){
+                // get info
+                _lightSwitchProxyList.at(i)->getMeasurement();
+                //Save info for 1 device
+                data += QString::number(i+1) + ". " + _measurementList.at(0)->deviceName();
+                for (int j = 0; j < _measurementList.size(); j++){
+                    data += "- " + _measurementList.at(j)->displayMeasurement();
+                }
+                data += _measurementList.at(0)->getTakenTime();
+            }
+        }
+
+    }
+    else {
+        return "Error\n";
+    }
+
+    return data;
+}
+
+
 
 
 

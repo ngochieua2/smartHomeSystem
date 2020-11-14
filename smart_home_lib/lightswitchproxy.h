@@ -27,6 +27,8 @@ public:
 
     void getDeviceInfo() override;
 
+    void getMeasurement() override;
+
 private:
     RealLightSwitch* _realLightSwitch{nullptr};
 };

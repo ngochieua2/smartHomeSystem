@@ -15,7 +15,7 @@ class RealController : SmartHomeController
 public:
     RealController();
     RealController(QString id, QUrl Url);
-    ~RealController();
+    virtual ~RealController();
 
     QString getID();
 
@@ -39,8 +39,9 @@ public:
 
     void receiveDeviceInfo(DeviceInfo *deviceInfo) override;
 
-    QList<DeviceInfo*> getDeviceInfoList();
+    void report(QList<Measurement *> measurementList) override;
 
+    QString currentState(QString name, QString Type);
 
 private:
     QList <LightSwitchProxy*> _lightSwitchProxyList{};
@@ -48,6 +49,8 @@ private:
     QList <SprinklerSystemProxy*> _sprinklerSystemProxyList{};
 
     QList<DeviceInfo*> _deviceInfoList{};
+
+    QList<Measurement*> _measurementList{};
 
 };
 

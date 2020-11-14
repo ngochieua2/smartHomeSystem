@@ -50,3 +50,8 @@ void LightSwitchProxy::getDeviceInfo()
 {
     _realLightSwitch->getDeviceInfo();
 }
+
+void LightSwitchProxy::getMeasurement()
+{
+    _realLightSwitch->getMeasurement();
+}
