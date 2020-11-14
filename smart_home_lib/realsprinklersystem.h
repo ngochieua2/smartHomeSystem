@@ -28,7 +28,7 @@ public:
 
     QList <Measurement*> currentState();
 
-    double trackWaterUsage();
+    double calWaterUsage();
     
     QList<Measurement*> waterUsage();
     
@@ -47,6 +47,7 @@ private:
     QDateTime _start{};
     QDateTime _end{};
     int _record{};
+    QList<double> _records{};
     
     int _duration{};
     int _updateFrequency{};

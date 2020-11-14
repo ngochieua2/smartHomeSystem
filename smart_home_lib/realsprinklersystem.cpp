@@ -45,6 +45,7 @@ void RealSprinklerSystem::turnOff()
         _state = "OFF";
         _end = QDateTime::currentDateTime();
         _record = _start.msecsTo(_end);
+        _records.append(_record);
     }   
 }
 void RealSprinklerSystem::getMeasurement()
@@ -74,10 +75,13 @@ QList<Measurement*> RealSprinklerSystem::waterUsage(){
 void RealSprinklerSystem::recordCurrentCheckingTime(){
     _end = QDateTime::currentDateTime();
     _record = _start.msecsTo(_end);
+    _records.append(_record);
     _start = QDateTime::currentDateTime();
 }
-double RealSprinklerSystem::trackWaterUsage()
+double RealSprinklerSystem::calWaterUsage()
 {   
+    _totalWaterConsumption = (_record/1000)*_waterConsumptionpPerInt;
+    return _totalWaterConsumption;
 }
 
 void RealSprinklerSystem::schedule(int delay, int duration)
