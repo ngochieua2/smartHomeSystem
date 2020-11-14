@@ -16,6 +16,11 @@ LightSwitchProxy::~LightSwitchProxy()
     delete _realLightSwitch;
 }
 
+QString LightSwitchProxy::getID()
+{
+    return _device_id;
+}
+
 void LightSwitchProxy::turnOn()
 {
     _realLightSwitch->turnOn();

@@ -16,6 +16,11 @@ ThermostatProxy::~ThermostatProxy()
     delete _realThermostat;
 }
 
+QString ThermostatProxy::getID()
+{
+    return _device_id;
+}
+
 void ThermostatProxy::passRealThermostat(RealThermostat *realThermostat)
 {
     _realThermostat = realThermostat;

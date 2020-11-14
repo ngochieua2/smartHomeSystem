@@ -23,7 +23,7 @@ public:
 
     QString registerDevice();
 
-    void unregisterDevice(int index, QString type);
+    void unregisterDevice(QString name);
 
     LightSwitchProxy* getLightSwitchProxy();
 
@@ -35,7 +35,7 @@ public:
 
     SprinklerSystemProxy* getSprinklerSystemProxy();
 
-    QList<SprinklerSystemProxy*> getSprinklerSystemList();
+    QList<SprinklerSystemProxy*> getSprinklerSystemProxyList();
 
     void receiveDeviceInfo(DeviceInfo *deviceInfo) override;
 

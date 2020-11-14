@@ -12,6 +12,11 @@ SprinklerSystemProxy::~SprinklerSystemProxy()
     delete _realSprinklerSystem;
 }
 
+QString SprinklerSystemProxy::getID()
+{
+    return _device_id;
+}
+
 void SprinklerSystemProxy::turnOn()
 {
     _realSprinklerSystem->turnOn();

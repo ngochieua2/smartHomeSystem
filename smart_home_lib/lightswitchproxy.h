@@ -13,6 +13,8 @@ public:
     LightSwitchProxy(QString id, QUrl URL);
     virtual ~LightSwitchProxy();
 
+    QString getID();
+
     void turnOn() override;
 
     void turnOff() override;

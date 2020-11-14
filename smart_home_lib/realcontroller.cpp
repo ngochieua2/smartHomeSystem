@@ -55,19 +55,25 @@ QString RealController::registerDevice()
     return data;
 }
 
-void RealController::unregisterDevice(int index, QString type)
+void RealController::unregisterDevice(QString name)
 {
-    if(type == "lightSwitch"){
-        _lightSwitchProxyList.removeAt(index - 1);
+    for (int i = 0; i < _lightSwitchProxyList.size(); i++ ){
+        if(name == _lightSwitchProxyList.at(i)->getID()){
+            _lightSwitchProxyList.removeAt(i);
+            break;
+        }
     }
-    else if (type == "thermostat") {
-        _thermostatProxyList.removeAt(index - 1);
+    for (int i = 0; i < _thermostatProxyList.size(); i++ ){
+        if(name == _thermostatProxyList.at(i)->getID()){
+            _thermostatProxyList.removeAt(i);
+            break;
+        }
     }
-    else if (type == "sprinklerSystem") {
-        _sprinklerSystemProxyList.removeAt(index - 1);
-    }
-    else {
-        //Do nothing
+    for (int i = 0; i < _sprinklerSystemProxyList.size(); i++ ){
+        if(name == _sprinklerSystemProxyList.at(i)->getID()){
+            _sprinklerSystemProxyList.removeAt(i);
+            break;
+        }
     }
 }
 
@@ -96,7 +102,7 @@ SprinklerSystemProxy *RealController::getSprinklerSystemProxy()
     return _sprinklerSystemProxyList.last();
 }
 
-QList<SprinklerSystemProxy *> RealController::getSprinklerSystemList()
+QList<SprinklerSystemProxy *> RealController::getSprinklerSystemProxyList()
 {
     return _sprinklerSystemProxyList;
 }
