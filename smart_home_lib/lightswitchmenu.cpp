@@ -9,6 +9,7 @@ LightSwitchMenu::LightSwitchMenu(QTextStream &display, QTextStream &input, QObje
 {
 }
 
+
 void LightSwitchMenu::run(LightSwitchProxy* lightSwitchProxy){
     _lightSwitchProxy = lightSwitchProxy;
     while (true) {

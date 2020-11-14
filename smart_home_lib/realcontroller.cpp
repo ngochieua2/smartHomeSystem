@@ -133,6 +133,7 @@ QString RealController::currentState(QString name, QString Type)
     int a = 0;
     if (name == ""){
         if(Type == "lightSwitch" || Type == ""){
+
             //Get measurement
 
             if(_lightSwitchProxyList.isEmpty() && Type != ""){
@@ -177,6 +178,7 @@ QString RealController::currentState(QString name, QString Type)
                 }
             }
         }
+
         if(Type == "sprinklerSystem" || Type == ""){
             //Get measurement
 
@@ -200,8 +202,10 @@ QString RealController::currentState(QString name, QString Type)
                 }
             }
         }
+
         if (Type == "" && data == ""){
             data = "\nThere is no device\n";
+
         }
 
     }
@@ -239,6 +243,7 @@ QString RealController::currentState(QString name, QString Type)
                 }
             }
         }
+
         if(Type == "sprinklerSystem" || Type == ""){
             for (int i = 0; i < _sprinklerSystemProxyList.size(); i++ ){
                 if(name == _sprinklerSystemProxyList.at(i)->getID()){

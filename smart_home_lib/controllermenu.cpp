@@ -138,7 +138,9 @@ void ControllerMenu::run(RealController* controller){
                     _display << _controller->currentState("", "thermostat");
                 }
                 else if (optionInput == "4") {
+
                     _display << _controller->currentState("", "sprinklerSystem");
+
                 }
                 else if (optionInput == "5") {
                     _display << "Enter the device name you want to search: " << endl;
@@ -197,6 +199,7 @@ void ControllerMenu::run(RealController* controller){
             }
         }
         else if (stringInput == "4") {
+
             int count = _controller->getLightSwitchProxyList().size()
                       + _controller->getThermostatProxyList().size()
                       + _controller->getSprinklerSystemProxyList().size();
@@ -224,9 +227,11 @@ void ControllerMenu::run(RealController* controller){
                             _sprinkerSystemProxy = nullptr;
                         }
                         else {
-//                            name = _controller->getSprinklerSystemProxyList().at(index
-//                                                                                 -_controller->getLightSwitchProxyList().size()
-//                                                                                 -_controller->getThermostatProxyList().size())->getID();
+                            _sprinkerSystemProxy = _controller->getSprinklerSystemProxyList().at(index
+                                                                                 -_controller->getLightSwitchProxyList().size()
+                                                                                 -_controller->getThermostatProxyList().size());
+                            _lightSwitchProxy = nullptr;
+                            _thermostatProxy = nullptr;
                         }
 
                         //Access menu device
@@ -236,6 +241,9 @@ void ControllerMenu::run(RealController* controller){
                             }
                             else if (_thermostatProxy != nullptr) {
                                 _thermostatMenu->run(_thermostatProxy);
+                            }
+                            else if (_sprinkerSystemProxy != nullptr) {
+                                _sprinklerSystemMenu->run(_sprinkerSystemProxy);
                             }
                             _display << "Current state: " << endl;
                             _display << _controller->getUpdateMeasurement();
@@ -266,6 +274,7 @@ void ControllerMenu::run(RealController* controller){
             else {
                 _display << "There is no device to controll" << endl;
             }
+
         }
         else if (stringInput == "b") {
             break;

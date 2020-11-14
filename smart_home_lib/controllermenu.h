@@ -38,6 +38,7 @@ private:
   ThermostatProxy* _thermostatProxy{nullptr};
   SprinklerSystemProxy* _sprinkerSystemProxy{nullptr};
 
+
 };
 
 #endif // CONTROLLERMENU_H
