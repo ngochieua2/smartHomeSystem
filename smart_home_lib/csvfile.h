@@ -5,6 +5,9 @@
 #include <string>
 #include <vector>
 
+#include <QString>
+#include <QStringList>
+
 namespace data {
 
 /**
@@ -103,9 +106,38 @@ public:
    */
   int columnIndexOf(const std::string &columnName) const;
 
+  QStringList deviceName();
+
+    QStringList measurementType();
+
+    QStringList timestamp();
+
+    QStringList value();
+
+    QStringList uitOfMEasure();
+
+    QStringList isFiltered();
+
+    QStringList rwaMeasurement();
+
+    QStringList getURL();
+
+    QStringList getLastSeen();
+
+    void createCSVFile();
+
 private:
   std::vector<std::string> CSVData{};
+  QStringList m_deviceName;
+    QStringList m_measurementType;
+    QStringList m_timestamp;
+    QStringList m_value;
 
+    QStringList m_uitOfMEasure;
+    QStringList m_isFiltered;
+    QStringList m_rwaMeasurement;
+    QStringList m_getURL;
+    QStringList m_getLastSeen;
 };
 
 } // namespace data
