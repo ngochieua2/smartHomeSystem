@@ -125,15 +125,15 @@ void ControllerMenu::run(RealController* controller){
                 optionInput = _input.readLine();
                 if(optionInput == "1"){
                     //All device
-                    _display << _controller->currentState("Empty", "All");
+                    _display << _controller->currentState("", "All");
 
                 }
                 else if (optionInput == "2") {
-                    _display << _controller->currentState("Empty", "lightSwitch");
+                    _display << _controller->currentState("", "lightSwitch");
 
                 }
                 else if (optionInput == "3") {
-                    _display << _controller->currentState("Empty", "thermostat");
+                    _display << _controller->currentState("", "thermostat");
                 }
                 else if (optionInput == "4") {
 
@@ -148,8 +148,6 @@ void ControllerMenu::run(RealController* controller){
                     _display << "Wrong option, please choose again" << endl;
                 }
             }
-
-
         }
         else if (stringInput == "4") {
             _display << "4 event" <<endl;
