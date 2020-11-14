@@ -107,3 +107,7 @@ QString Measurement::getTakenTime()
 {
     return "Taken time: " + _timestamp.toString("H:m:s MMM dd yyyy") + "\n\n";
 }
+Measurement::measurementType Measurement::getType()
+{
+    return _type;
+}

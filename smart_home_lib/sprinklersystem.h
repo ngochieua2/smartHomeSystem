@@ -19,6 +19,10 @@ public:
     virtual void getDeviceInfo() = 0;
 
     virtual void getMeasurement() = 0;
+    
+    virtual void getCurrentWaterConsumption() = 0;
+    
+    virtual void getTotalWaterConsumption() = 0;
 
 };
 

@@ -18,7 +18,6 @@ public:
 
     void turnOff() override;
 
-
     void schedule(int delay, int duration) override;
 
     void passRealSprinklerSystem(RealSprinklerSystem* realSprinklerSystem);
@@ -26,6 +25,10 @@ public:
     void getDeviceInfo() override;
 
     void getMeasurement() override;
+    
+    void getCurrentWaterConsumption() override;
+    
+    void getTotalWaterConsumption() override;
 
 
 private:

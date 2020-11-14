@@ -25,31 +25,35 @@ public:
     void getDeviceInfo() override;
 
     void getMeasurement() override;
+    
+    void getCurrentWaterConsumption() override;
+    
+    void getTotalWaterConsumption() override;
+    
+    void UpdateWaterUsage();
 
     QList <Measurement*> currentState();
-
-    double calWaterUsage();
     
     QList<Measurement*> waterUsage();
     
-    void recordCurrentCheckingTime();
-
     QString getState();
 
     QTimer* getTimer();
-
-    void updateMeasurement();
-
+    
+    bool isValueChanged();
+    
+    QList<Measurement*> latestWaterConsumption();
+    QList<Measurement*> totalWaterConsumption();
+    
 private:
     QString _state{};
     QDateTime _time{};
     
     QDateTime _start{};
     QDateTime _end{};
-    int _record{};
-    QList<double> _records{};
     
     int _duration{};
+    int _delay{};
     int _updateFrequency{};
     
     double _waterConsumptionpPerInt{};
@@ -63,7 +67,7 @@ private:
 
     Measurement* _measurement{nullptr};
     QList <Measurement*> _measurementList{};
-    QList <Measurement*> _trackWaterList{};
+    QList <Measurement*> _measurementRecord{};
 
 };
 
