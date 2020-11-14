@@ -27,6 +27,8 @@ public:
 
     QList <Measurement*> setPointMeasurement();
 
+    void getSetPoint() override;
+
     void SetPoint(double setPoint) override;
 
     void warmer(double amount) override;

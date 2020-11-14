@@ -13,6 +13,8 @@ public:
 
     virtual void getLast5Measurement() = 0;
 
+    virtual void getSetPoint() = 0;
+
     virtual void SetPoint(double setPoint) = 0;
 
     virtual void warmer(double amount) = 0;

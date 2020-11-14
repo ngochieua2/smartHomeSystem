@@ -14,12 +14,14 @@ RealThermostat::RealThermostat(QString id, QUrl URL)
     //set default value
     _setPoint = 18.00;
     _temperature = 25.00;
-    _setPoint = -1;
+    _state = -1;
 
     // Save to _measurementRecord
     _measurement = new Measurement(_device_id, Measurement::measurementType::temperatureSetpoint, _setPoint);
     _measurementRecord.append(_measurement);
     _measurement = new Measurement(_device_id, Measurement::measurementType::temperature, _temperature);
+    _measurementRecord.append(_measurement);
+    _measurement = new Measurement(_device_id, Measurement::measurementType::thermostatState, _state);
     _measurementRecord.append(_measurement);
 }
 
@@ -34,7 +36,6 @@ RealThermostat::~RealThermostat()
     for(int i = 0; i < _measurementRecord.size(); i++){
         delete _measurementRecord.at(i);
     }
-
 }
 
 QList<Measurement *> RealThermostat::LastMeasurement()
@@ -81,6 +82,20 @@ QList<Measurement *> RealThermostat::Last5Measurement()
 void RealThermostat::getLast5Measurement()
 {
     _controllerProxy->report(Last5Measurement());
+}
+
+QList<Measurement *> RealThermostat::setPointMeasurement()
+{
+    _mesurementList.clear();
+    _measurement = new Measurement(_device_id,Measurement::measurementType::temperatureSetpoint, _setPoint);
+    _mesurementList.append(_measurement);
+
+    return _mesurementList;
+}
+
+void RealThermostat::getSetPoint()
+{
+    _controllerProxy->report(setPointMeasurement());
 }
 
 void RealThermostat::SetPoint(double setPoint)
@@ -142,7 +157,7 @@ void RealThermostat::getDeviceInfo()
 QList<Measurement *> RealThermostat::currentState()
 {
     _mesurementList.clear();
-    _measurement = new Measurement(_device_id, Measurement::measurementType::thermostatState, _setPoint);
+    _measurement = new Measurement(_device_id, Measurement::measurementType::thermostatState, _state);
     _mesurementList.append(_measurement);
     return _mesurementList;
 }
@@ -154,7 +169,7 @@ void RealThermostat::getMeasurement()
 
 void RealThermostat::UpdateState()
 {
-    if (_setPoint - 0.5 > _temperature) //Heating // Positive value
+    if ((_setPoint - 0.5) > _temperature) //Heating // Positive value
     {
         _state = 1;
     }
@@ -170,7 +185,7 @@ void RealThermostat::UpdateState()
     _measurementRecord.append(_measurement);
     _mesurementList.clear();
     if(!isSameValue()){
-        _measurement = new Measurement(_device_id,Measurement::measurementType::temperatureSetpoint, _state);
+        _measurement = new Measurement(_device_id,Measurement::measurementType::thermostatState, _state);
         _mesurementList.append(_measurement);
         _controllerProxy->report(_mesurementList);
     }
@@ -188,22 +203,24 @@ void RealThermostat::UpdateTemperature()
             _temperature -= 0.5;
         }
     }
-    else if (_state == 1) {
+    else if (_state == 1) //Heat
+    {
         double v = (_temperature - _setPoint)/10;
-        if(v <= 0.5){
-            _temperature -= 0.5;
-        }
-        else {
-             _temperature -= v;
-        }
-    }
-    else {
-        double v = (_setPoint-_temperature)/10;
         if(v <= 0.5){
             _temperature += 0.5;
         }
         else {
-            _temperature += v;
+             _temperature += v;
+        }
+    }
+    else // cool
+    {
+        double v = (_setPoint-_temperature)/10;
+        if(v <= 0.5){
+            _temperature -= 0.5;
+        }
+        else {
+            _temperature -= v;
         }
     }
 

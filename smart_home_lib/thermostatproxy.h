@@ -19,6 +19,8 @@ public:
 
     void getLast5Measurement() override;
 
+    void getSetPoint() override;
+
     void SetPoint(double setPoint) override;
 
     void warmer(double amount) override;

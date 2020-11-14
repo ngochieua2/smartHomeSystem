@@ -20,10 +20,11 @@ void ThermostatMenu::run(ThermostatProxy* thermostatProxy){
              << "What would you like to do?" << endl
              << "1. Show last temperature" << endl
              << "2. Show last 5 temperature" << endl
-             << "3. Set  desired temperature" << endl
-             << "4. Check current state" << endl
-             << "5. Make warmer" << endl
-             << "6. Make cooler" << endl
+             << "3. Set desired temperature" << endl
+             << "4. Show setpoint" << endl
+             << "5. Check current state" << endl
+             << "6. Make warmer" << endl
+             << "7. Make cooler" << endl
              << "Type (b) to back" << endl;
 
         QString stringInput;
@@ -52,14 +53,18 @@ void ThermostatMenu::run(ThermostatProxy* thermostatProxy){
                 }
             }
             break;
-        }
-        else if (stringInput == "4") {
-            _thermostatProxy->getMeasurement();
+        }else if (stringInput == "4") {
+            _thermostatProxy->getSetPoint();
+            break;
         }
         else if (stringInput == "5") {
+            _thermostatProxy->getMeasurement();
+            break;
+        }
+        else if (stringInput == "6") {
             bool isNumber = false;
             while (true) {
-                _display << "How much do you want to warm up??" << endl;
+                _display << "How much do you want to warm up??( + setpoint)" << endl;
                 QString optionInput;
                 optionInput = _input.readLine();
                 optionInput.toDouble(&isNumber);
@@ -73,10 +78,10 @@ void ThermostatMenu::run(ThermostatProxy* thermostatProxy){
             }
             break;
         }
-        else if (stringInput == "6") {
+        else if (stringInput == "7") {
             bool isNumber = false;
             while (true) {
-                _display << "How much do you want to cool down??" << endl;
+                _display << "How much do you want to cool down?? (- setpoint)" << endl;
                 QString optionInput;
                 optionInput = _input.readLine();
                 optionInput.toDouble(&isNumber);

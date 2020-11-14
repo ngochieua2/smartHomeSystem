@@ -31,6 +31,11 @@ void ThermostatProxy::getLast5Measurement()
     _realThermostat->getLast5Measurement();
 }
 
+void ThermostatProxy::getSetPoint()
+{
+    _realThermostat->getSetPoint();
+}
+
 void ThermostatProxy::SetPoint(double setPoint)
 {
     _realThermostat->SetPoint(setPoint);

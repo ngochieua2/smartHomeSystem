@@ -137,6 +137,9 @@ QString RealController::currentState(QString name, QString Type)
             if(_lightSwitchProxyList.isEmpty() && Type != "All"){
                 data += "\nThere is no Light Switch device\n";
             }
+            else if (_lightSwitchProxyList.isEmpty() && Type == "All") {
+                // do nothing
+            }
             else {
                 data += "\nLight Switch Devices: \n";
                 for(int i = 0; i < _lightSwitchProxyList.size(); i++){
@@ -155,6 +158,9 @@ QString RealController::currentState(QString name, QString Type)
             //Get measurement
             if(_thermostatProxyList.isEmpty() && Type != "All"){
                 data += "\nThere is no thermostat device\n";
+            }
+            else if(_thermostatProxyList.isEmpty() && Type == "All"){
+                // do nothing
             }
             else {
                 data += "\nTherostat Devices: \n";
@@ -175,6 +181,9 @@ QString RealController::currentState(QString name, QString Type)
 
             if(_sprinklerSystemProxyList.isEmpty() && Type != "All"){
                 data += "\nThere is no sprinkler system device\n\n";
+            }
+            else if(_sprinklerSystemProxyList.isEmpty() && Type == "All"){
+                // do nothing
             }
             else {
                 data += "\nTherostat Devices: \n";
