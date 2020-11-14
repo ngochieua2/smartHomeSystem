@@ -15,11 +15,23 @@ public:
 
     QString getID();
 
+    void getLastMeasurement() override;
+
+    void getLast5Measurement() override;
+
+    void SetPoint(double setPoint) override;
+
+    void warmer(double amount) override;
+
+    void cooler(double amount) override;
+
     void passRealThermostat(RealThermostat* realThermostat);
 
     void getDeviceInfo() override;
 
     void getMeasurement() override;
+
+    void Update() override;
 
 private:
     RealThermostat* _realThermostat{nullptr};
