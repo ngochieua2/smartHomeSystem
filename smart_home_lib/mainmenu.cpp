@@ -9,9 +9,13 @@ MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
 {
     _controllerMenu = new ControllerMenu(display, input);
     _lightSwitchMenu = new  LightSwitchMenu(display, input);
+    _thermostatMenu = new ThermostatMenu(display,input);
+    _spinklerSystemMenu = new SprinklerSystemMenu(display, input);
 
-    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterDevice,
-                     _lightSwitchMenu,&LightSwitchMenu::showRegisterDevice);
+//    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterLightSwitch,
+//                     _lightSwitchMenu,&LightSwitchMenu::showRegisterDevice);
+//    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterThermostat,
+//                     _thermostatMenu,&ThermostatMenu::showRegisterDevice);
 }
 
 void MainMenu::displayWelcome(const QString &title, const QString &group, const QStringList &members) const
@@ -40,6 +44,10 @@ void MainMenu::configMenu(QString type)
         if(id.isEmpty()){
             _display << "Name cannot be empty";
         }
+        if (isExist(id)){
+            _display << "This name has been existed" << endl
+                     << "Please enter another name" << endl;
+        }
         else {
             break;
         }
@@ -65,6 +73,52 @@ void MainMenu::configMenu(QString type)
     else if (type == "Light Switch"){
         tempLightSwitch.append(qMakePair(QString(id),QUrl(Url)));
     }
+    else if (type == "Thermostat") {
+        tempThermostat.append(qMakePair(QString(id),QUrl(Url)));
+    }
+    else if (type == "Sprinkler System") {
+        tempSprinklerSystem.append(qMakePair(QString(id),QUrl(Url)));
+    }
+    else{
+        _display << "error" << endl;
+    }
+}
+
+bool MainMenu::isExist(QString id)
+{
+    for (int i = 0; i < tempLightSwitch.size(); i++){
+        if (id == tempLightSwitch.at(i).first){
+            return true;
+        }
+    }
+    for (int i = 0; i < tempThermostat.size(); i++){
+        if (id == tempThermostat.at(i).first){
+            return true;
+        }
+    }
+    for (int i = 0; i < tempSprinklerSystem.size(); i++){
+        if (id == tempSprinklerSystem.at(i).first){
+            return true;
+        }
+    }
+    if (_controller != nullptr){
+        for(int i = 0; i < _controller->getLightSwitchProxyList().size(); i++){
+            if (id == _controller->getLightSwitchProxyList().at(i)->getID()){
+                return true;
+            }
+        }
+        for(int i = 0; i < _controller->getThermostatProxyList().size(); i++){
+            if (id == _controller->getThermostatProxyList().at(i)->getID()){
+                return true;
+            }
+        }
+        for(int i = 0; i < _controller->getSprinklerSystemProxyList().size(); i++){
+            if (id == _controller->getSprinklerSystemProxyList().at(i)->getID()){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 
@@ -81,18 +135,19 @@ void MainMenu::run()
         QString stringInput;
         stringInput = _input.readLine();
         if(stringInput == "1"){
-
+            //config controller
             if(_controller == nullptr){
                 configMenu("Smart Home Controller");
                 _display << "Success\n" << endl;
             }
-
             //Register device and set up
             if (!tempLightSwitch.isEmpty()){
                 for(int i = 0; i < tempLightSwitch.size(); ++i){
                     _controller->registerDevice(tempLightSwitch.at(i).first, "lightSwitch", tempLightSwitch.at(i).second);
                     //Factory
-                    _device = new RealLightSwitch(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
+                    _factory= new LightSwitchFactory();
+                    _device = _factory->CreateDevice(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
+                    //_device = new RealLightSwitch(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
 
                     _realLightSwitch = static_cast<RealLightSwitch*>(_device);
                     _controller->getLightSwitchProxy()->passRealLightSwitch(_realLightSwitch);
@@ -102,18 +157,54 @@ void MainMenu::run()
                 tempLightSwitch.clear();
 
             }
+            if (!tempThermostat.isEmpty()){
+                for(int i = 0; i < tempThermostat.size(); ++i){
+                    _controller->registerDevice(tempThermostat.at(i).first, "thermostat", tempThermostat.at(i).second);
+                    //Factory
+                    _factory= new ThermostatFactory();
+                    _device = _factory->CreateDevice(tempThermostat.at(i).first,tempThermostat.at(i).second);
+                    //_device = new RealThermostat(tempThermostat.at(i).first,tempThermostat.at(i).second);
+
+                    _realThermostat = static_cast<RealThermostat*>(_device);
+                    _controller->getThermostatProxy()->passRealThermostat(_realThermostat);
+                    _realThermostat->createControllerProxy();
+                    _realThermostat->getControllerProxy()->passController(_controller);
+                }
+                tempThermostat.clear();
+
+            }
+
+            if (!tempSprinklerSystem.isEmpty()){
+                for(int i = 0; i < tempSprinklerSystem.size(); ++i){
+                    _controller->registerDevice(tempSprinklerSystem.at(i).first, "sprinklerSystem", tempSprinklerSystem.at(i).second);
+                    //Factory
+                    _factory= new SprinklerSystemFactory();
+                    _device = _factory->CreateDevice(tempSprinklerSystem.at(i).first,tempSprinklerSystem.at(i).second);
+                    //_device = new RealSprinklerSystem(tempSprinklerSystem.at(i).first,tempSprinklerSystem.at(i).second);
+
+                    _realSprinkerSystem = static_cast<RealSprinklerSystem*>(_device);
+                    _controller->getSprinklerSystemProxy()->passRealSprinklerSystem(_realSprinkerSystem);
+                    _realSprinkerSystem->createControllerProxy();
+                    _realSprinkerSystem->getControllerProxy()->passController(_controller);
+                }
+                tempSprinklerSystem.clear();
+
+            }
+
             _controllerMenu->run(_controller);
 
         }
         else if (stringInput == "2") {
-            _display << "Light Switch event" <<endl;
             configMenu("Light Switch");
+            _display << "Success\n" << endl;
         }
         else if (stringInput == "3") {
-
+            configMenu("Thermostat");
+            _display << "Success\n" << endl;
         }
         else if (stringInput == "4") {
-
+            configMenu("Sprinkler System");
+            _display << "Success\n" << endl;
         }
         else if (stringInput == "q") {
             break;

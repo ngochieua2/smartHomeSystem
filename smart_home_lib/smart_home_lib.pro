@@ -49,9 +49,11 @@ SOURCES += \
         smarthomedevice.cpp \
         sprinklersystem.cpp \
         sprinklersystemfactory.cpp \
+        sprinklersystemmenu.cpp \
         sprinklersystemproxy.cpp \
         thermostat.cpp \
         thermostatfactory.cpp \
+        thermostatmenu.cpp \
         thermostatproxy.cpp
 
 HEADERS += \
@@ -82,9 +84,11 @@ HEADERS += \
         smarthomedevice.h \
         sprinklersystem.h \
         sprinklersystemfactory.h \
+        sprinklersystemmenu.h \
         sprinklersystemproxy.h \
         thermostat.h \
         thermostatfactory.h \
+        thermostatmenu.h \
         thermostatproxy.h
 unix {
     target.path = /usr/lib

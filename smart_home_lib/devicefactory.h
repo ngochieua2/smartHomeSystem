@@ -12,7 +12,7 @@ public:
      * this function will be implemented in its derived classes.
      * @param name
      * @param url
-     * @return AbstractDevice 
+     * @return AbstractDevice
      */
     virtual SmartHomeDevice* CreateDevice(QString id, QUrl url) = 0;
 };

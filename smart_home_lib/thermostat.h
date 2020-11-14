@@ -1,12 +1,26 @@
 #ifndef THERMOSTAT_H
 #define THERMOSTAT_H
-#include "smarthomedevice.h"
+
+#include <smarthomedevice.h>
 
 class Thermostat : public SmartHomeDevice
 {
 public:
-    Thermostat(QString id, QUrl url);
+    Thermostat();
     ~Thermostat();
+
+    //LastMeasurement
+    //Last4Measurement
+    //SetPoint();
+    //currentState
+    //warmer
+    //cooler
+
+    virtual void getDeviceInfo() = 0;
+
+    virtual void getMeasurement() = 0;
+
+
 };
 
 #endif // THERMOSTAT_H

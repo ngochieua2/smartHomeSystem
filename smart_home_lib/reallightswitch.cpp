@@ -8,14 +8,25 @@ RealLightSwitch::RealLightSwitch()
 RealLightSwitch::RealLightSwitch(QString id, QUrl URL)
 {
     _device_id = id;
-    _devideType = "light Switch";
+    _devideType = "Light Switch";
     _deviceUrl = URL;
     _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
+
+    //set value default
+    OnOffState = true;
+    brightnessLevel = 50;
+
+    updateMeasurement();
 }
 
 RealLightSwitch::~RealLightSwitch()
 {
-
+    delete _deviceInfo;
+    delete _controllerProxy;
+    delete _measurement;
+    for(int i = 0; i < _mesurementList.size(); i++){
+        delete _mesurementList.at(i);
+    }
 }
 
 void RealLightSwitch::turnOn()
@@ -60,20 +71,26 @@ void RealLightSwitch::getDeviceInfo()
     _controllerProxy->receiveDeviceInfo(_deviceInfo);
     _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
     _deviceInfo->updateTime();
-    
 }
 
-bool RealLightSwitch::getState()
+void RealLightSwitch::updateMeasurement()
 {
-    return OnOffState;
+    _mesurementList.clear();
+    //create measurement 1
+    _measurement = new Measurement(_device_id, Measurement::measurementType::lightSwitchOnOff, OnOffState);
+    _mesurementList.append(_measurement);
+    //Create measurement 2
+    _measurement = new Measurement(_device_id, Measurement::measurementType::brightnessLevel, brightnessLevel);
+    _mesurementList.append(_measurement);
 }
 
-int RealLightSwitch::getBrightnessLevel()
+QList<Measurement *> RealLightSwitch::currentState()
 {
-    return brightnessLevel;
+    return _mesurementList;
 }
 
-void RealLightSwitch::setBrightnessLevel(int brightness)
+void RealLightSwitch::getMeasurement()
 {
-    brightnessLevel = brightness;
+    updateMeasurement();
+    _controllerProxy->report(currentState());
 }

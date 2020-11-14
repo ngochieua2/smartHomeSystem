@@ -15,8 +15,8 @@ public:
     void passController(RealController* controller);
 
     void receiveDeviceInfo(DeviceInfo *deviceInfo) override;
-    
-    void report(QList<Measurement *> measurementList) override;    
+
+    void report(QList<Measurement *> measurementList) override;
 
 private:
     RealController* _realController{nullptr};

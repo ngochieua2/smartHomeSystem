@@ -6,6 +6,8 @@
 #include <QTextStream>
 #include <realcontroller.h>
 #include <lightswitchmenu.h>
+#include <thermostatmenu.h>
+#include <sprinklersystemmenu.h>
 
 
 class ControllerMenu : public QObject
@@ -18,7 +20,9 @@ public:
     void run(RealController* controller);
 
 signals:
-    void showRegisterDevice(LightSwitchProxy*);
+    void showRegisterLightSwitch(LightSwitchProxy*);
+    void showRegisterThermostat(ThermostatProxy*);
+
 
 private:
   QTextStream &_display;
@@ -27,6 +31,8 @@ private:
   RealController* _controller{nullptr};
 
   LightSwitchMenu* _lightSwitchMenu{nullptr};
+  ThermostatMenu* _thermostatMenu{nullptr};
+  SprinklerSystemMenu* _sprinklerSystemMenu{nullptr};
 
 };
 

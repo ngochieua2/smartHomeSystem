@@ -4,7 +4,7 @@
 #include <QString>
 #include <QUrl>
 #include <deviceinfo.h>
-#include "measurement.h"
+#include <measurement.h>
 
 class SmartHomeController
 {
@@ -16,7 +16,8 @@ public:
 
     virtual void receiveDeviceInfo(DeviceInfo* deviceInfo) = 0;
 
-    virtual void report(QList<Measurement *> measurementList) = 0;    
+    virtual void report(QList <Measurement*> measurementList) = 0;
+
 protected:
     QString _controller_id{};
     QUrl _controller_Url{};

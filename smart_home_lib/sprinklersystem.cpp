@@ -2,10 +2,8 @@
 
 SprinklerSystem::SprinklerSystem()
 {
-    
 }
 
 SprinklerSystem::~SprinklerSystem()
 {
-    
 }

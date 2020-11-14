@@ -1,5 +1,9 @@
 #include "lightswitchproxy.h"
 
+LightSwitchProxy::LightSwitchProxy()
+{
+}
+
 LightSwitchProxy::LightSwitchProxy(QString id, QUrl Url)
 {
     _device_id = id;
@@ -10,6 +14,11 @@ LightSwitchProxy::LightSwitchProxy(QString id, QUrl Url)
 LightSwitchProxy::~LightSwitchProxy()
 {
     delete _realLightSwitch;
+}
+
+QString LightSwitchProxy::getID()
+{
+    return _device_id;
 }
 
 void LightSwitchProxy::turnOn()
@@ -40,4 +49,9 @@ void LightSwitchProxy::passRealLightSwitch(RealLightSwitch *realLightSwitch)
 void LightSwitchProxy::getDeviceInfo()
 {
     _realLightSwitch->getDeviceInfo();
+}
+
+void LightSwitchProxy::getMeasurement()
+{
+    _realLightSwitch->getMeasurement();
 }

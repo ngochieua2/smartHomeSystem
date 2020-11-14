@@ -2,5 +2,5 @@
 
 SmartHomeDevice *LightSwitchFactory::CreateDevice(QString id, QUrl url)
 {
-    return new RealLightSwitch(id, url);    
+    return new RealLightSwitch(id, url);
 }

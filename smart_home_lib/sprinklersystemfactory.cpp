@@ -2,5 +2,5 @@
 
 SmartHomeDevice *SprinklerSystemFactory::CreateDevice(QString id, QUrl url)
 {
-    return new RealSprinklerSystem(id, url);    
+    return new RealSprinklerSystem(id, url);
 }

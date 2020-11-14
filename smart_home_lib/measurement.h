@@ -19,6 +19,7 @@ public:
   Measurement();
   Measurement(QString deviceName, measurementType type,QVariant value);
   virtual ~Measurement();
+
   virtual QString deviceName();
 
   enum class measurementType{
@@ -43,7 +44,7 @@ public:
   bool isFiltered();
 
   Measurement *rawMeasurement();
-  
+
   QString displayMeasurement();
 
   QString getTakenTime();

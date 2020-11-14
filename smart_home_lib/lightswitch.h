@@ -19,6 +19,8 @@ public:
 
     virtual void getDeviceInfo() = 0;
 
+    virtual void getMeasurement() = 0;
+
 
 };
 

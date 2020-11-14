@@ -13,7 +13,7 @@ public:
      * in this class the created device will be a RealLightSwitch
      * @param name
      * @param url
-     * @return RealLightSwitch 
+     * @return RealLightSwitch
      */
     SmartHomeDevice* CreateDevice(QString id, QUrl url) override;
 };

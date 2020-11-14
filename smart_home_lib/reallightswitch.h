@@ -26,12 +26,14 @@ public:
     ControllerProxy* getControllerProxy();
 
     void getDeviceInfo() override;
-    
-    bool getState();
-    
-    int getBrightnessLevel();
-    
-    void setBrightnessLevel(int brightness);
+
+    void updateMeasurement();
+
+    QList <Measurement*> currentState();
+
+    void getMeasurement() override;
+
+
 
 private:
     bool OnOffState{};
@@ -40,6 +42,9 @@ private:
     ControllerProxy* _controllerProxy{};
 
     DeviceInfo* _deviceInfo{nullptr};
+
+    Measurement* _measurement{nullptr};
+    QList <Measurement*> _mesurementList{};
 
 };
 

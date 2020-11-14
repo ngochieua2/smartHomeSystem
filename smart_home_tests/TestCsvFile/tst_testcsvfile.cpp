@@ -34,19 +34,19 @@ private slots:
   void initTestCase();
   void cleanupTestCase();
   void test_loadFailureForEmptyCsvFile();
-//  void test_loadSuccessForHeaderButNoDataCsvFile();
-//  void test_outOfRangeReturnsEmptyString();
-//  void test_headerFieldsCorrectlyRead();
-//  void test_commaSeparatedRowDataAccessible();
-//  void test_multipleRowsOfData();
-//  void test_emptyFieldAtEndOfLine();
-//  void test_loadFailureOnRowWithDifferingNumberOfColumns();
-//  void test_preservationOfWhitespaceInFields();
-//  void test_lineEndingOnLastLine();
-//  void test_doubleQuotedFields();
-//  void test_doubleQuotedFieldsMixedWithUnquoted();
-//  void test_replacementOfBlackslashNInQuotedFieldsWithNewline();
-//  void test_doubleQuotesWithinFields();
+  void test_loadSuccessForHeaderButNoDataCsvFile();
+  void test_outOfRangeReturnsEmptyString();
+  void test_headerFieldsCorrectlyRead();
+  void test_commaSeparatedRowDataAccessible();
+  void test_multipleRowsOfData();
+  void test_emptyFieldAtEndOfLine();
+  void test_loadFailureOnRowWithDifferingNumberOfColumns();
+  void test_preservationOfWhitespaceInFields();
+  void test_lineEndingOnLastLine();
+  void test_doubleQuotedFields();
+  void test_doubleQuotedFieldsMixedWithUnquoted();
+  void test_replacementOfBlackslashNInQuotedFieldsWithNewline();
+  void test_doubleQuotesWithinFields();
 
 private:
   unsigned int _failureCount;    ///< count of all failures that have occurred
@@ -95,7 +95,7 @@ void TestCsvFile::test_loadFailureForEmptyCsvFile()
   equal(std::string{""}, csvFile.headerAt(1), "headerAt(int) must return empty string for empty input data");
   equal(-1, csvFile.columnIndexOf("Name"), "columnIndexOf(string) must return -1 for empty input data");
 }
-/*
+
 void TestCsvFile::test_loadSuccessForHeaderButNoDataCsvFile()
 {
   std::stringstream data{"Header"};
@@ -335,8 +335,7 @@ void TestCsvFile::test_doubleQuotesWithinFields()
 
   equal(std::string{"Header\",\"1"}, csvFile.headerAt(1), "headerAt(1) must return the first header with internal quotes maintained, no outer quotes, and internal commas preserved");
   equal(std::string{"Field\",\"1"}, csvFile.at(1,1), "at(1,1) must return the first field with internal quotes maintained, no outer quotes, and internal commas preserved");
-
-}*/
+}
 
 QTEST_APPLESS_MAIN(TestCsvFile)
 

@@ -12,7 +12,7 @@ public:
      * in this class the created device will be a RealThermostat
      * @param name
      * @param url
-     * @return RealThermostat 
+     * @return RealThermostat
      */
     SmartHomeDevice* CreateDevice(QString id, QUrl url) override;
 };

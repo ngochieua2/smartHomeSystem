@@ -10,42 +10,28 @@ class RealSprinklerSystem : public SprinklerSystem
 public:
     RealSprinklerSystem();
     RealSprinklerSystem(QString id, QUrl url);
-    virtual ~RealSprinklerSystem(); 
+    virtual ~RealSprinklerSystem();
 
-    void schedule(int delay, int duration) override;
-    
     void turnOn() override;
-    
+
     void turnOff() override;
-    
-    
-    void getMeasurement() override;
-    
-    void updateMeasurement();   
-    
-    QList <Measurement*> currentState();
-    
-    QList <Measurement*> waterUsage();
-    
+
+    void schedule(QDateTime delay, int duration) override;
+
     void createControllerProxy();
 
     ControllerProxy* getControllerProxy();
-    
-    
-    QString getState();
-    
-    QTimer* getTimer();
-    
+
+    void getDeviceInfo() override;
+
 private:
-    QString _state{};
-    QDateTime _time{};
-    int _duration{};
+    bool OnOffState{};
+    int _updateFrequency{5000};
     double _waterConsumption{};
-    
-    QTimer* _timer{};
+
     ControllerProxy* _controllerProxy{};
-    Measurement* _measurement{nullptr};
-    QList <Measurement*> _measurementList{};
+
+    DeviceInfo* _deviceInfo{nullptr};
 };
 
 #endif // REALSPRINKLERSYSTEM_H

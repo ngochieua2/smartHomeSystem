@@ -12,7 +12,7 @@ public:
      * in this class the created device will be a RealSprinklerSystem
      * @param name
      * @param url
-     * @return RealSprinklerSystem 
+     * @return RealSprinklerSystem
      */
     SmartHomeDevice* CreateDevice(QString id, QUrl url) override;
 };
