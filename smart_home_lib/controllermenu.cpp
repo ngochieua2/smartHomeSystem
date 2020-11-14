@@ -57,6 +57,7 @@ void ControllerMenu::run(RealController* controller){
             for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
                 //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
                 _lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
+                //_controller->getLightSwitchProxyList().at(i)->getDeviceInfo();
             }
 
             for(int i = 0; i < _controller->getThermostatProxyList().size(); ++i){
@@ -167,11 +168,14 @@ void ControllerMenu::run(RealController* controller){
 
                         if(optionInput.toInt() <= _controller->getLightSwitchProxyList().size()){
                             _lightSwitchProxy = _controller->getLightSwitchProxyList().at(index);
+                            _thermostatProxy = nullptr;
+                            _sprinkerSystemProxy = nullptr;
                         }
                         else if (optionInput.toInt() <= _controller->getLightSwitchProxyList().size()
                                                       + _controller->getThermostatProxyList().size()){
-//                            name = _controller->getThermostatProxyList().at(index
-//                                                                            -_controller->getLightSwitchProxyList().size())->getID();
+                            _thermostatProxy = _controller->getThermostatProxyList().at(index -_controller->getLightSwitchProxyList().size());
+                            _lightSwitchProxy = nullptr;
+                            _sprinkerSystemProxy = nullptr;
                         }
                         else {
 //                            name = _controller->getSprinklerSystemProxyList().at(index
@@ -181,8 +185,13 @@ void ControllerMenu::run(RealController* controller){
 
                         //Access menu device
                         while (true) {
-                            _lightSwitchMenu->run(_lightSwitchProxy);
-                            _display << "Current state" << endl;
+                            if(_lightSwitchProxy != nullptr){
+                                _lightSwitchMenu->run(_lightSwitchProxy);
+                            }
+                            else if (_thermostatProxy != nullptr) {
+                                _thermostatMenu->run(_thermostatProxy);
+                            }
+                            _display << "Current state: " << endl;
                             _display << _controller->getUpdateMeasurement();
                             _display << "Do you want to continue controll this device? (y or n)" << endl
                                      <<  "1. Yes            2. No"<< endl;
