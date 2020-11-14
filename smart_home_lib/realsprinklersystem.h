@@ -26,9 +26,7 @@ public:
 
     void getMeasurement() override;
     
-    void getCurrentWaterConsumption() override;
-    
-    void getTotalWaterConsumption() override;
+    void getWaterUsage() override;
     
     void UpdateWaterUsage();
 
@@ -43,7 +41,12 @@ public:
     bool isValueChanged();
     
     QList<Measurement*> latestWaterConsumption();
+    
     QList<Measurement*> totalWaterConsumption();
+    
+    void updateTime() override;
+    
+    void turnOnByScheduling();
     
 private:
     QString _state{};

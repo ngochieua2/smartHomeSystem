@@ -48,13 +48,14 @@ void SprinklerSystemProxy::getMeasurement()
     _realSprinklerSystem->getMeasurement();
 }
 
-void SprinklerSystemProxy::getCurrentWaterConsumption()
+void SprinklerSystemProxy::getWaterUsage()
 {
-    _realSprinklerSystem->getCurrentWaterConsumption();
+    _realSprinklerSystem->getWaterUsage();
 }
 
-void SprinklerSystemProxy::getTotalWaterConsumption()
+void SprinklerSystemProxy::updateTime()
 {
-    _realSprinklerSystem->getTotalWaterConsumption();
+    _realSprinklerSystem->updateTime();
 }
+
 

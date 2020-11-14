@@ -177,16 +177,17 @@ void ControllerMenu::run(RealController* controller){
 //                                                                            -_controller->getLightSwitchProxyList().size())->getID();
                         }
                         else {
-//                            name = _controller->getSprinklerSystemProxyList().at(index
-//                                                                                 -_controller->getLightSwitchProxyList().size()
-//                                                                                 -_controller->getThermostatProxyList().size())->getID();
+                            _sprinkerSystemProxy = _controller->getSprinklerSystemProxyList().at(index
+                                                                                 -_controller->getLightSwitchProxyList().size()
+                                                                                 -_controller->getThermostatProxyList().size());
                         }
 
                         //Access menu device
                         while (true) {
-                            _lightSwitchMenu->run(_lightSwitchProxy);
+                            //_lightSwitchMenu->run(_lightSwitchProxy);
+                            _sprinklerSystemMenu->run(_sprinkerSystemProxy);
                             _display << "Current state" << endl;
-                            _display << _controller->currentState(_lightSwitchProxy->getID(),"");
+                            _display << _controller->currentState(_sprinkerSystemProxy->getID(),"");
                             _display << "Do you want to continue controll this device?" << endl
                                      <<  "1. Yes            2. No"<< endl;
 

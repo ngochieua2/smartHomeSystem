@@ -26,9 +26,9 @@ public:
 
     void getMeasurement() override;
     
-    void getCurrentWaterConsumption() override;
+    void getWaterUsage() override;
     
-    void getTotalWaterConsumption() override;
+    void updateTime() override;
 
 
 private:

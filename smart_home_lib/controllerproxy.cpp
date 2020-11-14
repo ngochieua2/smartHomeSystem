@@ -23,3 +23,4 @@ void ControllerProxy::report(QList<Measurement *> measurementList)
 {
     _realController->report(measurementList);
 }
+
