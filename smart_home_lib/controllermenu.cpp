@@ -20,7 +20,7 @@ void ControllerMenu::run(RealController* controller){
                  << "1.Show all register devices" << endl
                  << "2.Unregister device" << endl
                  << "3.Current State of all devices" << endl
-                 << "4." << endl
+                 << "4.Controll device" << endl
                  << "Type (b) to back" << endl;
 
         QString stringInput;
@@ -125,18 +125,18 @@ void ControllerMenu::run(RealController* controller){
                 optionInput = _input.readLine();
                 if(optionInput == "1"){
                     //All device
-                    _display << _controller->currentState("Empty", "All");
+                    _display << _controller->currentState("", "All");
 
                 }
                 else if (optionInput == "2") {
-                    _display << _controller->currentState("Empty", "lightSwitch");
+                    _display << _controller->currentState("", "lightSwitch");
 
                 }
                 else if (optionInput == "3") {
-
+                    _display << _controller->currentState("", "thermostat");
                 }
                 else if (optionInput == "4") {
-
+                    _display << _controller->currentState("", "sprinklerSystem");
                 }
                 else if (optionInput == "5") {
 
@@ -148,11 +148,71 @@ void ControllerMenu::run(RealController* controller){
                     _display << "Wrong option, please choose again" << endl;
                 }
             }
-
-
         }
         else if (stringInput == "4") {
-            _display << "4 event" <<endl;
+            int count = _controller->getLightSwitchProxyList().size()
+                      + _controller->getThermostatProxyList().size()
+                      + _controller->getSprinklerSystemProxyList().size();
+            if (count > 0){
+
+                while (true) {
+                    _display << _controller->currentState("", "All");
+                    _display << "Which device you want to controll: (1 to " << count << ")"  << endl;
+                    _display << "Choose b to back"  << endl;
+                    QString optionInput;
+                    optionInput = _input.readLine();
+                    if(optionInput.toInt() >= 1 && optionInput.toInt() <= count){
+
+                        int index = optionInput.toInt() - 1;
+
+                        if(optionInput.toInt() <= _controller->getLightSwitchProxyList().size()){
+                            _lightSwitchProxy = _controller->getLightSwitchProxyList().at(index);
+                        }
+                        else if (optionInput.toInt() <= _controller->getLightSwitchProxyList().size()
+                                                      + _controller->getThermostatProxyList().size()){
+//                            name = _controller->getThermostatProxyList().at(index
+//                                                                            -_controller->getLightSwitchProxyList().size())->getID();
+                        }
+                        else {
+//                            name = _controller->getSprinklerSystemProxyList().at(index
+//                                                                                 -_controller->getLightSwitchProxyList().size()
+//                                                                                 -_controller->getThermostatProxyList().size())->getID();
+                        }
+
+                        //Access menu device
+                        while (true) {
+                            _lightSwitchMenu->run(_lightSwitchProxy);
+                            _display << "Current state" << endl;
+                            _display << _controller->currentState(_lightSwitchProxy->getID(),"");
+                            _display << "Do you want to continue controll this device?" << endl
+                                     <<  "1. Yes            2. No"<< endl;
+
+                            QString option;
+                            option = _input.readLine();
+                            if (option  == "2"){
+                                break;
+                            }
+                            else if (option  == "1") {
+                                // do nothing
+                            }
+                            else {
+                                _display << "Wrong option, please choose again" << endl;
+                            }
+
+                        }
+
+                    }
+                    else if (optionInput == "b") {
+                        break;
+                    }
+                    else{
+                        _display << "Wrong number, choose again" <<endl;
+                    }
+                }
+            }
+            else {
+                _display << "There is no device to controll" << endl;
+            }
         }
         else if (stringInput == "b") {
             break;

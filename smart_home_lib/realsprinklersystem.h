@@ -16,7 +16,7 @@ public:
 
     void turnOff() override;
 
-    void schedule(QDateTime delay, int duration) override;
+    void schedule(int delay, int duration) override;
 
     void createControllerProxy();
 
@@ -24,14 +24,31 @@ public:
 
     void getDeviceInfo() override;
 
+    void getMeasurement() override;
+
+    QList <Measurement*> currentState();
+
+    QList <Measurement*> waterUsage();
+
+    QString getState();
+
+    QTimer* getTimer();
+
+    void updateMeasurement();
+
 private:
-    bool OnOffState{};
-    int _updateFrequency{5000};
+    QString _state{};
+    QDateTime _time{};
+    int _duration{};
     double _waterConsumption{};
 
+    QTimer* _timer{};
     ControllerProxy* _controllerProxy{};
 
     DeviceInfo* _deviceInfo{nullptr};
+
+    Measurement* _measurement{nullptr};
+    QList <Measurement*> _measurementList{};
 };
 
 #endif // REALSPRINKLERSYSTEM_H

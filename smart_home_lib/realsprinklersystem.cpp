@@ -11,6 +11,14 @@ RealSprinklerSystem::RealSprinklerSystem(QString id, QUrl url)
     _devideType = "Sprinkler System";
     _deviceUrl = url;
     _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
+
+    //default value
+    _state = "ON";
+    _waterConsumption = 0;
+    _duration = 0;
+    _time.setTime(QTime());
+    updateMeasurement();
+
 }
 
 RealSprinklerSystem::~RealSprinklerSystem()
@@ -22,27 +30,49 @@ RealSprinklerSystem::~RealSprinklerSystem()
 
 void RealSprinklerSystem::turnOn()
 {
-    OnOffState = true;
+    _state = "ON";
 }
 
 void RealSprinklerSystem::turnOff()
 {
-    OnOffState = false;
+    _state = "OFF";
 }
 
-void RealSprinklerSystem::schedule(QDateTime delay, int duration)
+void RealSprinklerSystem::getMeasurement()
+{
+    updateMeasurement();
+    _controllerProxy->report(currentState());
+}
+
+void RealSprinklerSystem::updateMeasurement()
+{
+    _measurementList.clear();
+    _measurement = new Measurement(_device_id, Measurement::measurementType::sprinklerState, _state);
+    _measurementList.append(_measurement);
+    _measurement = new Measurement(_device_id, Measurement::measurementType::scheduledTime, _time);
+    _measurementList.append(_measurement);
+    _measurement = new Measurement(_device_id, Measurement::measurementType::scheduledDuration, _duration);
+    _measurementList.append(_measurement);
+}
+
+QList<Measurement *> RealSprinklerSystem::currentState()
+{
+    return _measurementList;
+}
+
+QList<Measurement *> RealSprinklerSystem::waterUsage()
+{
+
+}
+
+void RealSprinklerSystem::schedule(int delay, int duration)
 {
     QDateTime currentTime;
-    QTimer timer;
-    if(currentTime.currentDateTime() == delay){
-        timer.setInterval(duration);
-        if(OnOffState == true){
-            OnOffState = false;
-        } else {
-            OnOffState = true;
-        }
+    if(_state == true){
+        turnOff();
     }
-
+    QTimer::singleShot(delay,_timer,SLOT(turnOn()));
+    QTimer::singleShot(duration,_timer,SLOT(turnOff()));
 }
 
 void RealSprinklerSystem::createControllerProxy()
@@ -60,4 +90,14 @@ void RealSprinklerSystem::getDeviceInfo()
     _controllerProxy->receiveDeviceInfo(_deviceInfo);
     _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
     _deviceInfo->updateTime();
+}
+
+QString RealSprinklerSystem::getState()
+{
+    return _state;
+}
+
+QTimer *RealSprinklerSystem::getTimer()
+{
+    return _timer;
 }

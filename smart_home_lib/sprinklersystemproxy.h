@@ -18,11 +18,13 @@ public:
 
     void turnOff() override;
 
-    void schedule(QDateTime delay, int duration) override;
+    void schedule(int delay, int duration) override;
 
     void passRealSprinklerSystem(RealSprinklerSystem* realSprinklerSystem);
 
     void getDeviceInfo() override;
+
+    void getMeasurement() override;
 
 private:
     RealSprinklerSystem* _realSprinklerSystem{nullptr};

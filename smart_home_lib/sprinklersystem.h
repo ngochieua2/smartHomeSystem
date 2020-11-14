@@ -13,9 +13,11 @@ public:
 
     virtual void turnOff() = 0;
 
-    virtual void schedule (QDateTime delay, int duration) = 0;
+    virtual void schedule (int delay, int duration) = 0;
 
     virtual void getDeviceInfo() = 0;
+
+    virtual void getMeasurement() = 0;
 };
 
 #endif // SPRINKLERSYSTEM_H

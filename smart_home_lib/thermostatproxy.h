@@ -19,6 +19,8 @@ public:
 
     void getDeviceInfo() override;
 
+    void getMeasurement() override;
+
 private:
     RealThermostat* _realThermostat{nullptr};
 
