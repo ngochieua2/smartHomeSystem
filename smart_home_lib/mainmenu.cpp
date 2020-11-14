@@ -44,6 +44,10 @@ void MainMenu::configMenu(QString type)
         if(id.isEmpty()){
             _display << "Name cannot be empty";
         }
+        if (isExist(id)){
+            _display << "This name has been existed" << endl
+                     << "Please enter another name" << endl;
+        }
         else {
             break;
         }
@@ -78,6 +82,43 @@ void MainMenu::configMenu(QString type)
     else{
         _display << "error" << endl;
     }
+}
+
+bool MainMenu::isExist(QString id)
+{
+    for (int i = 0; i < tempLightSwitch.size(); i++){
+        if (id == tempLightSwitch.at(i).first){
+            return true;
+        }
+    }
+    for (int i = 0; i < tempThermostat.size(); i++){
+        if (id == tempThermostat.at(i).first){
+            return true;
+        }
+    }
+    for (int i = 0; i < tempSprinklerSystem.size(); i++){
+        if (id == tempSprinklerSystem.at(i).first){
+            return true;
+        }
+    }
+    if (_controller != nullptr){
+        for(int i = 0; i < _controller->getLightSwitchProxyList().size(); i++){
+            if (id == _controller->getLightSwitchProxyList().at(i)->getID()){
+                return true;
+            }
+        }
+        for(int i = 0; i < _controller->getThermostatProxyList().size(); i++){
+            if (id == _controller->getThermostatProxyList().at(i)->getID()){
+                return true;
+            }
+        }
+        for(int i = 0; i < _controller->getSprinklerSystemProxyList().size(); i++){
+            if (id == _controller->getSprinklerSystemProxyList().at(i)->getID()){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 

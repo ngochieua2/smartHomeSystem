@@ -13,6 +13,8 @@ public:
     ThermostatProxy(QString id, QUrl Url);
     virtual ~ThermostatProxy();
 
+    QString getID();
+
     void passRealThermostat(RealThermostat* realThermostat);
 
     void getDeviceInfo() override;

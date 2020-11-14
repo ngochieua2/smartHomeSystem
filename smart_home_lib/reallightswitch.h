@@ -27,6 +27,14 @@ public:
 
     void getDeviceInfo() override;
 
+    void updateMeasurement();
+
+    QList <Measurement*> currentState();
+
+    void getMeasurement() override;
+
+
+
 private:
     bool OnOffState{};
     int brightnessLevel{};
@@ -34,6 +42,9 @@ private:
     ControllerProxy* _controllerProxy{};
 
     DeviceInfo* _deviceInfo{nullptr};
+
+    Measurement* _measurement{nullptr};
+    QList <Measurement*> _mesurementList{};
 
 };
 

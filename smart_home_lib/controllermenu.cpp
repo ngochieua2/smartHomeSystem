@@ -19,7 +19,7 @@ void ControllerMenu::run(RealController* controller){
                  << "What would you like to do" << endl
                  << "1.Show all register devices" << endl
                  << "2.Unregister device" << endl
-                 << "3.Controll device" << endl
+                 << "3.Current State of all devices" << endl
                  << "4." << endl
                  << "Type (b) to back" << endl;
 
@@ -39,9 +39,9 @@ void ControllerMenu::run(RealController* controller){
                 //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
                 _thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
             }
-            for(int i = 0; i < _controller->getSprinklerSystemList().size(); ++i){
+            for(int i = 0; i < _controller->getSprinklerSystemProxyList().size(); ++i){
                 //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
-                _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemList().at(i));
+                _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemProxyList().at(i));
             }
 
             //Show data
@@ -63,16 +63,16 @@ void ControllerMenu::run(RealController* controller){
                 //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
                 _thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
             }
-            for(int i = 0; i < _controller->getSprinklerSystemList().size(); ++i){
+            for(int i = 0; i < _controller->getSprinklerSystemProxyList().size(); ++i){
                 //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
-                _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemList().at(i));
+                _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemProxyList().at(i));
             }
 
 
             //Count number of registered device
             int count = _controller->getLightSwitchProxyList().size()
                       + _controller->getThermostatProxyList().size()
-                      + _controller->getSprinklerSystemList().size();
+                      + _controller->getSprinklerSystemProxyList().size();
             if (count > 0){
                 //Show data
                 _display << "\nDevice list:";
@@ -83,23 +83,22 @@ void ControllerMenu::run(RealController* controller){
                     QString optionInput;
                     optionInput = _input.readLine();
                     if(optionInput.toInt() >= 1 && optionInput.toInt() <= count){
-                        QString type{};
-                        int index{};
+                        QString name;
+                        int index = optionInput.toInt() - 1;
                         if(optionInput.toInt() <= _controller->getLightSwitchProxyList().size()){
-                            type = "lightSwitch";
-                            index = optionInput.toInt();
+                            name = _controller->getLightSwitchProxyList().at(index)->getID();
                         }
                         else if (optionInput.toInt() <= _controller->getLightSwitchProxyList().size()
                                                       + _controller->getThermostatProxyList().size()){
-                            type = "thermostat";
-                            index = optionInput.toInt() - _controller->getLightSwitchProxyList().size();
+                            name = _controller->getThermostatProxyList().at(index
+                                                                            -_controller->getLightSwitchProxyList().size())->getID();
                         }
                         else {
-                            type = "sprinklerSystem";
-                            index = optionInput.toInt() - _controller->getLightSwitchProxyList().size()
-                                                        - _controller->getThermostatProxyList().size();
+                            name = _controller->getSprinklerSystemProxyList().at(index
+                                                                                 -_controller->getLightSwitchProxyList().size()
+                                                                                 -_controller->getThermostatProxyList().size())->getID();
                         }
-                        _controller->unregisterDevice(index,type);
+                        _controller->unregisterDevice(name);
                         _display << "That device has been deleted successfully.\n" <<endl;
                         break;
                     }
@@ -107,17 +106,50 @@ void ControllerMenu::run(RealController* controller){
                         _display << "Wrong number, choose again" <<endl;
                     }
                 }
-
             }
             else {
                 _display << "\nThere is no device to remove\n" <<endl;
             }
-
-
-
         }
         else if (stringInput == "3") {
-            _display << "3 event" <<endl;
+            while (true) {
+                _display << "\nWhich device you want to see?" << endl
+                         << "1. All devices " << endl
+                         << "2. Light Switch " << endl
+                         << "3. Thermostat" << endl
+                         << "4. Sprinker system" << endl
+                         << "5. Searching" << endl
+                         << "type (b) to back " << endl;
+
+                QString optionInput;
+                optionInput = _input.readLine();
+                if(optionInput == "1"){
+                    //All device
+                    _display << _controller->currentState("Empty", "All");
+
+                }
+                else if (optionInput == "2") {
+                    _display << _controller->currentState("Empty", "lightSwitch");
+
+                }
+                else if (optionInput == "3") {
+
+                }
+                else if (optionInput == "4") {
+
+                }
+                else if (optionInput == "5") {
+
+                }
+                else if (optionInput == "b") {
+                    break;
+                }
+                else {
+                    _display << "Wrong option, please choose again" << endl;
+                }
+            }
+
+
         }
         else if (stringInput == "4") {
             _display << "4 event" <<endl;

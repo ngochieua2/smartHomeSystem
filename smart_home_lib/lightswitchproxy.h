@@ -13,6 +13,8 @@ public:
     LightSwitchProxy(QString id, QUrl URL);
     virtual ~LightSwitchProxy();
 
+    QString getID();
+
     void turnOn() override;
 
     void turnOff() override;
@@ -24,6 +26,8 @@ public:
     void passRealLightSwitch(RealLightSwitch* realLightSwitch);
 
     void getDeviceInfo() override;
+
+    void getMeasurement() override;
 
 private:
     RealLightSwitch* _realLightSwitch{nullptr};

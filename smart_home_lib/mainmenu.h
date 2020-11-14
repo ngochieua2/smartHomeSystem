@@ -35,7 +35,9 @@ public:
    */
   void displayWelcome(const QString &title, const QString &group, const QStringList &members) const;
 
+  void configMenu(QString type);
 
+  bool isExist(QString id);
 
 public slots:
   /**
@@ -44,8 +46,7 @@ public slots:
    * This is a slot so that it can be called on thread start. Refer to the main function to see how this works.
    */
   void run();
-  //Specific menu
-  void configMenu(QString type);
+
 
 private:
   QTextStream &_display;

@@ -12,6 +12,8 @@ public:
     SprinklerSystemProxy(QString id, QUrl url);
     virtual ~SprinklerSystemProxy();
 
+    QString getID();
+
     void turnOn() override;
 
     void turnOff() override;
