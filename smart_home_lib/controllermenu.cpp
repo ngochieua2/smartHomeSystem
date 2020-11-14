@@ -136,7 +136,7 @@ void ControllerMenu::run(RealController* controller){
                     _display << _controller->currentState("", "thermostat");
                 }
                 else if (optionInput == "4") {
-
+                    _display << _controller->currentState("", "sprinklerSystem");
                 }
                 else if (optionInput == "5") {
 

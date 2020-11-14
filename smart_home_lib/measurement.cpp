@@ -92,6 +92,9 @@ QString Measurement::displayMeasurement()
     else if (_type == measurementType::scheduledDuration) {
         string = "Schedule duration: " + _value.toString() + unitOfMeasure() + "\n";
     }
+    else if (_type == measurementType::sprinklerState) {
+        string = "Sprinkler state: " + _value.toString() + unitOfMeasure() + "\n";
+    }
     else {
         //do nothing
     }

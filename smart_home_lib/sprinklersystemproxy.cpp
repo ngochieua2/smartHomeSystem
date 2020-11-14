@@ -27,7 +27,7 @@ void SprinklerSystemProxy::turnOff()
     _realSprinklerSystem->turnOff();
 }
 
-void SprinklerSystemProxy::schedule(QDateTime delay, int duration)
+void SprinklerSystemProxy::schedule(int delay, int duration)
 {
     _realSprinklerSystem->schedule(delay, duration);
 }
@@ -40,4 +40,9 @@ void SprinklerSystemProxy::passRealSprinklerSystem(RealSprinklerSystem *realSpri
 void SprinklerSystemProxy::getDeviceInfo()
 {
     _realSprinklerSystem->getDeviceInfo();
+}
+
+void SprinklerSystemProxy::getMeasurement()
+{
+    _realSprinklerSystem->getMeasurement();
 }

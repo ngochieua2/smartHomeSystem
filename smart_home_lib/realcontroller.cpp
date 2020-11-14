@@ -130,7 +130,7 @@ void RealController::report(QList<Measurement *> measurementList)
 QString RealController::currentState(QString name, QString Type)
 {
     QString data{};
-    if (name != ""){
+    if (name == ""){
         if(Type == "lightSwitch" || Type == "All"){
             //Get measurement
 
@@ -161,6 +161,25 @@ QString RealController::currentState(QString name, QString Type)
                 for(int i = 0; i < _thermostatProxyList.size(); i++){
                     // get info
                     _thermostatProxyList.at(i)->getMeasurement();
+                    //Save info for 1 device
+                    data += QString::number(i+1) + ". " + _measurementList.at(0)->deviceName();
+                    for (int j = 0; j < _measurementList.size(); j++){
+                        data += "- " + _measurementList.at(j)->displayMeasurement();
+                    }
+                    data += _measurementList.at(0)->getTakenTime();
+                }
+            }
+        }
+        if(Type == "sprinklerSystem" || Type == "All"){
+            //Get measurement
+            if(_sprinklerSystemProxyList.isEmpty()){
+                data += "\nThere is no sprinkler system device\n";
+            }
+            else {
+                data += "\nTherostat Devices: \n";
+                for(int i = 0; i < _sprinklerSystemProxyList.size(); i++){
+                    // get info
+                    _sprinklerSystemProxyList.at(i)->getMeasurement();
                     //Save info for 1 device
                     data += QString::number(i+1) + ". " + _measurementList.at(0)->deviceName();
                     for (int j = 0; j < _measurementList.size(); j++){
