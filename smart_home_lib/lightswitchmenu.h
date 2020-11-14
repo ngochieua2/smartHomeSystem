@@ -13,7 +13,7 @@ public:
     explicit LightSwitchMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
     virtual ~LightSwitchMenu() = default;
 
-    void run();
+    void run(LightSwitchProxy* lightSwitchProxy);
 
 signals:
 
@@ -23,6 +23,9 @@ public slots:
 private:
   QTextStream &_display;
   QTextStream &_input;
+
+  LightSwitchProxy* _lightSwitchProxy{nullptr};
+
 };
 
 #endif // LIGHTSWITCHMENU_H

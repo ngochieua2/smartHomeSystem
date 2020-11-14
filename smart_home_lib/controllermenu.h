@@ -34,6 +34,11 @@ private:
   ThermostatMenu* _thermostatMenu{nullptr};
   SprinklerSystemMenu* _sprinklerSystemMenu{nullptr};
 
+  LightSwitchProxy* _lightSwitchProxy{nullptr};
+  ThermostatProxy* _thermostatProxy{nullptr};
+  SprinklerSystemProxy* _sprinkerSystemProxy{nullptr};
+
+
 };
 
 #endif // CONTROLLERMENU_H
