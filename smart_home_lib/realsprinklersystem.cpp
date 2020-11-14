@@ -14,33 +14,39 @@ RealSprinklerSystem::RealSprinklerSystem(QString id, QUrl url)
 
     //default value
     _state = "ON";
-    _waterConsumption = 0;
+    _waterConsumptionpPerInt = 0.3;
     _duration = 0;
+    _updateFrequency = 5000;
     _time.setTime(QTime());
     updateMeasurement();
-
-
 }
 
 RealSprinklerSystem::~RealSprinklerSystem()
 {
     delete _deviceInfo;
     delete _controllerProxy;
+    delete  _timer;
+    delete  _measurement;
+    for(int i = 0; i < _measurementList.size(); i++){
+        delete _measurementList.at(i);
+    }
 }
-
 
 void RealSprinklerSystem::turnOn()
 {
-
+    schedule(0,0);
     _state = "ON";
-
+    _start = QDateTime::currentDateTime();
 }
-
 void RealSprinklerSystem::turnOff()
 {
-    _state = "OFF";
+    schedule(0,0);
+    if (_state == "ON"){
+        _state = "OFF";
+        _end = QDateTime::currentDateTime();
+        _record = _start.msecsTo(_end);
+    }   
 }
-
 void RealSprinklerSystem::getMeasurement()
 {
     updateMeasurement();
@@ -58,25 +64,31 @@ void RealSprinklerSystem::updateMeasurement()
     _measurementList.append(_measurement);
 }
 
-QList<Measurement *> RealSprinklerSystem::currentState()
-{
+QList<Measurement *> RealSprinklerSystem::currentState(){
     return _measurementList;
 }
+QList<Measurement*> RealSprinklerSystem::waterUsage(){
+    
+}
 
-QList<Measurement *> RealSprinklerSystem::waterUsage()
-{
-
+void RealSprinklerSystem::recordCurrentCheckingTime(){
+    _end = QDateTime::currentDateTime();
+    _record = _start.msecsTo(_end);
+    _start = QDateTime::currentDateTime();
+}
+double RealSprinklerSystem::trackWaterUsage()
+{   
 }
 
 void RealSprinklerSystem::schedule(int delay, int duration)
 {
     QDateTime currentTime;
-    if(_state == true){
+    if(_state == "ON"){
         turnOff();
+        _state = "SCHEDULED";
     }
     QTimer::singleShot(delay,_timer,SLOT(turnOn()));
     QTimer::singleShot(duration,_timer,SLOT(turnOff()));
-
 }
 
 void RealSprinklerSystem::createControllerProxy()

@@ -16,8 +16,6 @@ public:
 
     void turnOff() override;
 
-
-
     void schedule(int delay, int duration) override;
 
     void createControllerProxy();
@@ -26,12 +24,15 @@ public:
 
     void getDeviceInfo() override;
 
-
     void getMeasurement() override;
 
     QList <Measurement*> currentState();
 
-    QList <Measurement*> waterUsage();
+    double trackWaterUsage();
+    
+    QList<Measurement*> waterUsage();
+    
+    void recordCurrentCheckingTime();
 
     QString getState();
 
@@ -42,9 +43,17 @@ public:
 private:
     QString _state{};
     QDateTime _time{};
+    
+    QDateTime _start{};
+    QDateTime _end{};
+    int _record{};
+    
     int _duration{};
-    double _waterConsumption{};
-
+    int _updateFrequency{};
+    
+    double _waterConsumptionpPerInt{};
+    double _totalWaterConsumption{};   
+    
     QTimer* _timer{};
     ControllerProxy* _controllerProxy{};
 
