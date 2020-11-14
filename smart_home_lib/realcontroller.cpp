@@ -68,6 +68,9 @@ QList<DeviceInfo *> RealController::getDeviceInfoList()
 {
     return _deviceInfoList;
 }
+void RealController::report(QList<Measurement *> measurementList){
+    _measurementList = measurementList;
+}
 
 
 

@@ -5,14 +5,20 @@ Measurement::Measurement()
 
 }
 
+Measurement::Measurement(QString deviceName, Measurement::measurementType type, QVariant value)
+{
+    _deviceName = deviceName;
+    _type = type;
+    _value = value;
+    _timestamp = QDateTime::currentDateTime();
+}
 Measurement::~Measurement()
 {
-
+    delete _rawMeasurement;
 }
-
 QString Measurement::deviceName()
 {
-    return _deviceName;
+    return "Device name: " + _deviceName + "\n";
 }
 
 QDateTime Measurement::timestamp()
@@ -52,4 +58,21 @@ bool Measurement::isFiltered()
 Measurement *Measurement::rawMeasurement()
 {
     return _rawMeasurement;
+}
+QString Measurement::displayMeasurement()
+{
+    QString string;
+    if(_type == measurementType::lightSwitchOnOff){
+        string += "Device status: " + _value.toString() + unitOfMeasure() + "\n";
+    }
+    else if (_type == measurementType::brightnessLevel) {
+        string += "Brightness Level: " + _value.toString() + unitOfMeasure() + "\n";
+    }
+
+    return string;
+}
+
+QString Measurement::getTakenTime()
+{
+    return "Taken time: " + _timestamp.toString("H:m:s MMM dd yyyy") + "\n\n";
 }

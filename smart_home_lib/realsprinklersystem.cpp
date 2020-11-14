@@ -10,6 +10,14 @@ RealSprinklerSystem::RealSprinklerSystem(QString id, QUrl url)
     _device_id = id;
     _devideType = "sprinkler System";
     _deviceUrl = url;
+    
+    //default value
+    
+    _state = "ON";
+    _waterConsumption = 0;
+    _duration = 0;
+    _time.setTime(QTime());
+    updateMeasurement();
 }
 
 RealSprinklerSystem::~RealSprinklerSystem()
@@ -20,18 +28,45 @@ RealSprinklerSystem::~RealSprinklerSystem()
 
 void RealSprinklerSystem::turnOn()
 {
-    OnOffState = true;    
+    _state = "ON";    
 }
 
 void RealSprinklerSystem::turnOff()
 {
-    OnOffState = false;    
+    _state = "OFF";    
+}
+
+void RealSprinklerSystem::getMeasurement()
+{
+    updateMeasurement();
+    _controllerProxy->report(currentState());
+}
+
+void RealSprinklerSystem::updateMeasurement()
+{
+    _measurementList.clear();
+    _measurement = new Measurement(_device_id, Measurement::measurementType::sprinklerState, _state);
+    _measurementList.append(_measurement);
+    _measurement = new Measurement(_device_id, Measurement::measurementType::scheduledTime, _time);
+    _measurementList.append(_measurement);
+    _measurement = new Measurement(_device_id, Measurement::measurementType::scheduledDuration, _duration);
+    _measurementList.append(_measurement);
+}
+
+QList<Measurement *> RealSprinklerSystem::currentState()
+{
+    return _measurementList;
+}
+
+QList<Measurement *> RealSprinklerSystem::waterUsage()
+{
+    
 }
 
 void RealSprinklerSystem::schedule(int delay, int duration)
 {
     QDateTime currentTime;
-    if(OnOffState == true){
+    if(_state == true){
         turnOff();
     }
     QTimer::singleShot(delay,_timer,SLOT(turnOn()));
@@ -48,9 +83,9 @@ ControllerProxy *RealSprinklerSystem::getControllerProxy()
     return _controllerProxy;    
 }
 
-bool RealSprinklerSystem::getState()
+QString RealSprinklerSystem::getState()
 {
-    return OnOffState;
+    return _state;
 }
 
 QTimer *RealSprinklerSystem::getTimer()

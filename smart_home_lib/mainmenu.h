@@ -11,7 +11,6 @@
 #include <realcontroller.h>
 #include <reallightswitch.h>
 
-
 class MainMenu : public QObject
 {
   Q_OBJECT

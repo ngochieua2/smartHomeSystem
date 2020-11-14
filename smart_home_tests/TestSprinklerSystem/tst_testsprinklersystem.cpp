@@ -42,14 +42,14 @@ void TestSprinklerSystem::testTurnOn()
 {
     RealSprinklerSystem sprinkler{};
     sprinkler.turnOn();
-    QCOMPARE(sprinkler.getState(), true);
+    QCOMPARE(sprinkler.getState(), "ON");
 }
 
 void TestSprinklerSystem::testTurnOff()
 {
     RealSprinklerSystem sprinkler{};
     sprinkler.turnOff();
-    QCOMPARE(sprinkler.getState(), false);
+    QCOMPARE(sprinkler.getState(), "OFF");
 }
 
 void TestSprinklerSystem::testSchedule()
@@ -57,8 +57,8 @@ void TestSprinklerSystem::testSchedule()
     RealSprinklerSystem sprinkler{};
     sprinkler.turnOn();
     sprinkler.schedule(50000,50000);
-    QCOMPARE(sprinkler.getState(), false);
-}
+    QCOMPARE(sprinkler.getState(), "OFF");
+    }
 
 QTEST_APPLESS_MAIN(TestSprinklerSystem)
 

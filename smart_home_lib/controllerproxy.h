@@ -10,11 +10,13 @@ class ControllerProxy : public SmartHomeController
 {
 public:
     ControllerProxy();
-    ~ControllerProxy();
+    virtual ~ControllerProxy();
 
     void passController(RealController* controller);
 
     void receiveDeviceInfo(DeviceInfo *deviceInfo) override;
+    
+    void report(QList<Measurement *> measurementList) override;    
 
 private:
     RealController* _realController{nullptr};

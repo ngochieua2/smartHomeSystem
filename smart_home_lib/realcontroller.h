@@ -26,13 +26,16 @@ public:
     void receiveDeviceInfo(DeviceInfo *deviceInfo) override;
 
     QList<DeviceInfo*> getDeviceInfoList();
-
-
+    
+    void report(QList<Measurement *> measurementList) override;
 private:
     //light proxy
     QList <LightSwitchProxy*> _lightSwitchProxyList{};
 
     QList<DeviceInfo*> _deviceInfoList{};
+    
+    QList<Measurement*> _measurementList{};
+    
 
 };
 

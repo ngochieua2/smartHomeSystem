@@ -4,6 +4,7 @@
 #include <QString>
 #include <QUrl>
 #include <deviceinfo.h>
+#include "measurement.h"
 
 class SmartHomeDevice
 {
