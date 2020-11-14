@@ -133,7 +133,7 @@ void ControllerMenu::run(RealController* controller){
 
                 }
                 else if (optionInput == "3") {
-
+                    _display << _controller->currentState("Empty", "thermostat");
                 }
                 else if (optionInput == "4") {
 

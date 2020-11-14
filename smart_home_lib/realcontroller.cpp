@@ -131,7 +131,7 @@ QString RealController::currentState(QString name, QString Type)
 {
     QString data{};
     if(Type == "lightSwitch" || Type == "All"){
-        //Get measrement
+        //Get measurement
 
         if(_lightSwitchProxyList.isEmpty()){
             data += "\nThere is no Light Switch device\n";
@@ -149,7 +149,25 @@ QString RealController::currentState(QString name, QString Type)
                 data += _measurementList.at(0)->getTakenTime();
             }
         }
-
+    }
+    if(Type == "thermostat" || Type == "All"){
+        //Get measurement
+        if(_thermostatProxyList.isEmpty()){
+            data += "\nThere is no thermostat device\n";
+        }
+        else {
+            data += "\nTherostat Devices: \n";
+            for(int i = 0; i < _thermostatProxyList.size(); i++){
+                // get info
+                _thermostatProxyList.at(i)->getMeasurement();
+                //Save info for 1 device
+                data += QString::number(i+1) + ". " + _measurementList.at(0)->deviceName();
+                for (int j = 0; j < _measurementList.size(); j++){
+                    data += "- " + _measurementList.at(j)->displayMeasurement();
+                }
+                data += _measurementList.at(0)->getTakenTime();
+            }
+        }
     }
     else {
         return "Error\n";

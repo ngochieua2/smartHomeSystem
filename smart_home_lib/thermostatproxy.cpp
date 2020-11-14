@@ -30,3 +30,8 @@ void ThermostatProxy::getDeviceInfo()
 {
     _realThermostat->getDeviceInfo();
 }
+
+void ThermostatProxy::getMeasurement()
+{
+    _realThermostat->getMeasurement();
+}

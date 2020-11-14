@@ -19,9 +19,22 @@ public:
 
     void getDeviceInfo() override;
 
+    void updateMeasurement();
+
+    QList <Measurement*> currentState();
+
+    void getMeasurement() override;
+
 private:
     ControllerProxy* _controllerProxy{};
     DeviceInfo* _deviceInfo{nullptr};
+
+    double _lastPoint{};
+    double _currentPoint{};
+    int _state{};
+
+    Measurement* _measurement{nullptr};
+    QList <Measurement*> _mesurementList{};
 };
 
 #endif // REALTHERMOSTAT_H
