@@ -5,7 +5,8 @@
 #include <QString>
 #include <QDateTime>
 #include <QVariant>
-
+#include <iostream>
+#include <cmath>
 /**
  * @brief The Measurement class
  *
@@ -22,8 +23,8 @@ public:
 
   virtual QString deviceName();
 
-  enum class measurementType{
-      lightSwitchOnOff,
+  enum class measurementType:int{
+      lightSwitchOnOff = 1,
       brightnessLevel,
       temperature,
       temperatureSetpoint,
@@ -55,6 +56,7 @@ protected:
   QVariant _value{};
   QDateTime _timestamp{};
   measurementType _type{};
+
 
 };
 
