@@ -10,7 +10,11 @@ RealSprinklerSystem::RealSprinklerSystem(QString id, QUrl url)
     _device_id = id;
     _devideType = "sprinkler System";
     _deviceUrl = url;
+}
 
+RealSprinklerSystem::~RealSprinklerSystem()
+{
+    
 }
 
 
@@ -24,19 +28,14 @@ void RealSprinklerSystem::turnOff()
     OnOffState = false;    
 }
 
-void RealSprinklerSystem::schedule(QDateTime delay, int duration)
+void RealSprinklerSystem::schedule(int delay, int duration)
 {
     QDateTime currentTime;
-    QTimer timer;
-    if(currentTime.currentDateTime() == delay){       
-        timer.setInterval(duration);
-        if(OnOffState == true){
-            OnOffState = false;
-        } else {
-            OnOffState = true;
-        }   
+    if(OnOffState == true){
+        turnOff();
     }
-    
+    QTimer::singleShot(delay,_timer,SLOT(turnOn()));
+    QTimer::singleShot(duration,_timer,SLOT(turnOff()));
 }
 
 void RealSprinklerSystem::createControllerProxy()
@@ -47,4 +46,14 @@ void RealSprinklerSystem::createControllerProxy()
 ControllerProxy *RealSprinklerSystem::getControllerProxy()
 {
     return _controllerProxy;    
+}
+
+bool RealSprinklerSystem::getState()
+{
+    return OnOffState;
+}
+
+QTimer *RealSprinklerSystem::getTimer()
+{
+    return _timer;
 }

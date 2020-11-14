@@ -19,7 +19,7 @@ int CsvFile::numberOfColumns() const
 {
   // TODO: implement this method. See header for description.
 
-    if (!CSVData.empty()){
+    if (CSVData.size()!=0){
         int columns{0};
         for (int i = 0; i < (int)CSVData[0].size(); ++i){
             if (CSVData[0][i] == ','){
@@ -28,20 +28,20 @@ int CsvFile::numberOfColumns() const
         }
         return  columns + 1;
     }
-    else {
+    
         return -1;
-    }
+    
 }
 
 int CsvFile::numberOfRows() const
 {
   // TODO: implement this method. See header for description.
-    if (!CSVData.empty()){
-        return  CSVData.size();
-    }
-    else {
+    if (CSVData.empty()){
         return -1;
     }
+    return  CSVData.size();
+        
+    
 
 }
 

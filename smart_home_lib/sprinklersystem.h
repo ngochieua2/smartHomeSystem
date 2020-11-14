@@ -11,7 +11,7 @@ public:
     virtual void turnOn() = 0;
 
     virtual void turnOff() = 0;
-    virtual void schedule (QDateTime delay, int duration) = 0;
+    virtual void schedule (int delay, int duration) = 0;
 };
 
 #endif // SPRINKLERSYSTEM_H

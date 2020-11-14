@@ -5,4 +5,5 @@ SUBDIRS += \
     TestLightSwitch \
     TestMessages \
     TestNetworkExample \
-    TestNetworkManager
+    TestNetworkManager \
+    TestSprinklerSystem
