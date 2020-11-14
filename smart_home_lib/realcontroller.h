@@ -43,6 +43,8 @@ public:
 
     QString currentState(QString name, QString Type);
 
+    QString getUpdateMeasurement();
+
 private:
     QList <LightSwitchProxy*> _lightSwitchProxyList{};
     QList <ThermostatProxy*> _thermostatProxyList{};

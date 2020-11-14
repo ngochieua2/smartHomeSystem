@@ -16,7 +16,12 @@ RealLightSwitch::RealLightSwitch(QString id, QUrl URL)
     OnOffState = true;
     brightnessLevel = 50;
 
-    updateMeasurement();
+    // Save default value
+    _measurement = new Measurement(_device_id, Measurement::measurementType::lightSwitchOnOff, OnOffState);
+    _measurementRecord.append(_measurement);
+    _measurement = new Measurement(_device_id, Measurement::measurementType::brightnessLevel, brightnessLevel);
+    _measurementRecord.append(_measurement);
+
 }
 
 RealLightSwitch::~RealLightSwitch()
@@ -27,22 +32,40 @@ RealLightSwitch::~RealLightSwitch()
     for(int i = 0; i < _mesurementList.size(); i++){
         delete _mesurementList.at(i);
     }
+    for(int i = 0; i < _measurementRecord.size(); i++){
+        delete _measurementRecord.at(i);
+    }
 }
 
 void RealLightSwitch::turnOn()
 {
     OnOffState = true;
+    _measurement = new Measurement(_device_id, Measurement::measurementType::lightSwitchOnOff, OnOffState);
+    _measurementRecord.append(_measurement);
+    if(!isSameValue()){
+        getMeasurement();
+    }
 }
 
 void RealLightSwitch::turnOff()
 {
     OnOffState = false;
+    _measurement = new Measurement(_device_id, Measurement::measurementType::lightSwitchOnOff, OnOffState);
+    _measurementRecord.append(_measurement);
+    if(!isSameValue()){
+        getMeasurement();
+    }
 }
 
 void RealLightSwitch::dim()
 {
     if (brightnessLevel > 20){
         brightnessLevel -= 20;
+    }
+    _measurement = new Measurement(_device_id, Measurement::measurementType::brightnessLevel, brightnessLevel);
+    _measurementRecord.append(_measurement);
+    if(!isSameValue()){
+        getMeasurement();
     }
 }
 
@@ -53,6 +76,11 @@ void RealLightSwitch::brighten()
     }
     if (brightnessLevel > 100){
         brightnessLevel = 100;
+    }
+    _measurement = new Measurement(_device_id, Measurement::measurementType::brightnessLevel, brightnessLevel);
+    _measurementRecord.append(_measurement);
+    if(!isSameValue()){
+        getMeasurement();
     }
 }
 
@@ -73,7 +101,7 @@ void RealLightSwitch::getDeviceInfo()
     _deviceInfo->updateTime();
 }
 
-void RealLightSwitch::updateMeasurement()
+QList<Measurement *> RealLightSwitch::currentState()
 {
     _mesurementList.clear();
     //create measurement 1
@@ -82,15 +110,27 @@ void RealLightSwitch::updateMeasurement()
     //Create measurement 2
     _measurement = new Measurement(_device_id, Measurement::measurementType::brightnessLevel, brightnessLevel);
     _mesurementList.append(_measurement);
-}
 
-QList<Measurement *> RealLightSwitch::currentState()
-{
     return _mesurementList;
 }
 
 void RealLightSwitch::getMeasurement()
 {
-    updateMeasurement();
     _controllerProxy->report(currentState());
 }
+
+bool RealLightSwitch::isSameValue()
+{
+    for (int i = _measurementRecord.size() - 2; i >= 0; i--){
+        if(_measurementRecord.last()->getType() == _measurementRecord.at(i)->getType()){
+            if(_measurementRecord.last()->value() == _measurementRecord.at(i)->value()){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+    return false;
+}
+

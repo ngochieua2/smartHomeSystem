@@ -183,24 +183,22 @@ void ControllerMenu::run(RealController* controller){
                         while (true) {
                             _lightSwitchMenu->run(_lightSwitchProxy);
                             _display << "Current state" << endl;
-                            _display << _controller->currentState(_lightSwitchProxy->getID(),"");
-                            _display << "Do you want to continue controll this device?" << endl
+                            _display << _controller->getUpdateMeasurement();
+                            _display << "Do you want to continue controll this device? (y or n)" << endl
                                      <<  "1. Yes            2. No"<< endl;
 
                             QString option;
                             option = _input.readLine();
-                            if (option  == "2"){
+                            if (option  == "n"){
                                 break;
                             }
-                            else if (option  == "1") {
+                            else if (option  == "y") {
                                 // do nothing
                             }
                             else {
                                 _display << "Wrong option, please choose again" << endl;
                             }
-
                         }
-
                     }
                     else if (optionInput == "b") {
                         break;

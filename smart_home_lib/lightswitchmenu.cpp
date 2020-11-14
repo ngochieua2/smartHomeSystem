@@ -18,6 +18,7 @@ void LightSwitchMenu::run(LightSwitchProxy* lightSwitchProxy){
              << "2. Turn Off" << endl
              << "3. Reduce the brightness level (dim)" << endl
              << "4. Increase the brightness level" << endl
+             << "5. Check current device" << endl
              << "Type (b) to back" << endl;
 
         QString stringInput;
@@ -41,7 +42,12 @@ void LightSwitchMenu::run(LightSwitchProxy* lightSwitchProxy){
             break;
 
         }
-        else if (stringInput == "q") {
+        else if (stringInput == "5") {
+            _lightSwitchProxy->getMeasurement();
+            break;
+
+        }
+        else if (stringInput == "b") {
             break;
         }
         else {

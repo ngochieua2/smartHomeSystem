@@ -134,7 +134,7 @@ QString RealController::currentState(QString name, QString Type)
         if(Type == "lightSwitch" || Type == "All"){
             //Get measurement
 
-            if(_lightSwitchProxyList.isEmpty()){
+            if(_lightSwitchProxyList.isEmpty() && Type != "All"){
                 data += "\nThere is no Light Switch device\n";
             }
             else {
@@ -153,7 +153,7 @@ QString RealController::currentState(QString name, QString Type)
         }
         if(Type == "thermostat" || Type == "All"){
             //Get measurement
-            if(_thermostatProxyList.isEmpty()){
+            if(_thermostatProxyList.isEmpty() && Type != "All"){
                 data += "\nThere is no thermostat device\n";
             }
             else {
@@ -172,7 +172,8 @@ QString RealController::currentState(QString name, QString Type)
         }
         if(Type == "sprinklerSystem" || Type == "All"){
             //Get measurement
-            if(_sprinklerSystemProxyList.isEmpty()){
+
+            if(_sprinklerSystemProxyList.isEmpty() && Type != "All"){
                 data += "\nThere is no sprinkler system device\n\n";
             }
             else {
@@ -189,9 +190,10 @@ QString RealController::currentState(QString name, QString Type)
                 }
             }
         }
-        else {
-            return "Error\n";
+        if (Type == "All" && data == ""){
+            data = "\nThere is no device\n";
         }
+
     }
     else {
         bool run = false;
@@ -241,7 +243,24 @@ QString RealController::currentState(QString name, QString Type)
             data = "\nThere are no device\n";
         }
     }
+    _measurementList.clear();
+    return data;
+}
 
+QString RealController::getUpdateMeasurement()
+{
+    QString data{};
+    if(_measurementList.isEmpty()){
+        data = "Nothing change in device\n";
+    }
+    else {
+        data += _measurementList.at(0)->deviceName();
+        for (int j = 0; j < _measurementList.size(); j++){
+            data += "- " + _measurementList.at(j)->displayMeasurement();
+        }
+        data += _measurementList.at(0)->getTakenTime();
+    }
+    _measurementList.clear();
     return data;
 }
 

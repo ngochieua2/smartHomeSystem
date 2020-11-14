@@ -49,6 +49,8 @@ public:
 
   QString getTakenTime();
 
+  measurementType getType();
+
 protected:
   Measurement *_rawMeasurement{nullptr};
   QString _deviceName{};
