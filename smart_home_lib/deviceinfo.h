@@ -9,19 +9,33 @@
 class DeviceInfo
 {
 public:
-  DeviceInfo();
-  DeviceInfo(QString dName, QString dType, QUrl dUrl);
-  ~DeviceInfo();
+    DeviceInfo();
+    DeviceInfo(QString dName, QString dType, QUrl dUrl);
+    ~DeviceInfo();
+    void updateTime();
+    QString showDeviceInfo();
 
-  void updateTime();
+    QString getDeviceName()
+    {
+        return _deviceName;
+    }
+    QString getDeviceType()
+    {
+        return _deviceType;
+    }
 
-  QString showDeviceInfo();
+    QString currentState()
+    {
+        return m_currentState;
+    }
 
 private:
   QString _deviceName{};
   QString _deviceType{};
   QUrl _Url{};
   QDateTime _time{};
+
+  QString m_currentState;
 
 };
 
