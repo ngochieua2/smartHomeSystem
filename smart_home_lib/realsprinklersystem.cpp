@@ -18,6 +18,8 @@ RealSprinklerSystem::RealSprinklerSystem(QString id, QUrl url)
     _duration = 0;
     _updateFrequency = 5000;
     _time.setTime(QTime());
+    _currentWaterConsumption = 0;
+    _totalWaterConsumption = 0;
     updateMeasurement();
 }
 
@@ -29,6 +31,9 @@ RealSprinklerSystem::~RealSprinklerSystem()
     delete  _measurement;
     for(int i = 0; i < _measurementList.size(); i++){
         delete _measurementList.at(i);
+    }
+    for(int i = 0; i < _trackWaterList.size(); i++){
+        delete _trackWaterList.at(i);
     }
 }
 
@@ -45,6 +50,7 @@ void RealSprinklerSystem::turnOff()
         _state = "OFF";
         _end = QDateTime::currentDateTime();
         _record = _start.msecsTo(_end);
+        _currentWaterConsumption = (_record/1000)* _waterConsumptionpPerInt;        
         _records.append(_record);
     }   
 }
@@ -69,18 +75,29 @@ QList<Measurement *> RealSprinklerSystem::currentState(){
     return _measurementList;
 }
 QList<Measurement*> RealSprinklerSystem::waterUsage(){
-    
+    _measurement = new Measurement(_device_id, Measurement::measurementType::waterUsage, _currentWaterConsumption);
+    _trackWaterList.append(_measurement);
+    _measurement = new Measurement(_device_id, Measurement::measurementType::totalWaterUsage, _totalWaterConsumption);
+    _trackWaterList.append(_measurement);
+    return _trackWaterList;
 }
 
 void RealSprinklerSystem::recordCurrentCheckingTime(){
     _end = QDateTime::currentDateTime();
     _record = _start.msecsTo(_end);
+    _currentWaterConsumption = (_record/1000)* _waterConsumptionpPerInt;    
     _records.append(_record);
     _start = QDateTime::currentDateTime();
 }
 double RealSprinklerSystem::calWaterUsage()
 {   
-    _totalWaterConsumption = (_record/1000)*_waterConsumptionpPerInt;
+    double sum = 0;
+    if(_records.count() > 0){
+        for (double record : _records){
+           sum = sum + record;
+        }
+        _totalWaterConsumption = (sum/1000)*_waterConsumptionpPerInt;
+    }
     return _totalWaterConsumption;
 }
 
@@ -111,7 +128,6 @@ void RealSprinklerSystem::getDeviceInfo()
     _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
     _deviceInfo->updateTime();
 }
-
 
 QString RealSprinklerSystem::getState()
 {

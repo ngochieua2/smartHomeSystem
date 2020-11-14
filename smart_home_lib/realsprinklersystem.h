@@ -53,6 +53,7 @@ private:
     int _updateFrequency{};
     
     double _waterConsumptionpPerInt{};
+    double _currentWaterConsumption{};
     double _totalWaterConsumption{};   
     
     QTimer* _timer{};
@@ -62,6 +63,7 @@ private:
 
     Measurement* _measurement{nullptr};
     QList <Measurement*> _measurementList{};
+    QList <Measurement*> _trackWaterList{};
 
 };
 
