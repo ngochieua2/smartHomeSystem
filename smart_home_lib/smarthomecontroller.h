@@ -7,7 +7,10 @@
 #include <QDebug>
 #include "deviceinfo.h"
 #include <measurement.h>
-
+/*!
+ * @brief SmartHomeController is abtract class, so some fuctions on this class
+ * will not be implement
+ */
 class SmartHomeController
 {
 public:

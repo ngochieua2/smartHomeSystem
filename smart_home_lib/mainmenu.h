@@ -35,12 +35,13 @@ public:
    */
   void displayWelcome(const QString &title, const QString &group, const QStringList &members) const;
   /*!
-   * @brief configMenu call menu to config devicess
+   * @brief configMenu call menu to config devices and controller
    * @param type
    */
   void configMenu(QString type);
   /*!
-   * @brief isExist return true if user choose to exit
+   * @brief isExist return true if new name or id is same with other name
+   * it is usd to make sure id or name must be unique
    * @param id
    * @return boolean
    */

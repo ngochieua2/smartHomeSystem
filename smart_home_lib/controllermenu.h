@@ -18,16 +18,10 @@ public:
     virtual ~ControllerMenu() = default;
 
     /*!
-     * @brief run implement the controller menu
-     * @param controller
+     * @brief implement the interface of controller menu
+     * @param real controller has been set up with device proxy
      */
     void run(RealController* controller);
-
-signals:
-   
-    void showRegisterLightSwitch(LightSwitchProxy*);
-    
-    void showRegisterThermostat(ThermostatProxy*);
 
 
 private:
@@ -43,7 +37,6 @@ private:
   LightSwitchProxy* _lightSwitchProxy{nullptr};
   ThermostatProxy* _thermostatProxy{nullptr};
   SprinklerSystemProxy* _sprinkerSystemProxy{nullptr};
-
 
 };
 

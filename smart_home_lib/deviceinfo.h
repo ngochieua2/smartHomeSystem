@@ -14,7 +14,8 @@ public:
     ~DeviceInfo();
 
     /*!
-     * @brief updateTime set update time to current time
+     * @brief updateTime is usd to record time to current time
+     * When deviceInfor is taken
      */
     void updateTime();
     /*!

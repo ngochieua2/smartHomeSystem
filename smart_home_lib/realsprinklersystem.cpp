@@ -231,8 +231,4 @@ void RealSprinklerSystem::getDeviceInfo()
     _deviceInfo->updateTime();
 }
 
-QTimer *RealSprinklerSystem::getTimer()
-{
-    return _timer;
-}
 

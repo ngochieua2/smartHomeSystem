@@ -14,35 +14,48 @@ public:
     /*!
      * @brief turnOn will change the sprinkler system state to 'ON' until it 
      * is turned off or a timer is scheduled; this will cancel any scheduled time 
+     * if state change, it will report back to controller
      */
     void turnOn() override;
     /*!
      * @brief turnOff will change the state of the sprinkler system state to 'OFF' 
      * until it is turned on or a timer is scheduled; this will cancel any scheduled time
+     * if state change, it will report back to controller
      */
     void turnOff() override;
     /*!
      * @brief schedule schedule the sprinkler to turn on after the 'delay' for the specified 
      * 'duration'; scheduling the start will turn the sprinkler system off if it is on, and 
      * set the state to 'SCHEDULED'
+     * if state change, it will report back to controller
      * @param delay
      * @param duration
      */
     void schedule(int delay, int duration) override;
     /*!
-     * @brief createControllerProxy create controller proxy of the sprinkler system
+     * @brief createControllerProxy create controller proxy in the sprinkler system
      */
     void createControllerProxy();
     /*!
-     * @brief getControllerProxy return controller proxy of the sprinkler system
+     * @brief getControllerProxy return controller proxy in the sprinkler system
      * @return ControllerProxy
      */
     ControllerProxy* getControllerProxy();
-
+    /*!
+     * @brief getDeviceInfo is usd to send its info to controller
+     */
     void getDeviceInfo() override;
-
+    /*!
+     * @brief getMeasurement send device measurement to controller
+     * it can be empty if nothing change
+     *
+     */
     void getMeasurement() override;
-    
+    /*!
+     * @brief getWaterUsage send water usage measurement to controller
+     * it can be empty if nothing change
+     *
+     */
     void getWaterUsage() override;
     /*!
      * @brief UpdateWaterUsage
@@ -70,15 +83,30 @@ public:
      * @return QString
      */
     QString getState();
-
-    QTimer* getTimer();
-    
+    /*!
+     * @brief isSameValue check if the value of measurement has been changed
+     * do command from controller
+     * @return bool
+     */
     bool isValueChanged();
-    
+
+    /*!
+     * @brief latestWaterConsumption create water consumption measurement
+     * to send it back to controller
+     * @return Qlist
+     */
     QList<Measurement*> latestWaterConsumption();
-    
+    /*!
+     * @brief totalWaterConsumption create water consumption measurement
+     * to send it back to controller
+     * @return Qlist
+     */
     QList<Measurement*> totalWaterConsumption();
     
+    /*!
+     * @brief updateTime is used to run shedule feature and update water usge
+     * with Qtimer
+     */
     void updateTime() override;
     
 private:

@@ -59,7 +59,7 @@ public:
      */
     void getMeasurement() override;
     /*!
-     * @brief Update calls real device to update its new measurement
+     * @brief Update calls real device to update state and temperature
      */
     void Update() override;
 

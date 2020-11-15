@@ -26,7 +26,9 @@ public:
    * @return name
    */
   virtual QString deviceName();
-
+  /*!
+   * @brief measurementType is emun class include the collection of all measurement
+   */
   enum class measurementType:int{
       lightSwitchOnOff = 1,
       brightnessLevel,
@@ -70,7 +72,7 @@ public:
    */
   Measurement *rawMeasurement();
   /*!
-   * @brief displayMeasurement display measurement info
+   * @brief displayMeasurement display measurement info to screen
    * @return QString
    */
   QString displayMeasurement();

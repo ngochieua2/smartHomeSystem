@@ -13,11 +13,10 @@ public:
     explicit LightSwitchMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
     virtual ~LightSwitchMenu() = default;
     /*!
-     * @brief run runs the menu of Light Switch
+     * @brief run is the interface of Light Switch
      * @param lightSwitchProxy
      */
     void run(LightSwitchProxy* lightSwitchProxy);
-
 
 private:
   QTextStream &_display;

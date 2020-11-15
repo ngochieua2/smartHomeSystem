@@ -13,7 +13,7 @@ public:
     explicit ThermostatMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
     virtual ~ThermostatMenu() = default;
     /*!
-     * @brief run runs the menu of thermostat
+     * @brief run runs the interface of thermostat
      * @param thermostatProxy
      */
     void run(ThermostatProxy* thermostatProxy);

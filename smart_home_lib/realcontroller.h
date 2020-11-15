@@ -17,13 +17,13 @@ public:
     RealController(QString id, QUrl Url);
     virtual ~RealController();
     /*!
-     * @brief getID return id of a device
+     * @brief getID return id of a controller
      * @return 
      */
     QString getID();
     /*!
      * @brief registerDevice  records information about the specified device given its 
-     * 'name', 'type', and 'URL', registered devices can be queried and be sent commands
+     * 'name', 'type', and 'URL', through create device proxy inside controller
      * @param name
      * @param type
      * @param URL
@@ -43,37 +43,37 @@ public:
      */
     void unregisterDevice(QString name);
     /*!
-     * @brief getLightSwitchProxy return a light switch proxy 
+     * @brief getLightSwitchProxy return a light switch proxy in list
      * @return LightSwitchProxy
      */
     LightSwitchProxy* getLightSwitchProxy();
     /*!
-     * @brief getLightSwitchProxyList return a list of light switch proxy
+     * @brief getLightSwitchProxyList return a list of light switch proxy in realcontroller
      * @return QList
      */
     QList<LightSwitchProxy*> getLightSwitchProxyList();
     /*!
-     * @brief getThermostatProxy return a thermostat proxy
+     * @brief getThermostatProxy return a thermostat proxy in list
      * @return ThermostatProxy
      */
     ThermostatProxy* getThermostatProxy();
     /*!
-     * @brief getThermostatProxyList return a list of thermostat proxy
+     * @brief getThermostatProxyList return a list of thermostat proxy in realcontroller
      * @return QList
      */
     QList<ThermostatProxy*> getThermostatProxyList();
     /*!
-     * @brief getSprinklerSystemProxy return a Sprinkler System proxy
+     * @brief getSprinklerSystemProxy return a Sprinkler System proxy in list
      * @return SprinklerSystemProxy
      */
     SprinklerSystemProxy* getSprinklerSystemProxy();
     /*!
-     * @brief getSprinklerSystemProxyList return a list of Sprinkler System proxy
+     * @brief getSprinklerSystemProxyList return a list of Sprinkler System proxy in realcontroller
      * @return QList
      */
     QList<SprinklerSystemProxy*> getSprinklerSystemProxyList();
     /*!
-     * @brief receiveDeviceInfo handle device info when recieved
+     * @brief receiveDeviceInfo handle device info when recieved from controller proxy
      * @param deviceInfo
      */
     void receiveDeviceInfo(DeviceInfo *deviceInfo) override;
@@ -93,7 +93,8 @@ public:
      */
     QString currentState(QString name, QString Type);
     /*!
-     * @brief getUpdateMeasurement returns updated measurement
+     * @brief getUpdateMeasurement returns reported measurement from device
+     * it can be empty if nothing changes in device
      * @return QString
      */
     QString getUpdateMeasurement();
