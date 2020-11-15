@@ -189,14 +189,17 @@ void MainMenu::run()
         else if (stringInput == "2") {
             configMenu("Light Switch");
             _display << "Success\n" << endl;
+            _display << "You will need to go to smart home controller to controll this device\n" << endl;
         }
         else if (stringInput == "3") {
             configMenu("Thermostat");
             _display << "Success\n" << endl;
+            _display << "You will need to go to smart home controller to controll this device\n" << endl;
         }
         else if (stringInput == "4") {
             configMenu("Sprinkler System");
             _display << "Success\n" << endl;
+            _display << "You will need to go to smart home controller to controll this device\n" << endl;
         }
         else if (stringInput == "q") {
             break;
