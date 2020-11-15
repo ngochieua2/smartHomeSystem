@@ -156,20 +156,13 @@ void RealSprinklerSystem::updateTime()
     QDateTime current = QDateTime::currentDateTime();
     if(_state == "ON"){
         UpdateWaterUsage();
-    } else if(current == _start){
-        turnOnByScheduling();
+    } else if(!_start.isNull() && current.msecsTo(_start) < 0 && current.msecsTo(_end) > 0){
         UpdateWaterUsage();        
-    } else if(current.msecsTo(_end) > 0){
-        UpdateWaterUsage();
+    } else if (current.msecsTo(_end) < 0) {
+        turnOff();
     }
 }
 
-void RealSprinklerSystem::turnOnByScheduling()
-{
-    _state = "SCHEDULED";
-    _currentWaterConsumption = 0;
-    _start.setTime(QTime());
-}
 
 QList<Measurement *> RealSprinklerSystem::currentState(){
     _measurementList.clear();
@@ -202,6 +195,7 @@ void RealSprinklerSystem::schedule(int delay, int duration)
     _duration = duration;
     _start = currentTime.addSecs(delay);
     _end = currentTime.addSecs(delay + duration);
+    _currentWaterConsumption = 0;
     
     _measurement = new Measurement(_device_id, Measurement::measurementType::sprinklerState, _state);
     _measurementRecord.append(_measurement);

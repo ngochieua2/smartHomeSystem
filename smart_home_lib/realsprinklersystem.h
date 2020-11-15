@@ -46,7 +46,6 @@ public:
     
     void updateTime() override;
     
-    void turnOnByScheduling();
     
 private:
     QString _state{};
