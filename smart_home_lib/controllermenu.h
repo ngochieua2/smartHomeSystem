@@ -17,10 +17,16 @@ public:
     explicit ControllerMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
     virtual ~ControllerMenu() = default;
 
+    /*!
+     * @brief run implement the controller menu
+     * @param controller
+     */
     void run(RealController* controller);
 
 signals:
+   
     void showRegisterLightSwitch(LightSwitchProxy*);
+    
     void showRegisterThermostat(ThermostatProxy*);
 
 

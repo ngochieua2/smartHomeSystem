@@ -7,6 +7,10 @@ class SwitchStatus:public filter
 {
 public:
     SwitchStatus();
+    /*!
+     * @brief switchConversion changes the state value of light switch
+     * @return state
+     */
     QString switchConversion();
 };
 

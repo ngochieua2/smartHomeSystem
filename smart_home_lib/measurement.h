@@ -7,7 +7,7 @@
 #include <QVariant>
 #include <iostream>
 #include <cmath>
-/**
+/*!
  * @brief The Measurement class
  *
  * TODO: This is just a placeholder so that the MessageFactory can
@@ -21,7 +21,10 @@ public:
   Measurement(QString deviceName, measurementType type,QVariant value);
   virtual ~Measurement();
   QVariant devicevalue;
-
+  /*!
+   * @brief deviceName return device name
+   * @return name
+   */
   virtual QString deviceName();
 
   enum class measurementType:int{
@@ -36,21 +39,50 @@ public:
       waterUsage,
       totalWaterUsage
   };
-
-  virtual QDateTime timestamp();
-
-  virtual QVariant value();
-
-  QString unitOfMeasure();
-
-  bool isFiltered();
-
-  Measurement *rawMeasurement();
-
-  QString displayMeasurement();
-
-  QString getTakenTime();
   
+  /*!
+   * @brief timestamp returns the date/time (refer to QDateTime) at which the measurement was 'taken'
+   * @return date/time
+   */
+  virtual QDateTime timestamp();
+  /*!
+   * @brief value returns a QVariant containing the (possibly filtered) value of the measurement: 
+   * the use of QVariant hides the underlying data type allowing a consistent interface to be 
+   * presented to clients
+   * @return QVariant
+   */
+  virtual QVariant value();
+  /*!
+   * @brief unitOfMeasure returns a string representing the Unit of Measure (UoM) of the value
+   * @return QString
+   */
+  QString unitOfMeasure();
+  /*!
+   * @brief isFiltered returns true/false to indicate whether this is a filtered measurement or 
+   * not, respectively
+   * @return boolean
+   */
+  bool isFiltered();
+  /*!
+   * @brief rawMeasurementreturns base measurement object without any filters; if the measurement 
+   * is a base measurement, should return itself
+   * @return Measurement
+   */
+  Measurement *rawMeasurement();
+  /*!
+   * @brief displayMeasurement display measurement info
+   * @return QString
+   */
+  QString displayMeasurement();
+  /*!
+   * @brief getTakenTime return taken time a string
+   * @return QString
+   */
+  QString getTakenTime();
+  /*!
+   * @brief getType return the type of a measurement
+   * @return a measurementType
+   */
   Measurement::measurementType getType();
 
 protected:

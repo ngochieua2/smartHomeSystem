@@ -27,20 +27,27 @@ public:
   explicit MainMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
   virtual ~MainMenu() = default;
 
-  /**
+  /*!
    * @brief displayWelcome display an intial welcome message including the
    * student's name and game title.
    * @param author the name of the student
    * @param title the name of the game
    */
   void displayWelcome(const QString &title, const QString &group, const QStringList &members) const;
-
+  /*!
+   * @brief configMenu call menu to config devicess
+   * @param type
+   */
   void configMenu(QString type);
-
+  /*!
+   * @brief isExist return true if user choose to exit
+   * @param id
+   * @return boolean
+   */
   bool isExist(QString id);
 
 public slots:
-  /**
+  /*!
    * @brief run Begin executing the main menu.
    *
    * This is a slot so that it can be called on thread start. Refer to the main function to see how this works.

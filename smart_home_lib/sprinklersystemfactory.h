@@ -7,7 +7,7 @@
 class SprinklerSystemFactory : public DeviceFactory
 {
 public:
-    /**
+    /*!
      * @brief CreateDevice will creat a new device with given name and url
      * in this class the created device will be a RealSprinklerSystem
      * @param name

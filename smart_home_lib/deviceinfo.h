@@ -13,12 +13,24 @@ public:
     DeviceInfo(QString dName, QString dType, QUrl dUrl);
     ~DeviceInfo();
 
+    /*!
+     * @brief updateTime set update time to current time
+     */
     void updateTime();
-
+    /*!
+     * @brief showDeviceInfo display device info
+     * @return device info
+     */
     QString showDeviceInfo();
-
+    /*!
+     * @brief getDeviceName return name of device
+     * @return device name
+     */
     QString getDeviceName();
-
+    /*!
+     * @brief getDeviceType return type of a device
+     * @return device type
+     */
     QString getDeviceType();
 
 private:
