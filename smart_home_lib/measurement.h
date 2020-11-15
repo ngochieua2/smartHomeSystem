@@ -50,6 +50,8 @@ public:
   QString displayMeasurement();
 
   QString getTakenTime();
+  
+  Measurement::measurementType getType();
 
 protected:
   Measurement *_rawMeasurement{nullptr};

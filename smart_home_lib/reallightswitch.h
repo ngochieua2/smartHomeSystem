@@ -27,11 +27,11 @@ public:
 
     void getDeviceInfo() override;
 
-    void updateMeasurement();
-
     QList <Measurement*> currentState();
 
     void getMeasurement() override;
+
+    bool isSameValue();
 
 
 
@@ -45,6 +45,8 @@ private:
 
     Measurement* _measurement{nullptr};
     QList <Measurement*> _mesurementList{};
+
+    QList <Measurement*> _measurementRecord{};
 
 };
 

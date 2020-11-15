@@ -13,17 +13,22 @@ public:
     explicit SprinklerSystemMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
     virtual ~SprinklerSystemMenu() = default;
 
-    void run();
+    void run(SprinklerSystemProxy* sprinklerProxy);
 
+    QTimer *timer;
+    
 signals:
 
 public slots:
     void showRegisterDevice(SprinklerSystemProxy* sprinklerSystemProxy);
+    void update();
+        
 
 private:
   QTextStream &_display;
   QTextStream &_input;
 
+  SprinklerSystemProxy* _sprinklerProxy;
 };
 
 #endif // SPRINKLERSYSTEMMENU_H

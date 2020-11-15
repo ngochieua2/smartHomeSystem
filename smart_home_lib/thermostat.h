@@ -9,16 +9,23 @@ public:
     Thermostat();
     ~Thermostat();
 
-    //LastMeasurement
-    //Last4Measurement
-    //SetPoint();
-    //currentState
-    //warmer
-    //cooler
+    virtual void getLastMeasurement() = 0;
+
+    virtual void getLast5Measurement() = 0;
+
+    virtual void getSetPoint() = 0;
+
+    virtual void SetPoint(double setPoint) = 0;
+
+    virtual void warmer(double amount) = 0;
+
+    virtual void cooler(double amount) = 0;
 
     virtual void getDeviceInfo() = 0;
 
     virtual void getMeasurement() = 0;
+
+    virtual void Update() = 0;
 
 
 };

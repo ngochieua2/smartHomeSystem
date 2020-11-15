@@ -18,6 +18,10 @@ public:
     virtual void getDeviceInfo() = 0;
 
     virtual void getMeasurement() = 0;
+
+    virtual void getWaterUsage() = 0;
+    
+    virtual void updateTime() = 0;
 };
 
 #endif // SPRINKLERSYSTEM_H

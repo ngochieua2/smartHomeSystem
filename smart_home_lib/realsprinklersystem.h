@@ -25,23 +25,42 @@ public:
     void getDeviceInfo() override;
 
     void getMeasurement() override;
+    
+    void getWaterUsage() override;
+    
+    void UpdateWaterUsage();
 
     QList <Measurement*> currentState();
-
-    QList <Measurement*> waterUsage();
-
+    
+    QList<Measurement*> waterUsage();
+    
     QString getState();
 
     QTimer* getTimer();
-
-    void updateMeasurement();
-
+    
+    bool isValueChanged();
+    
+    QList<Measurement*> latestWaterConsumption();
+    
+    QList<Measurement*> totalWaterConsumption();
+    
+    void updateTime() override;
+    
+    
 private:
     QString _state{};
-    QDateTime _time{};
+    
+    QDateTime _start{};
+    QDateTime _end{};
+    
     int _duration{};
-    double _waterConsumption{};
-
+    int _delay{};
+    int _updateFrequency{};
+    
+    double _waterConsumptionpPerInt{};
+    double _currentWaterConsumption{};
+    double _totalWaterConsumption{};   
+    
     QTimer* _timer{};
     ControllerProxy* _controllerProxy{};
 
@@ -49,6 +68,8 @@ private:
 
     Measurement* _measurement{nullptr};
     QList <Measurement*> _measurementList{};
+    QList <Measurement*> _measurementRecord{};
+
 };
 
 #endif // REALSPRINKLERSYSTEM_H

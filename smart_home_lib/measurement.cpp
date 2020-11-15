@@ -95,6 +95,7 @@ QString Measurement::displayMeasurement()
         string = "Brightness Level: " + _value.toString() + unitOfMeasure() + "\n";
     }
     else if (_type == measurementType::temperature) {
+
         string = "Temperature: " + _value.toString() + unitOfMeasure() + "\n";
     }
     else if (_type == measurementType::temperatureSetpoint) {
@@ -107,7 +108,7 @@ QString Measurement::displayMeasurement()
         string = "Water usage: " + _value.toString() + unitOfMeasure() + "\n";
     }
     else if (_type == measurementType::scheduledTime ) {
-        string = "Schedule time: " + _value.toString() + unitOfMeasure() + "\n";
+        string = "Schedule time: " + _value.toDateTime().toString("H:m:s MMM dd yyyy") + unitOfMeasure() + "\n";
     }
     else if (_type == measurementType::totalWaterUsage) {
         string = "Total water usage: " + _value.toString() + unitOfMeasure() + "\n";
@@ -115,6 +116,7 @@ QString Measurement::displayMeasurement()
     else if (_type == measurementType::scheduledDuration) {
         string = "Schedule duration: " + _value.toString() + unitOfMeasure() + "\n";
     }
+
     else if (_type == measurementType::sprinklerState) {
         string = "Sprinkler state: " + _value.toString() + unitOfMeasure() + "\n";
     }
@@ -128,4 +130,9 @@ QString Measurement::displayMeasurement()
 QString Measurement::getTakenTime()
 {
     return "Taken time: " + _timestamp.toString("H:m:s MMM dd yyyy") + "\n\n";
+}
+
+Measurement::measurementType Measurement::getType()
+{
+    return _type;
 }

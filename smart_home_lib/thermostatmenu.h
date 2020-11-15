@@ -13,16 +13,21 @@ public:
     explicit ThermostatMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
     virtual ~ThermostatMenu() = default;
 
-    void run();
+    void run(ThermostatProxy* thermostatProxy);
+
+    QTimer *timer;
 
 signals:
 
 public slots:
     void showRegisterDevice(ThermostatProxy* thermostatProxy);
+    void update();
 
 private:
   QTextStream &_display;
   QTextStream &_input;
+
+  ThermostatProxy* _thermostatProxy{nullptr};
 
 };
 

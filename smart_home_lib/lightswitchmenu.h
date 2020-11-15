@@ -25,6 +25,7 @@ private:
   QTextStream &_input;
 
   LightSwitchProxy* _lightSwitchProxy{nullptr};
+
 };
 
 #endif // LIGHTSWITCHMENU_H

@@ -28,6 +28,7 @@ void SprinklerSystemProxy::turnOff()
 }
 
 void SprinklerSystemProxy::schedule(int delay, int duration)
+
 {
     _realSprinklerSystem->schedule(delay, duration);
 }
@@ -46,3 +47,15 @@ void SprinklerSystemProxy::getMeasurement()
 {
     _realSprinklerSystem->getMeasurement();
 }
+
+void SprinklerSystemProxy::getWaterUsage()
+{
+    _realSprinklerSystem->getWaterUsage();
+}
+
+void SprinklerSystemProxy::updateTime()
+{
+    _realSprinklerSystem->updateTime();
+}
+
+

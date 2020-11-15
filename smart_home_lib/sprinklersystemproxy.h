@@ -25,6 +25,11 @@ public:
     void getDeviceInfo() override;
 
     void getMeasurement() override;
+    
+    void getWaterUsage() override;
+    
+    void updateTime() override;
+
 
 private:
     RealSprinklerSystem* _realSprinklerSystem{nullptr};
