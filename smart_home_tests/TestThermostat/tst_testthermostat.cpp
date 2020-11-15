@@ -45,6 +45,8 @@ void TestThermostat::test5LastMeasurement()
 
 void TestThermostat::testUnit()
 {
+    RealThermostat realThermos{};
+    QCOMPARE(realThermos.LastMeasurement().last()->unitOfMeasure(), "C");
     
 }
 

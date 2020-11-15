@@ -58,6 +58,8 @@ void TestLightSwitch::testDim()
 {
     RealLightSwitch realLight{};
     realLight.dim();
+    QCOMPARE(realLight.getBrightness(), 30);
+    realLight.dim();
     QCOMPARE(realLight.getBrightness(), 20);
 }
 
@@ -66,6 +68,9 @@ void TestLightSwitch::testBrighten()
     RealLightSwitch realLight{};
     realLight.brighten();
     QCOMPARE(realLight.getBrightness(), 70);
+    realLight.brighten();
+    realLight.brighten();    
+    QCOMPARE(realLight.getBrightness(), 100);   
 }
 
 QTEST_APPLESS_MAIN(TestLightSwitch)
