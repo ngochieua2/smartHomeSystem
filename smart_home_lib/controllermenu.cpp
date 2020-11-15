@@ -188,7 +188,6 @@ void ControllerMenu::run(RealController* controller){
                             _display << "Wrong option, please choose again" << endl;
                         }
                     }
-
                 }
                 else if (optionInput == "b") {
                     break;
@@ -204,11 +203,10 @@ void ControllerMenu::run(RealController* controller){
                       + _controller->getThermostatProxyList().size()
                       + _controller->getSprinklerSystemProxyList().size();
             if (count > 0){
-
-                while (true) {
-                    _display << _controller->currentState("", "");
-                    _display << "Which device you want to controll: (1 to " << count << ")"  << endl;
-                    _display << "Choose b to back"  << endl;
+                _display << _controller->currentState("", "");
+                _display << "Which device you want to controll: (1 to " << count << ")"  << endl;
+                _display << "Choose b to back"  << endl;
+                while (true) {                  
                     QString optionInput;
                     optionInput = _input.readLine();
                     if(optionInput.toInt() >= 1 && optionInput.toInt() <= count){
@@ -235,7 +233,8 @@ void ControllerMenu::run(RealController* controller){
                         }
 
                         //Access menu device
-                        while (true) {
+                        bool run = true;
+                        while (run) {
                             if(_lightSwitchProxy != nullptr){
                                 _lightSwitchMenu->run(_lightSwitchProxy);
                             }
@@ -249,17 +248,19 @@ void ControllerMenu::run(RealController* controller){
                             _display << _controller->getUpdateMeasurement();
                             _display << "Do you want to continue controll this device? (y or n)" << endl
                                      <<  "1. Yes            2. No"<< endl;
-
-                            QString option;
-                            option = _input.readLine();
-                            if (option  == "n"){
-                                break;
-                            }
-                            else if (option  == "y") {
-                                // do nothing
-                            }
-                            else {
-                                _display << "Wrong option, please choose again" << endl;
+                            while (true) {
+                                QString option;
+                                option = _input.readLine();
+                                if (option  == "n"){
+                                    run = false;
+                                    break;
+                                }
+                                else if (option  == "y") {
+                                    // do nothing
+                                }
+                                else {
+                                    _display << "Wrong option, please choose again" << endl;
+                                }
                             }
                         }
                     }

@@ -7,9 +7,8 @@
 #include <QtNetwork>
 #include <QDebug>
 #include "deviceinfo.h"
+#include <measurement.h>
 
-
-////智能家居控制器接收来自传感器/设备的测量值，并可以向设备发送查询和命令。
 
 class SmartHomeController
 {
@@ -17,11 +16,6 @@ public:
     SmartHomeController();
     SmartHomeController(QString id,QString url);
     ~SmartHomeController();
-
-    void MenuInterface()
-    {
-
-    }
 
     void registerDevice(QString name,QString type,QUrl URL);
 
@@ -31,14 +25,13 @@ public:
 
     QStringList currentState(QString name = "", QString type = "");
 
-    void addFilter(QString deviceName,int measurementType,int filterType,QString configuration)
-    {
+    void addFilter(QString deviceName,int measurementType,int filterType,QString configuration);
 
-    }
-    void clearFilter(QString deviceName,int measurementType)
-    {
+    void clearFilter(QString deviceName,int measurementType);
 
-    }
+    virtual void receiveDeviceInfo(DeviceInfo *deviceInfo) = 0;
+
+    virtual void report(QList<Measurement *> measurementList) = 0;
 
 private:
 
@@ -53,6 +46,11 @@ private:
     QString m_port{};
 
     QList<DeviceInfo*> m_deviceInfoList;
+
+protected:
+
+    QString _controller_id{};
+    QUrl _controller_Url{};
 
 };
 
