@@ -12,30 +12,20 @@ public:
     DeviceInfo();
     DeviceInfo(QString dName, QString dType, QUrl dUrl);
     ~DeviceInfo();
+
     void updateTime();
+
     QString showDeviceInfo();
 
-    QString getDeviceName()
-    {
-        return _deviceName;
-    }
-    QString getDeviceType()
-    {
-        return _deviceType;
-    }
+    QString getDeviceName();
 
-    QString currentState()
-    {
-        return m_currentState;
-    }
+    QString getDeviceType();
 
 private:
   QString _deviceName{};
   QString _deviceType{};
   QUrl _Url{};
   QDateTime _time{};
-
-  QString m_currentState;
 
 };
 

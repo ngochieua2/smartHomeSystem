@@ -31,45 +31,33 @@ void ControllerMenu::run(RealController* controller){
             _display << "\nDevice list:";
             // get info from devices
             for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
-                //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
-                _lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
+                _controller->getLightSwitchProxyList().at(i)->getDeviceInfo();
             }
 
             for(int i = 0; i < _controller->getThermostatProxyList().size(); ++i){
-                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
-                _thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
+                _controller->getThermostatProxyList().at(i)->getDeviceInfo();
             }
             for(int i = 0; i < _controller->getSprinklerSystemProxyList().size(); ++i){
-                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
-                _sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemProxyList().at(i));
+                _controller->getSprinklerSystemProxyList().at(i)->getDeviceInfo();
             }
 
             //Show data
             _display << endl;
             _display << _controller->registerDevice();
-
-
         }
         else if (stringInput == "2") // Unregister device
         {
             //Show all registered devices
             // get info from devices
             for(int i = 0; i < _controller->getLightSwitchProxyList().size(); ++i){
-                //emit showRegisterLightSwitch(_controller->getLightSwitchProxyList().at(i));
-                //_lightSwitchMenu->showRegisterDevice(_controller->getLightSwitchProxyList().at(i));
                 _controller->getLightSwitchProxyList().at(i)->getDeviceInfo();
             }
             for(int i = 0; i < _controller->getThermostatProxyList().size(); ++i){
-                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
-                //_thermostatMenu->showRegisterDevice(_controller->getThermostatProxyList().at(i));
                 _controller->getThermostatProxyList().at(i)->getDeviceInfo();
             }
             for(int i = 0; i < _controller->getSprinklerSystemProxyList().size(); ++i){
-                //emit showRegisterThermostat(_controller->getThermostatProxyList().at(i));
-                //_sprinklerSystemMenu->showRegisterDevice(_controller->getSprinklerSystemProxyList().at(i));
                 _controller->getSprinklerSystemProxyList().at(i)->getDeviceInfo();
             }
-
 
             //Count number of registered device
             int count = _controller->getLightSwitchProxyList().size()
@@ -101,11 +89,11 @@ void ControllerMenu::run(RealController* controller){
                                                                                  -_controller->getThermostatProxyList().size())->getID();
                         }
                         _controller->unregisterDevice(name);
-                        _display << "That device has been deleted successfully.\n" <<endl;
+                        _display << "\nThat device has been deleted successfully.\n" <<endl;
                         break;
                     }
                     else{
-                        _display << "Wrong number, choose again" <<endl;
+                        _display << "\nWrong number, choose again\n" <<endl;
                     }
                 }
             }
@@ -115,24 +103,21 @@ void ControllerMenu::run(RealController* controller){
         }
         else if (stringInput == "3") {
             while (true) {
-                _display << "\nWhich device you want to see?" << endl
+                _display << "Which device you want to see?" << endl
                          << "1. All devices " << endl
                          << "2. Light Switch " << endl
                          << "3. Thermostat" << endl
                          << "4. Sprinker system" << endl
                          << "5. Searching" << endl
                          << "type (b) to back " << endl;
-
                 QString optionInput;
                 optionInput = _input.readLine();
                 if(optionInput == "1"){
                     //All device
                     _display << _controller->currentState("", "");
-
                 }
                 else if (optionInput == "2") {
                     _display << _controller->currentState("", "lightSwitch");
-
                 }
                 else if (optionInput == "3") {
                     _display << _controller->currentState("", "thermostat");
@@ -140,7 +125,6 @@ void ControllerMenu::run(RealController* controller){
                 else if (optionInput == "4") {
 
                     _display << _controller->currentState("", "sprinklerSystem");
-
                 }
                 else if (optionInput == "5") {
                     _display << "Enter the device name you want to search: " << endl;
@@ -155,7 +139,6 @@ void ControllerMenu::run(RealController* controller){
                             break;
                         }
                     }
-
                     while (true) {
                         _display << "\nWhich device you want to search?" << endl
                                  << "1. All devices " << endl
@@ -185,7 +168,7 @@ void ControllerMenu::run(RealController* controller){
                             break;
                         }
                         else {
-                            _display << "Wrong option, please choose again" << endl;
+                            _display << "\nWrong option, please choose again\n" << endl;
                         }
                     }
                 }
@@ -193,7 +176,7 @@ void ControllerMenu::run(RealController* controller){
                     break;
                 }
                 else {
-                    _display << "Wrong option, please choose again" << endl;
+                    _display << "\nWrong option, please choose again\n" << endl;
                 }
             }
         }
@@ -203,10 +186,11 @@ void ControllerMenu::run(RealController* controller){
                       + _controller->getThermostatProxyList().size()
                       + _controller->getSprinklerSystemProxyList().size();
             if (count > 0){
-                _display << _controller->currentState("", "");
-                _display << "Which device you want to controll: (1 to " << count << ")"  << endl;
-                _display << "Choose b to back"  << endl;
-                while (true) {                  
+
+                while (true) {
+                    _display << _controller->currentState("", "");
+                    _display << "Which device you want to controll: (1 to " << count << ")"  << endl;
+                    _display << "Choose b to back"  << endl;
                     QString optionInput;
                     optionInput = _input.readLine();
                     if(optionInput.toInt() >= 1 && optionInput.toInt() <= count){
@@ -231,7 +215,6 @@ void ControllerMenu::run(RealController* controller){
                             _lightSwitchProxy = nullptr;
                             _thermostatProxy = nullptr;
                         }
-
                         //Access menu device
                         bool run = true;
                         while (run) {
@@ -246,7 +229,7 @@ void ControllerMenu::run(RealController* controller){
                             }
                             _display << "Current state: " << endl;
                             _display << _controller->getUpdateMeasurement();
-                            _display << "Do you want to continue controll this device? (y or n)" << endl
+                            _display << "Do you want to continue controll this device? (y) or (n)" << endl
                                      <<  "1. Yes            2. No"<< endl;
                             while (true) {
                                 QString option;
@@ -256,10 +239,10 @@ void ControllerMenu::run(RealController* controller){
                                     break;
                                 }
                                 else if (option  == "y") {
-                                    // do nothing
+                                    break;
                                 }
                                 else {
-                                    _display << "Wrong option, please choose again" << endl;
+                                    _display << "\nWrong option, please choose again\n" << endl;
                                 }
                             }
                         }
@@ -268,23 +251,19 @@ void ControllerMenu::run(RealController* controller){
                         break;
                     }
                     else{
-                        _display << "Wrong number, choose again" <<endl;
+                        _display << "\nWrong number, choose again\n" <<endl;
                     }
                 }
             }
             else {
-                _display << "There is no device to controll" << endl;
+                _display << "\nThere is no device to controll\n" << endl;
             }
-
         }
         else if (stringInput == "b") {
             break;
         }
         else {
-            _display << "Invalid option, please choose other" <<endl;
+            _display << "\nInvalid option, please choose other\n" <<endl;
         }
     }
-
-
-
 }

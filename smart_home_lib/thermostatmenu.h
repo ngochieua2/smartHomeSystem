@@ -17,10 +17,9 @@ public:
 
     QTimer *timer;
 
-signals:
 
 public slots:
-    void showRegisterDevice(ThermostatProxy* thermostatProxy);
+
     void update();
 
 private:

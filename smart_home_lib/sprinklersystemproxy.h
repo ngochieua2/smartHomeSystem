@@ -30,7 +30,6 @@ public:
     
     void updateTime() override;
 
-
 private:
     RealSprinklerSystem* _realSprinklerSystem{nullptr};
 };

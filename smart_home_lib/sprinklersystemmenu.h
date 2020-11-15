@@ -20,10 +20,8 @@ public:
 signals:
 
 public slots:
-    void showRegisterDevice(SprinklerSystemProxy* sprinklerSystemProxy);
     void update();
         
-
 private:
   QTextStream &_display;
   QTextStream &_input;

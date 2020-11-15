@@ -9,7 +9,6 @@
 #include "deviceinfo.h"
 #include <measurement.h>
 
-
 class SmartHomeController
 {
 public:
@@ -32,10 +31,6 @@ public:
     virtual void receiveDeviceInfo(DeviceInfo *deviceInfo) = 0;
 
     virtual void report(QList<Measurement *> measurementList) = 0;
-
-private:
-
-    void report(){}
 
 private:
 

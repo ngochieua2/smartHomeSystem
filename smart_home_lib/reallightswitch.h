@@ -33,8 +33,6 @@ public:
 
     bool isSameValue();
 
-
-
 private:
     bool OnOffState{};
     int brightnessLevel{};

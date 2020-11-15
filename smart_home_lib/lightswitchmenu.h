@@ -15,10 +15,6 @@ public:
 
     void run(LightSwitchProxy* lightSwitchProxy);
 
-signals:
-
-public slots:
-    void showRegisterDevice(LightSwitchProxy* lightSwitchProxy);
 
 private:
   QTextStream &_display;

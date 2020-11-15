@@ -92,7 +92,6 @@ void RealSprinklerSystem::turnOff()
         _measurementList.append(_measurement);
         _controllerProxy->report(_measurementList);
     }
-
 }
 void RealSprinklerSystem::getMeasurement()
 {
@@ -102,7 +101,6 @@ void RealSprinklerSystem::getMeasurement()
 void RealSprinklerSystem::getWaterUsage()
 {
     _controllerProxy->report(waterUsage());
-    
 }
 
 void RealSprinklerSystem::UpdateWaterUsage()
@@ -227,7 +225,6 @@ void RealSprinklerSystem::getDeviceInfo()
     _deviceInfo = new DeviceInfo(_device_id,_devideType,_deviceUrl);
     _deviceInfo->updateTime();
 }
-
 
 QTimer *RealSprinklerSystem::getTimer()
 {

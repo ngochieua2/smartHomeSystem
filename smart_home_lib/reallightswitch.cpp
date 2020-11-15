@@ -21,7 +21,6 @@ RealLightSwitch::RealLightSwitch(QString id, QUrl URL)
     _measurementRecord.append(_measurement);
     _measurement = new Measurement(_device_id, Measurement::measurementType::brightnessLevel, brightnessLevel);
     _measurementRecord.append(_measurement);
-
 }
 
 RealLightSwitch::~RealLightSwitch()

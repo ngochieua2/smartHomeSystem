@@ -27,7 +27,6 @@ public:
 
     virtual void Update() = 0;
 
-
 };
 
 #endif // THERMOSTAT_H

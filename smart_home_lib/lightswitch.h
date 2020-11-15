@@ -21,7 +21,6 @@ public:
 
     virtual void getMeasurement() = 0;
 
-
 };
 
 #endif // LIGHTSWITCH_H

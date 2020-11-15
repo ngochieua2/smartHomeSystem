@@ -9,7 +9,6 @@ LightSwitchMenu::LightSwitchMenu(QTextStream &display, QTextStream &input, QObje
 {
 }
 
-
 void LightSwitchMenu::run(LightSwitchProxy* lightSwitchProxy){
     _lightSwitchProxy = lightSwitchProxy;
     while (true) {
@@ -52,12 +51,7 @@ void LightSwitchMenu::run(LightSwitchProxy* lightSwitchProxy){
             break;
         }
         else {
-            _display << "Invalid option, please choose other" <<endl;
+            _display << "\nInvalid option, please choose other\n" <<endl;
         }
     }
-}
-
-void LightSwitchMenu::showRegisterDevice(LightSwitchProxy *lightSwitchProxy)
-{
-    lightSwitchProxy->getDeviceInfo();
 }

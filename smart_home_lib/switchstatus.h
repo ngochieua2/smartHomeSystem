@@ -1,4 +1,3 @@
-
 #ifndef SWITCHSTATUS_H
 #define SWITCHSTATUS_H
 

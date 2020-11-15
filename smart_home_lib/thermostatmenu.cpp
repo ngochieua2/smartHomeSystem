@@ -1,9 +1,7 @@
 #include "thermostatmenu.h"
-
 #include <QTextStream>
 #include <QUrl>
 #include <QCoreApplication>
-
 
 ThermostatMenu::ThermostatMenu(QTextStream &display, QTextStream &input, QObject *parent)
   : QObject{parent}, _display{display}, _input{input}
@@ -102,11 +100,6 @@ void ThermostatMenu::run(ThermostatProxy* thermostatProxy){
             _display << "Invalid option, please choose other" <<endl;
         }
     }
-}
-
-void ThermostatMenu::showRegisterDevice(ThermostatProxy* thermostatProxy)
-{
-    thermostatProxy->getDeviceInfo();
 }
 
 void ThermostatMenu::update()

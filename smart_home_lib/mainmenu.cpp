@@ -11,11 +11,6 @@ MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
     _lightSwitchMenu = new  LightSwitchMenu(display, input);
     _thermostatMenu = new ThermostatMenu(display,input);
     _spinklerSystemMenu = new SprinklerSystemMenu(display, input);
-
-//    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterLightSwitch,
-//                     _lightSwitchMenu,&LightSwitchMenu::showRegisterDevice);
-//    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterThermostat,
-//                     _thermostatMenu,&ThermostatMenu::showRegisterDevice);
 }
 
 void MainMenu::displayWelcome(const QString &title, const QString &group, const QStringList &members) const
@@ -42,11 +37,11 @@ void MainMenu::configMenu(QString type)
         _display << "What would you like to call this *"+ type+"*" << endl;
         id = _input.readLine();
         if(id.isEmpty()){
-            _display << "Name cannot be empty";
+            _display << "\nName cannot be empty\n";
         }
         if (isExist(id)){
-            _display << "This name has been existed" << endl
-                     << "Please enter another name" << endl;
+            _display << "\nThis name has been existed" << endl
+                     << "Please enter another name\n" << endl;
         }
         else {
             break;
@@ -56,7 +51,7 @@ void MainMenu::configMenu(QString type)
         _display << "What is the URL for " + id + "(" + type + ")" << endl;
         Url = _input.readLine();
         if(Url.isEmpty()){
-            _display << "Url cannot be empty";
+            _display << "\nUrl cannot be empty\n";
         }
         else {
             break;
@@ -147,7 +142,6 @@ void MainMenu::run()
                     //Factory
                     _factory= new LightSwitchFactory();
                     _device = _factory->CreateDevice(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
-                    //_device = new RealLightSwitch(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
 
                     _realLightSwitch = static_cast<RealLightSwitch*>(_device);
                     _controller->getLightSwitchProxy()->passRealLightSwitch(_realLightSwitch);
@@ -163,7 +157,6 @@ void MainMenu::run()
                     //Factory
                     _factory= new ThermostatFactory();
                     _device = _factory->CreateDevice(tempThermostat.at(i).first,tempThermostat.at(i).second);
-                    //_device = new RealThermostat(tempThermostat.at(i).first,tempThermostat.at(i).second);
 
                     _realThermostat = static_cast<RealThermostat*>(_device);
                     _controller->getThermostatProxy()->passRealThermostat(_realThermostat);
@@ -180,7 +173,6 @@ void MainMenu::run()
                     //Factory
                     _factory= new SprinklerSystemFactory();
                     _device = _factory->CreateDevice(tempSprinklerSystem.at(i).first,tempSprinklerSystem.at(i).second);
-                    //_device = new RealSprinklerSystem(tempSprinklerSystem.at(i).first,tempSprinklerSystem.at(i).second);
 
                     _realSprinkerSystem = static_cast<RealSprinklerSystem*>(_device);
                     _controller->getSprinklerSystemProxy()->passRealSprinklerSystem(_realSprinkerSystem);

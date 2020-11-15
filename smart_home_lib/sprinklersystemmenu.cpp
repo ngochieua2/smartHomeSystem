@@ -11,7 +11,6 @@ SprinklerSystemMenu::SprinklerSystemMenu(QTextStream &display, QTextStream &inpu
     timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()),this, SLOT(update()));
         timer->start(5000);
-    
 }
 
 
@@ -86,13 +85,9 @@ void SprinklerSystemMenu::run(SprinklerSystemProxy* sprinklerProxy)
     }
 }
 
-void SprinklerSystemMenu::showRegisterDevice(SprinklerSystemProxy *sprinklerSystemProxy)
-{
-    sprinklerSystemProxy->getDeviceInfo();
-}
-
 void SprinklerSystemMenu::update()
 {
-    if(_sprinklerProxy != nullptr)
-    _sprinklerProxy->updateTime();
+    if(_sprinklerProxy != nullptr){
+        _sprinklerProxy->updateTime();
+    }
 }
