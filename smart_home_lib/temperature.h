@@ -5,14 +5,9 @@
 class Temperature:public filter
 {
 public:
-    Temperature();
-    /*!
-     * @brief temperatureConversion convert a Fahrenheit temperature into a Celsius temperature, 
-     * then convert the Celsius temperature into an appropriate descriptive string 
-     * @param val
-     * @param type
-     * @return description
-     */
+    //Temperature();
+    Temperature(QString deviceName, Measurement::measurementType type, QVariant value);
+
     QString temperatureConversion(double val,QString type);
 };
 

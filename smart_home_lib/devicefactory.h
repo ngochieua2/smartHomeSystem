@@ -7,7 +7,7 @@
 class DeviceFactory
 {
 public:
-    /*!
+    /**
      * @brief CreateDevice will creat a new device with given name and url
      * this function will be implemented in its derived classes.
      * @param name

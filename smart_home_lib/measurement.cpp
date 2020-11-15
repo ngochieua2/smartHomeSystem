@@ -10,7 +10,32 @@ Measurement::Measurement(QString deviceName, Measurement::measurementType type, 
     _deviceName = deviceName;
     _type = type;
     _value = value;
+    //给变量赋值，这样就不会出现空值了
+    devicevalue = value;
     _timestamp = QDateTime::currentDateTime();
+
+//    if(_type == static_cast<int>(measurementType::temperature) || _type == static_cast<int>(measurementType::temperatureSetpoint))
+//    {
+
+
+//        double tempValue = std::round(_value.toDouble() * 100.00) / 100;
+//        _value.clear();
+//        _value.setValue(tempValue);
+
+//    }
+//    else if(_type == static_cast<int>(measurementType::scheduledDuration))
+//    {
+//        double tempValue = std::round(_value.toDouble() * 1000.00) / 1000;
+//        _value.clear();
+//        _value.setValue(tempValue);
+//    }
+//    else if(_type == static_cast<int>(measurementType::waterUsage))
+//    {
+
+//        double tempValue = std::round(_value.toDouble() * 10.00) / 10;
+//        _value.clear();
+//        _value.setValue(tempValue);
+//    }
 }
 
 Measurement::~Measurement()

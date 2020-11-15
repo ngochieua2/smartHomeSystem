@@ -10,7 +10,7 @@
 
 namespace data {
 
-/*!
+/**
  * @brief The CsvFile class reads CSV data from a stream and makes it
  * available to the application on a read-only basis.
  *
@@ -40,7 +40,7 @@ namespace data {
 class CsvFile
 {
 public:
-  /*!
+  /**
    * @brief CsvFile constructor, initialises internal data structures
    * with CSV content from the input stream.
    *
@@ -51,7 +51,7 @@ public:
    */
   CsvFile(std::istream &input);
 
-  /*!
+  /**
    * @brief numberOfColumns Returns the number of columns in the CSV file,
    * or -1 if the data failed to load.
    *
@@ -59,7 +59,7 @@ public:
    */
   int numberOfColumns() const;
 
-  /*!
+  /**
    * @brief numberOfRows returns the number of rows in the CSV file,
    * or -1 if the data failed to load.
    *
@@ -69,7 +69,7 @@ public:
    */
   int numberOfRows() const;
 
-  /*!
+  /**
    * @brief at Returns the content of the cell at the given row, column.
    *
    * Row indices start at 1, column indices start at 1.
@@ -82,7 +82,7 @@ public:
    */
   std::string at(int row, int column) const;
 
-  /*!
+  /**
    * @brief headerAt Returns the column name at the given index.
    *
    * Column indices start at 1.
@@ -94,7 +94,7 @@ public:
    */
   std::string headerAt(int column) const;
 
-  /*!
+  /**
    * @brief columnIndexOf Returns the column index for the given column name.
    *
    * Returns -1 if the CSV file failed to load.
@@ -106,8 +106,38 @@ public:
    */
   int columnIndexOf(const std::string &columnName) const;
 
+  QStringList deviceName();
+
+    QStringList measurementType();
+
+    QStringList timestamp();
+
+    QStringList value();
+
+    QStringList uitOfMEasure();
+
+    QStringList isFiltered();
+
+    QStringList rwaMeasurement();
+
+    QStringList getURL();
+
+    QStringList getLastSeen();
+
+    void createCSVFile();
+
 private:
   std::vector<std::string> CSVData{};
+  QStringList m_deviceName;
+    QStringList m_measurementType;
+    QStringList m_timestamp;
+    QStringList m_value;
+
+    QStringList m_uitOfMEasure;
+    QStringList m_isFiltered;
+    QStringList m_rwaMeasurement;
+    QStringList m_getURL;
+    QStringList m_getLastSeen;
 };
 
 } // namespace data

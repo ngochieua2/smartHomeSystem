@@ -37,13 +37,3 @@ QString DeviceInfo::showDeviceInfo()
 
     return info;
 }
-
-QString DeviceInfo::getDeviceName()
-{
-    return _deviceName;
-}
-
-QString DeviceInfo::getDeviceType()
-{
-    return _deviceType;
-}

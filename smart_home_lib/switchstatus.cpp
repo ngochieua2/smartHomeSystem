@@ -1,6 +1,12 @@
 #include "switchstatus.h"
 
-SwitchStatus::SwitchStatus()
+//SwitchStatus::SwitchStatus()
+//{
+
+//}
+
+SwitchStatus::SwitchStatus(QString deviceName, Measurement::measurementType type, QVariant value)
+    :filter(deviceName,type,value)
 {
 
 }

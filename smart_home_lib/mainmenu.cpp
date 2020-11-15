@@ -11,6 +11,11 @@ MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
     _lightSwitchMenu = new  LightSwitchMenu(display, input);
     _thermostatMenu = new ThermostatMenu(display,input);
     _spinklerSystemMenu = new SprinklerSystemMenu(display, input);
+
+//    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterLightSwitch,
+//                     _lightSwitchMenu,&LightSwitchMenu::showRegisterDevice);
+//    QObject::connect(_controllerMenu,&ControllerMenu::showRegisterThermostat,
+//                     _thermostatMenu,&ThermostatMenu::showRegisterDevice);
 }
 
 void MainMenu::displayWelcome(const QString &title, const QString &group, const QStringList &members) const
@@ -37,11 +42,11 @@ void MainMenu::configMenu(QString type)
         _display << "What would you like to call this *"+ type+"*" << endl;
         id = _input.readLine();
         if(id.isEmpty()){
-            _display << "\nName cannot be empty\n";
+            _display << "Name cannot be empty";
         }
         if (isExist(id)){
-            _display << "\nThis name has been existed" << endl
-                     << "Please enter another name\n" << endl;
+            _display << "This name has been existed" << endl
+                     << "Please enter another name" << endl;
         }
         else {
             break;
@@ -51,7 +56,7 @@ void MainMenu::configMenu(QString type)
         _display << "What is the URL for " + id + "(" + type + ")" << endl;
         Url = _input.readLine();
         if(Url.isEmpty()){
-            _display << "\nUrl cannot be empty\n";
+            _display << "Url cannot be empty";
         }
         else {
             break;
@@ -119,7 +124,8 @@ bool MainMenu::isExist(QString id)
 
 void MainMenu::run()
 {
-    while (true) {
+    while (true)
+    {
         _display << "Preparing to initialise you Smart Home System." << endl
                  << "What type of device are do you want to configure?" << endl
                  << "1. Smart Home Controller" << endl
@@ -129,19 +135,23 @@ void MainMenu::run()
                  << "Type (q) to quit" << endl;
         QString stringInput;
         stringInput = _input.readLine();
-        if(stringInput == "1"){
+        if(stringInput == "1")
+        {
             //config controller
-            if(_controller == nullptr){
+            if(_controller == nullptr)
+            {
                 configMenu("Smart Home Controller");
                 _display << "Success\n" << endl;
             }
             //Register device and set up
-            if (!tempLightSwitch.isEmpty()){
+            if (!tempLightSwitch.isEmpty())
+            {
                 for(int i = 0; i < tempLightSwitch.size(); ++i){
                     _controller->registerDevice(tempLightSwitch.at(i).first, "lightSwitch", tempLightSwitch.at(i).second);
                     //Factory
                     _factory= new LightSwitchFactory();
                     _device = _factory->CreateDevice(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
+                    //_device = new RealLightSwitch(tempLightSwitch.at(i).first,tempLightSwitch.at(i).second);
 
                     _realLightSwitch = static_cast<RealLightSwitch*>(_device);
                     _controller->getLightSwitchProxy()->passRealLightSwitch(_realLightSwitch);
@@ -157,6 +167,7 @@ void MainMenu::run()
                     //Factory
                     _factory= new ThermostatFactory();
                     _device = _factory->CreateDevice(tempThermostat.at(i).first,tempThermostat.at(i).second);
+                    //_device = new RealThermostat(tempThermostat.at(i).first,tempThermostat.at(i).second);
 
                     _realThermostat = static_cast<RealThermostat*>(_device);
                     _controller->getThermostatProxy()->passRealThermostat(_realThermostat);
@@ -173,6 +184,7 @@ void MainMenu::run()
                     //Factory
                     _factory= new SprinklerSystemFactory();
                     _device = _factory->CreateDevice(tempSprinklerSystem.at(i).first,tempSprinklerSystem.at(i).second);
+                    //_device = new RealSprinklerSystem(tempSprinklerSystem.at(i).first,tempSprinklerSystem.at(i).second);
 
                     _realSprinkerSystem = static_cast<RealSprinklerSystem*>(_device);
                     _controller->getSprinklerSystemProxy()->passRealSprinklerSystem(_realSprinkerSystem);
@@ -189,17 +201,14 @@ void MainMenu::run()
         else if (stringInput == "2") {
             configMenu("Light Switch");
             _display << "Success\n" << endl;
-            _display << "You will need to go to smart home controller to controll this device\n" << endl;
         }
         else if (stringInput == "3") {
             configMenu("Thermostat");
             _display << "Success\n" << endl;
-            _display << "You will need to go to smart home controller to controll this device\n" << endl;
         }
         else if (stringInput == "4") {
             configMenu("Sprinkler System");
             _display << "Success\n" << endl;
-            _display << "You will need to go to smart home controller to controll this device\n" << endl;
         }
         else if (stringInput == "q") {
             break;

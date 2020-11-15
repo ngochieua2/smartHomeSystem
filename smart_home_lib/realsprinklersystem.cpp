@@ -92,6 +92,7 @@ void RealSprinklerSystem::turnOff()
         _measurementList.append(_measurement);
         _controllerProxy->report(_measurementList);
     }
+
 }
 void RealSprinklerSystem::getMeasurement()
 {
@@ -101,6 +102,7 @@ void RealSprinklerSystem::getMeasurement()
 void RealSprinklerSystem::getWaterUsage()
 {
     _controllerProxy->report(waterUsage());
+    
 }
 
 void RealSprinklerSystem::UpdateWaterUsage()
@@ -182,11 +184,6 @@ QList<Measurement*> RealSprinklerSystem::waterUsage(){
     return _measurementList;
 }
 
-QString RealSprinklerSystem::getState()
-{
-    return _state;
-}
-
 void RealSprinklerSystem::schedule(int delay, int duration)
 {
     QDateTime currentTime = QDateTime::currentDateTime();
@@ -231,4 +228,9 @@ void RealSprinklerSystem::getDeviceInfo()
     _deviceInfo->updateTime();
 }
 
+
+QTimer *RealSprinklerSystem::getTimer()
+{
+    return _timer;
+}
 

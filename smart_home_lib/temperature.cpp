@@ -1,9 +1,15 @@
 #include "temperature.h"
 
-Temperature::Temperature()
+//Temperature::Temperature()
+//{
+
+//}
+Temperature::Temperature(QString deviceName, Measurement::measurementType type, QVariant value)
+    :filter(deviceName,type,value)
 {
 
 }
+
 QString Temperature::temperatureConversion(double val,QString type){
     double cc = val;
     if(type == "F"){

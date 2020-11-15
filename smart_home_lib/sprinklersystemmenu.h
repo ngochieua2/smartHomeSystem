@@ -12,10 +12,7 @@ class SprinklerSystemMenu : public QObject
 public:
     explicit SprinklerSystemMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
     virtual ~SprinklerSystemMenu() = default;
-    /*!
-     * @brief run is the interface of the sprinkler system
-     * @param sprinklerProxy
-     */
+
     void run(SprinklerSystemProxy* sprinklerProxy);
 
     QTimer *timer;
@@ -23,8 +20,10 @@ public:
 signals:
 
 public slots:
+    void showRegisterDevice(SprinklerSystemProxy* sprinklerSystemProxy);
     void update();
         
+
 private:
   QTextStream &_display;
   QTextStream &_input;

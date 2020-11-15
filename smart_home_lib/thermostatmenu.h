@@ -12,17 +12,15 @@ class ThermostatMenu : public QObject
 public:
     explicit ThermostatMenu(QTextStream &display, QTextStream &input, QObject *parent = nullptr);
     virtual ~ThermostatMenu() = default;
-    /*!
-     * @brief run runs the interface of thermostat
-     * @param thermostatProxy
-     */
+
     void run(ThermostatProxy* thermostatProxy);
 
     QTimer *timer;
 
+signals:
 
 public slots:
-
+    void showRegisterDevice(ThermostatProxy* thermostatProxy);
     void update();
 
 private:

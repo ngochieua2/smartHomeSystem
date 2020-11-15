@@ -21,6 +21,7 @@ RealLightSwitch::RealLightSwitch(QString id, QUrl URL)
     _measurementRecord.append(_measurement);
     _measurement = new Measurement(_device_id, Measurement::measurementType::brightnessLevel, brightnessLevel);
     _measurementRecord.append(_measurement);
+
 }
 
 RealLightSwitch::~RealLightSwitch()
@@ -131,15 +132,5 @@ bool RealLightSwitch::isSameValue()
         }
     }
     return false;
-}
-
-bool RealLightSwitch::getState()
-{
-    return OnOffState;
-}
-
-int RealLightSwitch::getBrightness()
-{
-    return brightnessLevel;
 }
 

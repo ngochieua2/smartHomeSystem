@@ -1,7 +1,10 @@
 #include "realcontroller.h"
 
+#include "smarthomecontroller.h"
+
 RealController::RealController()
 {
+
 }
 
 RealController::RealController(QString id, QUrl Url)
@@ -135,6 +138,7 @@ QString RealController::currentState(QString name, QString Type)
         if(Type == "lightSwitch" || Type == ""){
 
             //Get measurement
+
             if(_lightSwitchProxyList.isEmpty() && Type != ""){
                 data += "\nThere is no Light Switch device\n";
             }
@@ -180,6 +184,7 @@ QString RealController::currentState(QString name, QString Type)
 
         if(Type == "sprinklerSystem" || Type == ""){
             //Get measurement
+
             if(_sprinklerSystemProxyList.isEmpty() && Type != ""){
                 data += "\nThere is no sprinkler system device\n\n";
             }
@@ -205,6 +210,7 @@ QString RealController::currentState(QString name, QString Type)
             data = "\nThere is no device\n";
 
         }
+
     }
     else {
         bool run = false;
@@ -281,3 +287,9 @@ QString RealController::getUpdateMeasurement()
     _measurementList.clear();
     return data;
 }
+
+
+
+
+
+

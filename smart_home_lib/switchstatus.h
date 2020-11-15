@@ -1,3 +1,4 @@
+
 #ifndef SWITCHSTATUS_H
 #define SWITCHSTATUS_H
 
@@ -6,11 +7,9 @@
 class SwitchStatus:public filter
 {
 public:
-    SwitchStatus();
-    /*!
-     * @brief switchConversion changes the state value of light switch
-     * @return state
-     */
+    //SwitchStatus();
+    SwitchStatus(QString deviceName, Measurement::measurementType type, QVariant value);
+
     QString switchConversion();
 };
 
