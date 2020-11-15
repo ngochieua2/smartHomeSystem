@@ -133,3 +133,13 @@ bool RealLightSwitch::isSameValue()
     return false;
 }
 
+bool RealLightSwitch::getState()
+{
+    return OnOffState;
+}
+
+int RealLightSwitch::getBrightness()
+{
+    return brightnessLevel;
+}
+

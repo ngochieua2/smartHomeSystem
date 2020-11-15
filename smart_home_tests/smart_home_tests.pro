@@ -2,6 +2,9 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     TestCsvFile \
+    TestLightSwitch \
     TestMessages \
     TestNetworkExample \
-    TestNetworkManager
+    TestNetworkManager \
+    TestSprinklerSystem \
+    TestThermostat

@@ -4,7 +4,6 @@
 #include <QString>
 #include <QUrl>
 #include <QList>
-#include <QtNetwork>
 #include <QDebug>
 #include "deviceinfo.h"
 #include <measurement.h>

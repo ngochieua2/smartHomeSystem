@@ -80,7 +80,7 @@ public:
     QList<Measurement*> totalWaterConsumption();
     
     void updateTime() override;
-        
+    
 private:
     QString _state{};
     

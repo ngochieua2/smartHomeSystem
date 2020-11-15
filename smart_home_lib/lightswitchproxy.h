@@ -13,8 +13,8 @@ public:
     LightSwitchProxy(QString id, QUrl URL);
     virtual ~LightSwitchProxy();
     /*!
-     * @brief getID
-     * @return 
+     * @brief getID returns id of device
+     * @return id
      */
     QString getID();
     /*!

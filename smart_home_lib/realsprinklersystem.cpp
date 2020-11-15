@@ -182,6 +182,11 @@ QList<Measurement*> RealSprinklerSystem::waterUsage(){
     return _measurementList;
 }
 
+QString RealSprinklerSystem::getState()
+{
+    return _state;
+}
+
 void RealSprinklerSystem::schedule(int delay, int duration)
 {
     QDateTime currentTime = QDateTime::currentDateTime();

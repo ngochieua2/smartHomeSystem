@@ -56,7 +56,9 @@ public:
      * @return 
      */
     bool isSameValue();
-
+// functions for testing
+    bool getState();
+    int getBrightness();
 private:
     bool OnOffState{};
     int brightnessLevel{};
