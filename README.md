@@ -1,7 +1,7 @@
 # smartHomeSystem
 
 Smart Home System is a software allowing a controller can send queries and commands to various devices such as an light switch, thermostat and sprinkler system.
-Controller can get information of devices as well as controll them. It is developed by Qt throught C++ language and use OOP and some design pattern.
+Controller can get information of devices as well as controll them. It is developed by Qt throught C++ language and use OOP and some design patterns.
 
 ## Design pattern:
 
